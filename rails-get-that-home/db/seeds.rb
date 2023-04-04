@@ -1,1 +1,1 @@
-user_test = User.create(email: "testino@mail.com", password: "123456")
+user_test = User.create(name: "testino", email: "testino@mail.com", password: "123456")
