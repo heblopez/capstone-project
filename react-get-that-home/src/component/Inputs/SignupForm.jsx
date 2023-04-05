@@ -4,6 +4,7 @@ import Input from './Input';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import Select from './Select';
+import InputCR from './InputCR';
 
 const SignupForm = () => {
   return (
@@ -60,6 +61,14 @@ const SignupForm = () => {
             <option value='Development'>Development</option>
             <option value='products'>Products</option>
           </Select>
+
+          <InputCR type='checkbox' name='terms'>
+            Acept terms
+          </InputCR>
+
+          <InputCR type='radio' name='hola' checked={true}>
+            Acept terms
+          </InputCR>
 
           <button type='submit'>Submit</button>
         </Form>
