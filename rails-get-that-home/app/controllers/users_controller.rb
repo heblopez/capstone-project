@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     if user.save
       render json: user, status: :ok
     else
-      respond_unauthorized("could not be created, username already exists")
+      respond_unauthorized("Could not be created, username already exists")
     end
   end
 
