@@ -22,8 +22,8 @@ end
 
 describe "Sessions User", type: :request do
   it "New user registration" do
-    user = User.create(email: "testino@mail.com", password: "123456")
-    post "/login", params: { email: user.email, password: user.password }
+    user = User.create(name: "testino", email: "testino@mail.com", password: "123456")
+    post "/login", params: {name: user.name, email: user.email, password: user.password }
     expect(response).to have_http_status(:ok)
   end
 end
