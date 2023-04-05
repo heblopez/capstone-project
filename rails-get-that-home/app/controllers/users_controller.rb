@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
-      render json: user, status: :ok
+      render json: user, status: :created
     else
       respond_unauthorized("Could not be created, username already exists")
     end

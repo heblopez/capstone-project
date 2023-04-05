@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Health Check Endpoint", type: :request do
+describe "Health Check Endpoint", type: :request do
   describe "GET /health" do
     before { get "/health" }
     
@@ -20,7 +20,7 @@ RSpec.describe "Health Check Endpoint", type: :request do
   end
 end
 
-RSpec.describe "Sessions User", type: :request do
+describe "Sessions User", type: :request do
   it "New user registration" do
     user = User.create(email: "testino@mail.com", password: "123456")
     post "/login", params: { email: user.email, password: user.password }
