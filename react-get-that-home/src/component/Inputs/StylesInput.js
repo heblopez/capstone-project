@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 
+// inputs types: text, number, password.
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -39,9 +40,11 @@ const InputContainer = styled.div`
   }
 `;
 
+// container for icons(svg)
 const IconContainer = styled.div`
   position: relative;
   display: flex;
+  justify-content: sp
   width: 100%;
 
   svg {
@@ -55,4 +58,65 @@ const IconContainer = styled.div`
   }
 `;
 
-export { InputContainer, IconContainer };
+// inputs type: checkbox & radio
+const ContainerCR = styled.div`
+  label {
+    &.form-control {
+      display: grid;
+      grid-template-columns: 1em auto;
+      gap: 0.5em;
+
+      input[type='radio'],
+      input[type='checkbox'] {
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: #fff;
+        margin: 0;
+        font: inherit;
+        color: currentColor;
+        width: 1.15em;
+        height: 1.15em;
+        border: 1px solid #f48fb1;
+        display: grid;
+        place-content: center;
+      }
+
+      input[type='radio'] {
+        border-radius: 50%;
+      }
+
+      input[type='radio']::before,
+      input[type='checkbox']::before {
+        content: '';
+        width: 0.65em;
+        height: 0.65em;
+        transform: scale(0);
+        transition: 120ms transform ease-in-out;
+        box-shadow: inset 1em 1em #f48fb1;
+      }
+
+      input[type='radio']::before {
+        border-radius: 50%;
+      }
+
+      input[type='checkbox']::before {
+        transform-origin: bottom left;
+        background-color: red;
+        clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+      }
+
+      input[type='radio']:checked::before,
+      input[type='checkbox']:checked::before {
+        transform: scale(1);
+        background-color: blue;
+      }
+
+      input[type='radio']:focus {
+        outline: max(2px, 0.15em) solid #bf5f82;
+        border: none;
+      }
+    }
+  }
+`;
+
+export { InputContainer, IconContainer, ContainerCR };
