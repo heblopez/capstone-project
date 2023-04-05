@@ -7,6 +7,6 @@ class Property < ApplicationRecord
   validates :area, presence: true
 
   enum type_operation: { rent: 0, sale: 1 }
-  enum type: { apartment: 0, house: 1 }
+  enum type_property: { apartment: 0, house: 1 }
 
 end

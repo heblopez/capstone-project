@@ -6,7 +6,7 @@ class CreateProperties < ActiveRecord::Migration[7.0]
       t.integer :monthly_rent
       t.integer :maintanance
       t.integer :price
-      t.integer :type
+      t.integer :type_property
       t.integer :bedrooms
       t.integer :bathrooms
       t.integer :area

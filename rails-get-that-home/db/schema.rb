@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_05_175953) do
     t.integer "monthly_rent"
     t.integer "maintanance"
     t.integer "price"
-    t.integer "type"
+    t.integer "type_property"
     t.integer "bedrooms"
     t.integer "bathrooms"
     t.integer "area"
