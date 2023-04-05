@@ -1,5 +1,5 @@
 class PropertiesController < ApplicationController
-  skip_before_action :authorize, only: :index
+  skip_before_action :authorize, only: [:index, :show]
 
   def index
       properties = Property.all
@@ -36,7 +36,7 @@ class PropertiesController < ApplicationController
   def destroy
     property = Property.find(params[:id])
     if property.destroy
-      status: :ok
+      head :no_content
     else
       respond_unauthorized("Error! the property could not be deleted")
     end
@@ -45,6 +45,6 @@ class PropertiesController < ApplicationController
   private
 
   def property_params
-    params.permit(:address, :type_operation, :monthly_rent, :maintanance, :price, :type, :bedrooms, :bathrooms, :area, :pets_allowed, :description)
+    params.permit(:address, :type_operation, :monthly_rent, :maintanance, :price, :type_property, :bedrooms, :bathrooms, :area, :pets_allowed, :description)
   end
 end

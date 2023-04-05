@@ -1,7 +1,7 @@
 class Property < ApplicationRecord
   validates :address, presence: true
   validates :type_operation, presence: true
-  validates :type, presence: true
+  validates :type_property, presence: true
   validates :bedrooms, presence: true
   validates :bathrooms, presence: true
   validates :area, presence: true
