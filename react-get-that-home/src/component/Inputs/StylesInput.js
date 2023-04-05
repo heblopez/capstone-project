@@ -1,17 +1,20 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
 
-  input {
+  input,
+  select {
     border: none;
-    padding: 8px;
-    height: 36px;
     width: 100%;
+    height: 36px;
     border: 1px solid #f48fb1;
     border-radius: 8px;
+    padding: 8px;
+    background-color: transparent;
+    margin: 0;
 
     :focus {
       outline: none;
@@ -25,6 +28,10 @@ const InputContainer = styled.div`
     &.holder {
       padding-left: 36px;
     }
+
+    ::part(list) {
+      color: red;
+    }
   }
 
   p {
@@ -34,6 +41,8 @@ const InputContainer = styled.div`
 
 const IconContainer = styled.div`
   position: relative;
+  display: flex;
+  width: 100%;
 
   svg {
     position: absolute;
