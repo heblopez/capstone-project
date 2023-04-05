@@ -87,7 +87,7 @@ export const global = css`
     line-height: 1.5rem;
     font-family: ${fonts.primary};
     color: ${colors.gray[900]};
-    width: 414px;
+    /* width: 414px; */
     margin: auto;
   }
 `;
