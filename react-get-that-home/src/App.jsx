@@ -1,13 +1,11 @@
 import { BrowserRouter } from 'react-router-dom';
-import Github from './component/Github/Github';
-import avatar from './assets/user.svg';
-import Footer from './component/Footer/Footer';
+import SectionTeam from './Sections/SectionTeam/SectionTeam';
 
 function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-        <Footer />
+        <SectionTeam />
       </BrowserRouter>
     </div>
   );

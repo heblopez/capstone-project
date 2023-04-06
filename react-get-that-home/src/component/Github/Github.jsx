@@ -2,7 +2,9 @@ import React from 'react';
 import { BsGithub, BsLinkedin } from 'react-icons/bs';
 import { UserCard } from './GitHub-UI';
 
-const Github = ({ avatar, name }) => {
+const Github = ({ person }) => {
+  const { name, avatar } = person;
+  
   return (
     <UserCard>
       <img src={avatar} alt={name} />
