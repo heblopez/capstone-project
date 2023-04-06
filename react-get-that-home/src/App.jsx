@@ -1,14 +1,18 @@
 import { useState } from 'react';
-import { BrowserRouter } from 'react-router-dom';;
-import Card from './component/Card/Card';
+import { BrowserRouter } from 'react-router-dom';
+import Button from './component/Button/Button';
+import { BiUser } from 'react-icons/bi';
+import { IoIosArrowDown } from 'react-icons/io';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className='App'>
       <BrowserRouter>
-        <Card />
+        <Button clase={'btn--secundary'}>
+          <BiUser />
+          Button
+          <IoIosArrowDown />
+        </Button>
       </BrowserRouter>
     </div>
   );
