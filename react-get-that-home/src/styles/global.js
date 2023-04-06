@@ -5,6 +5,8 @@ import { fonts } from "./typography";
 export const reset = css`
   @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
   @import url("https://fonts.cdnfonts.com/css/sf-pro-display?styles=98774,98770");
+  @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Roboto:wght@700&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@300;400;500&family=Roboto:wght@700&display=swap");
 
   /* Box sizing rules */
   *,
