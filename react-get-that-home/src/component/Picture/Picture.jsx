@@ -1,10 +1,11 @@
 import React from 'react';
+import { PictureContainer } from './Picture-UI';
 
 const Picture = ({ picture, name }) => {
   return (
-    <div>
+    <PictureContainer>
       <img src={picture} alt={name} />
-    </div>
+    </PictureContainer>
   );
 };
 
