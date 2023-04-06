@@ -1,9 +1,6 @@
 import { useState } from 'react';
-import SignupForm from './component/Inputs/SignupForm';
-import Description from './component/Description/Description';
-import Action from './component/Action/Action';
-import { BrowserRouter } from 'react-router-dom';
-import Property from './component/Property/Property';
+import { BrowserRouter } from 'react-router-dom';;
+import Card from './component/Card/Card';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -11,8 +8,7 @@ function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-        <Property />
-        <Action isActive='active' />
+        <Card />
       </BrowserRouter>
     </div>
   );
