@@ -1,18 +1,12 @@
-import { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Button from './component/Button/Button';
-import { BiUser } from 'react-icons/bi';
-import { IoIosArrowDown } from 'react-icons/io';
+import Github from './component/Github/Github';
+import avatar from './assets/user.svg';
 
 function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-        <Button clase={'btn--secundary'}>
-          <BiUser />
-          Button
-          <IoIosArrowDown />
-        </Button>
+        <Github name='Ruby Ramirez' avatar={avatar} />
       </BrowserRouter>
     </div>
   );
