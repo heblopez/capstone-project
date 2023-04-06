@@ -1,4 +1,6 @@
 class Property < ApplicationRecord
+  has_many_attached :photos
+
   validates :address, presence: true
   validates :type_operation, presence: true
   validates :type_property, presence: true
@@ -9,4 +11,13 @@ class Property < ApplicationRecord
   enum type_operation: { rent: 0, sale: 1 }
   enum type_property: { apartment: 0, house: 1 }
 
+  # def as_json(options = {})
+  #   super(options.merge(include: :photos))
+  # end
+
+  # def photo_urls
+  #   photos.map do |photo|
+  #     Rails.application.routes.url_helpers.rails_blob_url(photo, only_path: true)
+  #   end
+  # end
 end

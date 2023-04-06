@@ -8,7 +8,10 @@ class PropertiesController < ApplicationController
 
   def create
     property = Property.new(property_params)
+
     if property.save
+      photos = Array.wrap(params[:photos])
+      property.photos.attach(photos) if photos.present?
       render json: property, status: :created
     else
       respond_unauthorized("Error! the property could not be created")
@@ -17,7 +20,12 @@ class PropertiesController < ApplicationController
 
   def update
     property = Property.find(params[:id])
+
     if property.update(property_params)
+      photos = Array.wrap(params[:photos])
+      property.photos.purge
+      property.photos.attach(photos) if photos.present?
+
       render json: property, status: :ok
     else
       respond_unauthorized("Error! the property could not be updated")
@@ -35,6 +43,7 @@ class PropertiesController < ApplicationController
 
   def destroy
     property = Property.find(params[:id])
+    property.photos.purge if property
     if property.destroy
       head :no_content
     else
@@ -45,6 +54,6 @@ class PropertiesController < ApplicationController
   private
 
   def property_params
-    params.permit(:address, :type_operation, :monthly_rent, :maintanance, :price, :type_property, :bedrooms, :bathrooms, :area, :pets_allowed, :description)
+    params.permit(:address, :type_operation, :monthly_rent, :maintanance, :price, :type_property, :bedrooms, :bathrooms, :area, :pets_allowed, :description, :photos )
   end
 end
