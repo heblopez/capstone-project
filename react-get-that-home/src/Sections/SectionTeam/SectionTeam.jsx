@@ -15,11 +15,13 @@ const SectionTeam = () => {
 
   return (
     <Section>
-      <h3>Meet the team</h3>
-      <div className='team'>
-        {team.map((u) => (
-          <Github key={u.name} person={u} />
-        ))}
+      <div className='team-section'>
+        <h3>Meet the team</h3>
+        <div className='team'>
+          {team.map((u) => (
+            <Github key={u.name} person={u} />
+          ))}
+        </div>
       </div>
     </Section>
   );

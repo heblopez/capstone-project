@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
+import { typography } from '../../styles/typography';
 
 const StyleButton = styled.button`
+  ${typography.button};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +14,6 @@ const StyleButton = styled.button`
   border-radius: 8px;
   font-weight: var(--semibold);
   border: none;
-  text-transform: uppercase;
 
   svg {
     width: 24px;
@@ -82,7 +83,7 @@ const StyleButton = styled.button`
     width: 161px;
     height: 40px;
     padding: 8px 16px;
-    border-radius: 16px;
+    border-radius: 8px;
     color: #fff;
   }
 
@@ -99,14 +100,23 @@ const StyleButton = styled.button`
   &.btn--primary-lg {
     width: 177px;
     height: 56px;
-    padding: 16px 24px;
+  }
+
+  &.btn--primary-xl {
+    width: 264px;
+    height: 56px;
+  }
+
+  &.btn--primary-lg,
+  &.btn--primary-xl {
     border-radius: 16px;
     color: #fff;
   }
 
   &.btn--primary,
   &.btn--primary-sm,
-  &.btn--primary-lg {
+  &.btn--primary-lg,
+  &.btn--primary-xl {
     background: #f48fb1;
   }
   //hover

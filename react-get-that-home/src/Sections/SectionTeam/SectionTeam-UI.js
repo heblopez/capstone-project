@@ -3,14 +3,19 @@ import { colors } from '../../styles/colors';
 import { typography } from '../../styles/typography';
 
 const Section = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  width: 100%;
-  height: 486px;
-  margin-top: 20px;
   border-bottom: 1.5px solid ${colors.darkpink2};
+  padding: 64px 0;
+
+  div.team-section {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    margin: 0 auto;
+    gap: 26px;
+    max-width: 2000px;
+  }
+
   h3 {
     ${typography.head.headline3}
     text-align: center;
@@ -19,8 +24,11 @@ const Section = styled.div`
 
   & div.team {
     display: flex;
-    margin: 0 auto;
-    gap: 32px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    /* display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
   }
 `;
 
