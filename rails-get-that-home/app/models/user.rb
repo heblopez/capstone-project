@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :users_props, class_name: "UsersProp"
+  has_many :properties, through: :users_props
+
   has_secure_password
   has_secure_token
 
