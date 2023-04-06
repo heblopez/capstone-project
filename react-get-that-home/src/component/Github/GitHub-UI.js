@@ -10,12 +10,14 @@ const UserCard = styled.div`
   gap: 16px;
   padding: 8px;
   margin: 10px;
+  width: 240px;
+  height: 300px;
 
   img {
     width: 180px;
     height: 180px;
     margin: auto;
-    border: 1px solid black;
+    background-color: ${colors.backgroundlight};
     border-radius: 50%;
   }
 
@@ -27,7 +29,7 @@ const UserCard = styled.div`
   div {
     display: flex;
     align-content: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
 
     a {
       svg {
