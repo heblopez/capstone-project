@@ -1,12 +1,12 @@
-import { css } from "@emotion/react";
-import { colors } from "./colors";
-import { fonts } from "./typography";
+import { css } from '@emotion/react';
+import { colors } from './colors';
+import { fonts } from './typography';
 
 export const reset = css`
-  @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
-  @import url("https://fonts.cdnfonts.com/css/sf-pro-display?styles=98774,98770");
-  @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Roboto:wght@700&display=swap");
-  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@300;400;500&family=Roboto:wght@700&display=swap");
+  @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
+  @import url('https://fonts.cdnfonts.com/css/sf-pro-display?styles=98774,98770');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Roboto:wght@700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@300;400;500&family=Roboto:wght@700&display=swap');
 
   /* Box sizing rules */
   *,
@@ -30,8 +30,8 @@ export const reset = css`
   }
 
   /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-  ul[role="list"],
-  ol[role="list"] {
+  ul[role='list'],
+  ol[role='list'] {
     list-style: none;
   }
 
@@ -88,8 +88,8 @@ export const global = css`
     font-size: 1rem;
     line-height: 1.5rem;
     font-family: ${fonts.primary};
-    color: ${colors.gray[900]};
-    /* width: 414px; */
+    color: ${colors.darkGray};
+    background: ${colors.white};
     margin: auto;
   }
 `;

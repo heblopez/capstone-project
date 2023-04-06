@@ -8,15 +8,14 @@ const UserCard = styled.div`
   justify-content: center;
   flex-direction: column;
   gap: 16px;
-  padding: 8px;
-  margin: 10px;
-  width: 240px;
-  height: 300px;
+  padding: 4px;
+  margin: 2px;
+  width: 200px;
 
   img {
-    width: 180px;
-    height: 180px;
-    margin: auto;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
     background-color: ${colors.backgroundlight};
     border-radius: 50%;
   }
@@ -24,11 +23,12 @@ const UserCard = styled.div`
   p {
     ${typography.head.headline5}
     text-align: center;
+    color: ${colors.gray};
   }
 
   div {
     display: flex;
-    align-content: center;
+    align-items: center;
     justify-content: space-evenly;
 
     a {
