@@ -23,7 +23,6 @@ class PropertiesController < ApplicationController
 
     if property.update(property_params)
       photos = Array.wrap(params[:photos])
-      property.photos.purge
       property.photos.attach(photos) if photos.present?
 
       render json: property, status: :ok
