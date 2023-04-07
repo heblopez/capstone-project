@@ -11,6 +11,11 @@ const CardContainer = styled.div`
     text-decoration: none;
     color: ${colors.gray};
   }
+
+
+  @media (max-width: 768px) {
+    /* width: 250px; */
+  }
 `;
 
 export { CardContainer };

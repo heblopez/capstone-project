@@ -91,6 +91,8 @@ export const typography = {
   font-weight: 400;
   font-size: 0.625rem;
   line-height: 1rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   `,
 };
 

@@ -3,13 +3,14 @@ import { typography } from '../../styles/typography';
 import { colors } from '../../styles/colors';
 
 const SectionBestPrice = styled.div`
-  padding: 20px 45px 64px 20px;
+  padding: 45px 20px 64px 20px;
 
   div.container {
     max-width: 1000px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 20px;
     margin: 0 auto;
 
@@ -29,6 +30,12 @@ const SectionBestPrice = styled.div`
       justify-content: center;
       flex-wrap: wrap;
       gap: 20px;
+    }
+
+    @media (max-width: 412px) {
+      h3 {
+        ${typography.head.headline5}
+      }
     }
   }
 `;
