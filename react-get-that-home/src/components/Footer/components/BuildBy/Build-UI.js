@@ -19,6 +19,14 @@ const Container = styled.div`
   a {
     text-decoration: none;
   }
+
+  @media (max-width: 1024px) {
+    width: 300px;
+  }
+
+  @media (max-width: 768px) {
+    width: 300px;
+  }
 `;
 
 const Grid = styled.div`

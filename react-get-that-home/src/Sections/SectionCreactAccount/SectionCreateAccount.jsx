@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '../../component/Button/Button';
+import Button from '../../components/Button/Button';
 import { CreateSection } from './SectionCreateAccount-UI';
 
 const SectionCreateAccount = () => {

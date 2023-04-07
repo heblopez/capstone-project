@@ -10,27 +10,29 @@ const Footer = () => {
 
   return (
     <FooterContainer>
-      {/* Inicio */}
+      <div className='container'>
+        {/* Inicio */}
 
-      <CopyRight
-        isLogin={isLogin}
-        logo={logo}
-        copy={'© 202X - Find That Home'}
-        codeable={'Codeable - Cohort X Final Project'}
-      />
-
-      {/* Medio */}
-      {isLogin ? <BuildBy /> : <SourceCode flexrow={isLogin ? '' : 'row'} />}
-
-      {/* Final */}
-      {isLogin ? (
-        <SourceCode />
-      ) : (
         <CopyRight
           isLogin={isLogin}
+          logo={logo}
+          copy={'© 202X - Find That Home'}
           codeable={'Codeable - Cohort X Final Project'}
         />
-      )}
+
+        {/* Medio */}
+        {isLogin ? <BuildBy /> : <SourceCode flexrow={isLogin ? '' : 'row'} />}
+
+        {/* Final */}
+        {isLogin ? (
+          <SourceCode />
+        ) : (
+          <CopyRight
+            isLogin={isLogin}
+            codeable={'Codeable - Cohort X Final Project'}
+          />
+        )}
+      </div>
     </FooterContainer>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import Github from '../../component/Github/Github';
+import Github from '../../components/Github/Github';
 import { Section } from './SectionTeam-UI';
 import avatar from '../../assets/user.svg';
 

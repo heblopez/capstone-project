@@ -7,12 +7,11 @@ import { ActionComponent } from './Action-UI';
 const Action = ({ isActive }) => {
   return (
     <ActionComponent className={isActive}>
-      <Link>
+      <Link className={isActive}>
         <FiEdit />
         <p>Edit</p>
       </Link>
-
-      <Link>
+      <Link className={isActive}>
         <IoMdCloseCircleOutline />
         <p>Close</p>
       </Link>
