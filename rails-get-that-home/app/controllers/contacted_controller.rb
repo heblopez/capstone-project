@@ -13,9 +13,6 @@ class ContactedController < ApplicationController
     if contacted.exists?(contacted: [nil, false])
       contacted.update(contacted: true)
       render json: contacted, status: :ok
-    else
-      contacted.update(contacted: false) 
-      render json: contacted, status: :ok
     end
   end
 end
