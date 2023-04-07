@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { typography } from '../../../styles/typography';
+import { colors } from '../../../styles/colors';
 
 // inputs types: text, number, password.
 const InputContainer = styled.div`
@@ -6,12 +8,17 @@ const InputContainer = styled.div`
   flex-direction: column;
   gap: 4px;
 
+  label {
+    ${typography.overline}
+    padding: 0 8px;
+  }
+
   input,
   select {
     border: none;
     width: 100%;
     height: 36px;
-    border: 1px solid #f48fb1;
+    border: 1px solid ${colors.pink};
     border-radius: 8px;
     padding: 8px;
     background-color: transparent;
@@ -23,20 +30,17 @@ const InputContainer = styled.div`
     }
 
     ::placeholder {
-      color: #8e8e8e;
+      color: ${colors.lightGray};
     }
 
     &.holder {
       padding-left: 36px;
     }
-
-    ::part(list) {
-      color: red;
-    }
   }
 
-  p {
-    color: #bf5f82;
+  p.error {
+    color: ${colors.darkpink2};
+    ${typography.caption}
   }
 `;
 
@@ -44,7 +48,7 @@ const InputContainer = styled.div`
 const IconContainer = styled.div`
   position: relative;
   display: flex;
-  justify-content: sp
+  justify-content: center;
   width: 100%;
 
   svg {
@@ -76,7 +80,7 @@ const ContainerCR = styled.div`
         color: currentColor;
         width: 1.15em;
         height: 1.15em;
-        border: 1px solid #f48fb1;
+        border: 1px solid ${colors.pink};
         display: grid;
         place-content: center;
       }
@@ -92,7 +96,7 @@ const ContainerCR = styled.div`
         height: 0.65em;
         transform: scale(0);
         transition: 120ms transform ease-in-out;
-        box-shadow: inset 1em 1em #f48fb1;
+        box-shadow: inset 1em 1em ${colors.pink};
       }
 
       input[type='radio']::before {

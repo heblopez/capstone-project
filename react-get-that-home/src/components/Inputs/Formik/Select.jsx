@@ -12,7 +12,7 @@ const Select = ({ classLabel, label, ...props }) => {
       </label>
       <select {...field} {...props} />
       {meta.touched && meta.error ? (
-        <div className='error'>{meta.error}</div>
+        <p className='error'>{meta.error}</p>
       ) : null}
     </InputContainer>
   );

@@ -5,7 +5,6 @@ const Input = ({
   children,
   classLabel = '',
   classInput = '',
-  classError = '',
   label,
   ...props
 }) => {
@@ -23,7 +22,7 @@ const Input = ({
       />
       <IconContainer>{children}</IconContainer>
       {meta.touched && meta.error ? (
-        <p className={classError}>{meta.error}</p>
+        <p className='error'>{meta.error}</p>
       ) : null}
     </InputContainer>
   );
