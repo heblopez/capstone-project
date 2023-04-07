@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { colors } from '../../styles/colors';
 
 const ActionComponent = styled.div`
   display: flex;
@@ -7,6 +8,8 @@ const ActionComponent = styled.div`
   background-color: #bf5f82;
   padding: 13px auto;
   height: 7px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
 
   a {
     display: flex;
@@ -17,6 +20,10 @@ const ActionComponent = styled.div`
     gap: 10px;
     padding: 4px;
     color: #fff;
+
+    &.none {
+      display: none;
+    }
 
     :hover {
       transform: scale(1.2);
@@ -35,7 +42,9 @@ const ActionComponent = styled.div`
       text-transform: uppercase;
       margin: auto 0;
       letter-spacing: 2px;
+      color: ${colors.white}
     }
+
   }
 
   &.active {

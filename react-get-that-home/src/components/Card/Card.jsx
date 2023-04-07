@@ -2,15 +2,16 @@ import React from 'react';
 import Property from '../Property/Property';
 import Action from '../Action/Action';
 import { Link } from 'react-router-dom';
+import { CardContainer } from './Card-UI';
 
 const Card = ({ property }) => {
   return (
-    <>
-      <Link style={{ textDecoration: 'none' }}>
+    <CardContainer>
+      <Link>
         <Property prop={property} />
       </Link>
-      <Action isActive='active' />
-    </>
+      <Action isActive='none' />
+    </CardContainer>
   );
 };
 

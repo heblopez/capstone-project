@@ -3,19 +3,20 @@ import Picture from '../Picture/Picture';
 import Description from '../Description/Description';
 import propertyPhoto from '../../assets/Property.svg';
 
-const Property = ({ property }) => {
+const Property = ({ prop }) => {
+  const { address, montly_rent, property_type, bedrooms, bathrooms, pets } =
+    prop;
+
   return (
     <div>
       <Picture picture={propertyPhoto} name={'Property'} />
       <Description
-        price={'3,000'}
-        type={'Aparment'}
-        address={'86872 Jacob Gateway, Durganport, WV 48044'}
-        bedCount={4}
-        bathroomCount={2}
-        petss={true}
-        classSpanAparment={'apartment'}
-        classSpanPrice={'price'}
+        price={montly_rent}
+        type={property_type}
+        address={address}
+        bedCount={bedrooms}
+        bathroomCount={bathrooms}
+        petss={pets}
       />
     </div>
   );
