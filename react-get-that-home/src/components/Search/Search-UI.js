@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '../../styles/colors';
+import { typography } from '../../styles/typography';
 
 const Searching = styled.div`
   width: 800px;
@@ -42,6 +43,30 @@ const Searching = styled.div`
       justify-content: center;
       button {
         width: 96px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 700px;
+    height: 100px;
+
+    div.search,
+    div.search-input {
+      p {
+        ${typography.caption}
+      }
+    }
+  }
+
+  @media (max-width: 425px) {
+    width: 400px;
+    height: 100px;
+
+    div.search,
+    div.search-input {
+      p {
+        ${typography.caption}
       }
     }
   }
