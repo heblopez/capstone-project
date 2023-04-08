@@ -80,9 +80,9 @@ const profile = (
   </>
 );
 
-const Header = () => {
-  const isLogin = false;
-  const isLandLord = true;
+const Header = ({ user, LandLord }) => {
+  const isLogin = user;
+  const isLandLord = LandLord;
 
   return (
     <HeaderCtn>

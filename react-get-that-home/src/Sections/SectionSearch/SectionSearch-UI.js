@@ -3,6 +3,7 @@ import { typography } from '../../styles/typography';
 import { colors } from '../../styles/colors';
 
 const SearchContainer = styled.div`
+  margin-top: 30px;
   position: relative;
   width: 100%;
 

@@ -5,8 +5,8 @@ import CopyRight from './components/Copy/CopyRight';
 import SourceCode from './components/SourceCode/SourceCode';
 import { FooterContainer } from './Footer-UI';
 
-const Footer = () => {
-  const isLogin = 'user' && true;
+const Footer = ({user}) => {
+  const isLogin = user;
 
   return (
     <FooterContainer>
