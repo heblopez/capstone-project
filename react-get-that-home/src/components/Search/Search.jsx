@@ -50,7 +50,7 @@ const Search = () => {
               />
             </div>
             <div className='btn'>
-              <Button clase={'btn--primary'} type={'submit'}>
+              <Button type={'primary'} typebtn={'submit'}>
                 search
               </Button>
             </div>

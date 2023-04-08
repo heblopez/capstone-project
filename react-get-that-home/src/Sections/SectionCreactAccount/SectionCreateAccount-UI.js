@@ -21,6 +21,11 @@ const CreateSection = styled.div`
       text-align: center;
       padding: 0 30px;
     }
+
+    button {
+      width: 264px;
+      height: 56px;
+    }
   }
 `;
 

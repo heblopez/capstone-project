@@ -1,21 +1,19 @@
 import { BrowserRouter } from 'react-router-dom';
-import SectionTeam from './Sections/SectionTeam/SectionTeam';
-import SectionCreateAccount from './Sections/SectionCreactAccount/SectionCreateAccount';
-import Footer from './components/Footer/Footer';
-import SectionPrice from './Sections/SectionPrice/SectionPrice';
-import SectionSearch from './Sections/SectionSearch/SectionSearch';
 import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import UnAuthenticate from './auth/UnAuthenticate';
+import Authenticate from './auth/Authenticate';
 
 function App() {
+  const user = true; // create Context
+  const landLord = false; // create context de vendedor o comprador / rentador
+
   return (
     <div className='App'>
       <BrowserRouter>
-        <Header />
-        {/* <SectionSearch /> */}
-        <SectionPrice />
-        <SectionCreateAccount />
-        <SectionTeam />
-        <Footer />
+        <Header user={user} LandLord={false} />
+        {user ? <Authenticate /> : <UnAuthenticate />}
+        <Footer user={landLord} />
       </BrowserRouter>
     </div>
   );
