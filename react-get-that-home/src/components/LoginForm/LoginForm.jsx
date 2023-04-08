@@ -1,12 +1,14 @@
 import { Form, Formik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import ContainerModal from './LoginForm-UI';
 import Button from '../Button/Button';
 import { RiUserReceived2Line } from 'react-icons/ri';
 import * as Yup from 'yup';
 import Field from '../Inputs/Formik/Input';
+import { login } from '../../services/auth-services';
 
 const LoginForm = () => {
+  const [user, setUser] = useState({});
   const initialValues = {
     email: '',
     password: '',
@@ -14,12 +16,7 @@ const LoginForm = () => {
 
   const validates = Yup.object({
     email: Yup.string().email().required('Please Enter your email'),
-    password: Yup.string()
-      .required('Please Enter your password')
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
-      ),
+    password: Yup.string().required('Please Enter your password'),
   });
 
   return (
@@ -30,7 +27,11 @@ const LoginForm = () => {
           initialValues={initialValues}
           validationSchema={validates}
           onSubmit={(values) => {
-            console.log(values);
+            login(values)
+              .then((user) => {
+                setUser(user);
+              })
+              .catch(console.log);
           }}
         >
           <Form>
