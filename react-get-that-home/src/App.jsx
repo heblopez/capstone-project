@@ -4,12 +4,14 @@ import SectionCreateAccount from './Sections/SectionCreactAccount/SectionCreateA
 import Footer from './components/Footer/Footer';
 import SectionPrice from './Sections/SectionPrice/SectionPrice';
 import SectionSearch from './Sections/SectionSearch/SectionSearch';
+import Header from './components/Header/Header';
 
 function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-        <SectionSearch />
+        <Header />
+        {/* <SectionSearch /> */}
         <SectionPrice />
         <SectionCreateAccount />
         <SectionTeam />
