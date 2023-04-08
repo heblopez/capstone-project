@@ -1,19 +1,20 @@
 import React from 'react';
 import { StyleButton } from './Buttton-UI';
 
-const Button = ({ children, typeBtn, size, type, disabled }) => {
+const Button = ({ children, typeBtn, size, type, disabled, onshow }) => {
   return (
-    <div>
+    <>
       <StyleButton
         className={`btn--${type || 'primary'}${
           size ? '-' + size : '-default'
         } `}
-        typeBtn={type}
+        type={typeBtn}
         disabled={disabled}
+        onClick={onshow}
       >
         {children}
       </StyleButton>
-    </div>
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ export const colors = {
   pink: '#F48FB1',
   lightpink: '#FFC1E3',
   darkpink: '#FFC1E3',
-  darkpink2: '##BF5F82',
+  darkpink2: '#BF5F82',
   shallowpink: 'rgba(244, 143, 177, 0.15)',
 
   black: '#171717',

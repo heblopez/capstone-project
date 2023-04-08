@@ -19,22 +19,25 @@ const find = (
   </>
 );
 
-const UnAthenticate = (
-  <>
-    <div className='btn-join'>
-      <Button type={'secundary'}>
-        <AiOutlineUserAdd />
-        join
-      </Button>
-    </div>
-    <div className='btn-login'>
-      <Button type={'primary'}>
-        <RiUserReceived2Line />
-        login
-      </Button>
-    </div>
-  </>
-);
+function UnAthenticate({ onShowLogin }) {
+
+  return (
+    <>
+      <div className='btn-join'>
+        <Button type={'secundary'}>
+          <AiOutlineUserAdd />
+          join
+        </Button>
+      </div>
+      <div className='btn-login'>
+        <Button type={'primary'} onshow={onShowLogin}>
+          <RiUserReceived2Line />
+          login
+        </Button>
+      </div>
+    </>
+  );
+}
 
 const logout = (
   <>
@@ -69,18 +72,20 @@ const mySaveProp = (
   </>
 );
 
-const profile = (
-  <>
-    <div className='btn-profile'>
-      <Button type={'primary'}>
-        <BiUser />
-        profile
-      </Button>
-    </div>
-  </>
-);
+function Profile({ onclick }) {
+  return (
+    <>
+      <div className='btn-profile'>
+        <Button type={'primary'} click>
+          <BiUser />
+          profile
+        </Button>
+      </div>
+    </>
+  );
+}
 
-const Header = ({ user, LandLord }) => {
+const Header = ({ user, LandLord, onShowLogin }) => {
   const isLogin = user;
   const isLandLord = LandLord;
 
@@ -94,11 +99,11 @@ const Header = ({ user, LandLord }) => {
             </div>
             <div className='menu'>
               {find}
-              {!isLogin && UnAthenticate}
+              {!isLogin && <UnAthenticate onShowLogin={onShowLogin} />}
               {isLogin && logout}
               {isLogin && isLandLord && myProperties}
               {isLogin && !isLandLord && mySaveProp}
-              {isLogin && profile}
+              {isLogin && <Profile />}
             </div>
           </div>
         </div>
