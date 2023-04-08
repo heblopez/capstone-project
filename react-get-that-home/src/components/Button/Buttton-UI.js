@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { typography } from '../../styles/typography';
+import { colors } from '../../styles/colors';
 
 const StyleButton = styled.button`
   ${typography.button};
@@ -7,120 +8,84 @@ const StyleButton = styled.button`
   justify-content: center;
   align-items: center;
   gap: 8px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 24px;
-  background-color: var(--gray-300);
-  border-radius: 8px;
-  font-weight: var(--semibold);
+  background-color: ${colors.white};
   border: none;
+  cursor: pointer;
 
+  //icon
   svg {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
   }
 
-  :hover {
-    background-color: #bf5f82;
-    cursor: pointer;
-  }
-
-  :active {
-    background-color: #999;
-  }
-
-  :focus {
-    outline: 1.5px solid #bf5f82;
-  }
-
-  :disabled {
-    color: inherit;
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-
-  :disabled:active {
-    background-color: #bf5f82;
-  }
-
-  //  ghost
-  &.btn--ghost {
+  // State: default, Type: ghost, Size: default
+  &.btn--ghost-default {
     width: 161px;
     height: 40px;
     padding: 8px 16px;
     border-radius: 16px;
   }
 
-  //ghost small
+  // State: default, Type: ghost, Size: size
   &.btn--ghost-sm {
     width: 145px;
     height: 32px;
     padding: 4px 8px;
+    border-radius: 8px;
   }
 
-  // ghost large
+  // State: default, Type: ghost, Size: large
   &.btn--ghost-lg {
     width: 177px;
     height: 56px;
+    padding: 4px 8px;
     padding: 16px 24px;
     border-radius: 16px;
   }
 
-  &.btn--ghost,
+  // State: hover, Type: ghost
+  &.btn--ghost-default,
   &.btn--ghost-sm,
   &.btn--ghost-lg {
     :hover {
-      background: rgba(244, 143, 177, 0.15);
-    }
-
-    :disabled {
-      background: rgba(97, 97, 97, 0.15);
+      background: ${colors.shallowpink};
     }
   }
 
-  // primary
-  &.btn--primary {
+  // State: default, Type: primary, size: default
+  &.btn--primary-default {
     width: 161px;
     height: 40px;
+    border-radius: 16px;
     padding: 8px 16px;
-    border-radius: 8px;
-    color: #fff;
   }
 
-  // primary small
+  // State: default, Type: primary, size: small
   &.btn--primary-sm {
     width: 145px;
     height: 32px;
-    padding: 4px 8px;
     border-radius: 8px;
-    color: #fff;
+    padding: 4px 8px;
   }
 
-  // primary large
+  // State: default, Type: primary, size: large
   &.btn--primary-lg {
     width: 177px;
     height: 56px;
-  }
-
-  &.btn--primary-xl {
-    width: 264px;
-    height: 56px;
-  }
-
-  &.btn--primary-lg,
-  &.btn--primary-xl {
     border-radius: 16px;
-    color: #fff;
+    padding: 16px 24px;
   }
 
-  &.btn--primary,
+  // Type: primary bg & color
+  &.btn--primary-default,
   &.btn--primary-sm,
-  &.btn--primary-lg,
-  &.btn--primary-xl {
+  &.btn--primary-lg {
     background: #f48fb1;
+    color: ${colors.white};
   }
-  //hover
-  &.btn--primary,
+
+  // State: hover, Type: primary
+  &.btn--primary-default,
   &.btn--primary-sm,
   &.btn--primary-lg {
     :hover {
@@ -128,51 +93,64 @@ const StyleButton = styled.button`
     }
   }
 
-  // disabled
-  &.btn--primary,
-  &.btn--primary-sm,
-  &.btn--primary-lg {
-    :disabled {
-      background: rgba(97, 97, 97, 0.15);
-      color: #8e8e8e;
-    }
-  }
-
-  // secundary
-  &.btn--secundary {
+  // State: default, Type: secundary, size: default
+  &.btn--secundary-default {
     width: 161px;
     height: 40px;
+    border: 1px solid ${colors.pink};
+    border-radius: 16px;
+    padding: 8px 16px;
   }
 
-  // Secundary small
+  // State: default, Type: secundary, size: small
   &.btn--secundary-sm {
     width: 145px;
     height: 32px;
     border-radius: 8px;
+    padding: 4px 8px;
   }
 
-  // secundary large
+  // State: default, Type: secundary, size: large
   &.btn--secundary-lg {
     width: 177px;
     height: 56px;
     border-radius: 16px;
+    padding: 16px 24px;
   }
 
-  &.btn--secundary,
+  &.btn--secundary-default,
   &.btn--secundary-sm,
   &.btn--secundary-lg {
-    border: 1px solid #f48fb1;
-    color: #616161;
+    border: 1px solid ${colors.pink};
+    color: ${colors.gray};
   }
 
-  &.btn--secundary,
+  // State: hover, Type: secundary
+  &.btn--secundary-default,
   &.btn--secundary-sm,
   &.btn--secundary-lg {
     :hover {
-      background: rgba(244, 143, 177, 0.15);
-      /* DarkPink */
-      border: 1px solid #bf5f82;
-      color: #373737;
+      background: ${colors.shallowpink};
+      color: ${colors.darkGray};
+    }
+  }
+
+  // disabled button
+  &.btn--ghost-default,
+  &.btn--ghost-sm,
+  &.btn--ghost-lg,
+  &.btn--primary-default,
+  &.btn--primary-sm,
+  &.btn--primary-lg,
+  &.btn--secundary-default,
+  &.btn--secundary-sm,
+  &.btn--secundary-lg {
+    :disabled {
+      color: inherit;
+      opacity: 0.4;
+      cursor: not-allowed;
+      background: ${colors.shallowGray};
+      border: none;
     }
   }
 `;

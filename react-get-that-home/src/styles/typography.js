@@ -77,6 +77,7 @@ export const typography = {
   font-size: 0.875rem;
   line-height: 1.5rem;
   text-transform: uppercase;
+  letter-spacing: 1.25px;
   `,
   caption: `
   font-family: 'Inter';
