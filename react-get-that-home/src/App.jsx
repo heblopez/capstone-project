@@ -24,8 +24,8 @@ function App() {
   return (
     <div className='App'>
       <BrowserRouter>
-        <Header user={user} LandLord={false} onShowLogin={handleShowLogin} />
-        {user ? <Authenticate /> : <UnAuthenticate />}
+        <Header user={user} LandLord={false} getPage={handleShowLogin} />
+        {!user ? <UnAuthenticate /> : <Authenticate />}
         {showLogin &&
           createPortal(<LoginForm />, document.getElementById('portal-login'))}
         <Footer user={landLord} />
