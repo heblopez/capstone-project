@@ -7,30 +7,36 @@ import { BiLogOutCircle, BiUser } from 'react-icons/bi';
 import { BsFillHeartFill } from 'react-icons/bs';
 import logo from '../../assets/icon-gth.svg';
 import HeaderCtn from './Header-UI';
+import { Link } from 'react-router-dom';
 
-const find = (
-  <>
-    <div className='btn-find'>
-      <Button type={'ghost'}>
-        <FiSearch />
-        find a home
-      </Button>
-    </div>
-  </>
-);
+function Find() {
+  return (
+    <>
+      <div className='btn-find'>
+        <Link to={'/find_a_home'}>
+          <Button type={'ghost'}>
+            <FiSearch />
+            find a home
+          </Button>
+        </Link>
+      </div>
+    </>
+  );
+}
 
-function UnAthenticate({ onShowLogin }) {
-
+function UnAthenticate({ getPage }) {
   return (
     <>
       <div className='btn-join'>
-        <Button type={'secundary'}>
-          <AiOutlineUserAdd />
-          join
-        </Button>
+        <Link to={'/join'}>
+          <Button type={'secundary'}>
+            <AiOutlineUserAdd />
+            join
+          </Button>
+        </Link>
       </div>
-      <div className='btn-login'>
-        <Button type={'primary'} onshow={onShowLogin}>
+      <div className='btn-login' onClick={getPage}>
+        <Button type={'primary'}>
           <RiUserReceived2Line />
           login
         </Button>
@@ -39,29 +45,33 @@ function UnAthenticate({ onShowLogin }) {
   );
 }
 
-const logout = (
-  <>
-    <div className='btn-logout'>
-      <Button type={'secundary'}>
-        <BiLogOutCircle />
-        logout
-      </Button>
-    </div>
-  </>
-);
+function Logout() {
+  return (
+    <>
+      <div className='btn-logout'>
+        <Button type={'secundary'}>
+          <BiLogOutCircle />
+          logout
+        </Button>
+      </div>
+    </>
+  );
+}
 
-const myProperties = (
-  <>
-    <div className='btn-my-properties'>
-      <Button type={'primary'}>
-        <RiHome8Line />
-        My promerties
-      </Button>
-    </div>
-  </>
-);
+function MyProperties() {
+  return (
+    <>
+      <div className='btn-my-properties'>
+        <Button type={'primary'}>
+          <RiHome8Line />
+          My promerties
+        </Button>
+      </div>
+    </>
+  );
+}
 
-const mySaveProp = (
+function MySaveProp() {
   <>
     <div className='btn-save-properties'>
       <Button type={'primary'}>
@@ -69,13 +79,13 @@ const mySaveProp = (
         saved promerties
       </Button>
     </div>
-  </>
-);
+  </>;
+}
 
-function Profile({ onclick }) {
+function Profile() {
   return (
     <>
-      <div className='btn-profile'>
+      <div className='btn-profile' id='profile'>
         <Button type={'primary'} click>
           <BiUser />
           profile
@@ -85,7 +95,7 @@ function Profile({ onclick }) {
   );
 }
 
-const Header = ({ user, LandLord, onShowLogin }) => {
+const Header = ({ user, LandLord, getPage }) => {
   const isLogin = user;
   const isLandLord = LandLord;
 
@@ -95,14 +105,16 @@ const Header = ({ user, LandLord, onShowLogin }) => {
         <div className='navbar'>
           <div className='top-menu'>
             <div className='img-logo'>
-              <img src={logo} alt='logo' />
+              <Link to={'/'}>
+                <img src={logo} alt='logo' />
+              </Link>
             </div>
             <div className='menu'>
-              {find}
-              {!isLogin && <UnAthenticate onShowLogin={onShowLogin} />}
-              {isLogin && logout}
-              {isLogin && isLandLord && myProperties}
-              {isLogin && !isLandLord && mySaveProp}
+              {<Find />}
+              {!isLogin && <UnAthenticate getPage={getPage} />}
+              {isLogin && <Logout />}
+              {isLogin && isLandLord && <MyProperties />}
+              {isLogin && !isLandLord && <MySaveProp />}
               {isLogin && <Profile />}
             </div>
           </div>
