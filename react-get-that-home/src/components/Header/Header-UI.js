@@ -70,6 +70,10 @@ const HeaderCtn = styled.header`
               height: 40px;
             }
           }
+
+          a {
+            text-decoration: none;
+          }
         }
       }
     }
