@@ -31,7 +31,7 @@ export default async function apiFetch(
   let data;
   if (!response.ok) {
     if (token && response.status == 401) {
-      sessionStorage.removeItem(tokenKey);
+      sessionStorage.removeItem(TOKEN_KEY);
       window.location.reload();
     }
     try {
