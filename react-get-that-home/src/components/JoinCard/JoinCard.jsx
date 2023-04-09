@@ -1,11 +1,12 @@
 import React from 'react';
 import Card from './JoinCard-UI';
 
-const JoinCard = ({ svg, role, you_want, id }) => {
+const JoinCard = ({ userJoin }) => {
+  const { cover, role, you_want, id } = userJoin;
   return (
-    <Card id={id}>
+    <Card>
       <div className='img'>
-        <img src={svg} alt='' />
+        <img src={cover} alt={`image of ${id}`} />
       </div>
       <p className='role'>{role}</p>
       <p className='you-want'>{you_want}</p>
