@@ -14,7 +14,7 @@ const JoinForm = () => {
     email: '',
     phone: '',
     password: '',
-    password_confirmation: '',
+    'password confirmation': '',
   };
 
   const phoneRegExp =
@@ -54,43 +54,45 @@ const JoinForm = () => {
             }, 1000);
           }}
         >
-          <Form>
-            <Field
-              label={'name'}
-              name='name'
-              type='text'
-              placeholder='John Doe'
-            />
-            <Field
-              label={'email'}
-              name='email'
-              type='email'
-              placeholder='user@mail.com'
-            />
-            <Field
-              label={'phone'}
-              name='phone'
-              type='number'
-              placeholder='999-999-999'
-            />
-            <Field
-              label={'password'}
-              name='password'
-              type='password'
-              placeholder='******'
-            />
-            <Field
-              label={'password confirmation'}
-              name='password confirmation'
-              type='password'
-              placeholder='******'
-            />
-            <div className='btn-create-account'>
-              <Button type={'primary'} typeBtn={'submit'}>
-                create account
-              </Button>
-            </div>
-          </Form>
+          {({ isValid }) => (
+            <Form>
+              <Field
+                label={'name'}
+                name='name'
+                type='text'
+                placeholder='John Doe'
+              />
+              <Field
+                label={'email'}
+                name='email'
+                type='email'
+                placeholder='user@mail.com'
+              />
+              <Field
+                label={'phone'}
+                name='phone'
+                type='number'
+                placeholder='999-999-999'
+              />
+              <Field
+                label={'password'}
+                name='password'
+                type='password'
+                placeholder='******'
+              />
+              <Field
+                label={'password confirmation'}
+                name='password confirmation'
+                type='password'
+                placeholder='******'
+              />
+              <div className='btn-create-account'>
+                <Button type={'primary'} typeBtn={'submit'} disabled={!isValid}>
+                  create account
+                </Button>
+              </div>
+            </Form>
+          )}
         </Formik>
       </div>
     </FormJoin>
