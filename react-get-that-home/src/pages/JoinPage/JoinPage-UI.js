@@ -53,6 +53,13 @@ const Container = styled.div`
       }
     }
   }
+
+  div.join-form {
+    position: absolute;
+    left: 50%;
+    top: 18%;
+    transform: translate(-50%, 0);
+  }
 `;
 
 export default Container;
