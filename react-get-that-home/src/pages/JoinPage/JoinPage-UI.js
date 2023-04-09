@@ -47,6 +47,10 @@ const Container = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
+      a {
+        text-decoration: none;
+        color: ${colors.darkGray};
+      }
     }
   }
 `;
