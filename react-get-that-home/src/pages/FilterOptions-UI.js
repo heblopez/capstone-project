@@ -69,6 +69,11 @@ const BarOption = styled.div`
         width: 109px;
       }
     }
+
+    div.more-modal {
+      position: relative;
+      transform: translateX(-160px) translateY(17px);
+    }
   }
 
   div.buy-rent {
