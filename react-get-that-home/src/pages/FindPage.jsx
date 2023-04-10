@@ -5,16 +5,24 @@ import { SectionFind, BarOption } from './FilterOptions-UI';
 import More from '../modals/More/More';
 import Input from '../components/Inputs/Input/Input';
 import { createPortal } from 'react-dom';
+import BedBath from '../modals/BedBath/BedBath';
 
 const FindPage = () => {
   const [showMore, setShowMore] = useState(false);
+  const [showBbth, setShowBbth] = useState(false);
 
   function handleShowMore() {
-    console.log('Hola');
     setShowMore(true);
     setTimeout(() => {
       setShowMore(false);
     }, 8000);
+  }
+
+  function handleShowBbth() {
+    setShowBbth(true);
+    setTimeout(() => {
+      setShowBbth(false);
+    }, 5000);
   }
 
   return (
@@ -31,9 +39,17 @@ const FindPage = () => {
             <div className='property-type'>
               <Button>property type</Button>
             </div>
-            <div className='beds-baths'>
+
+            {/* beds and baths */}
+            <div className='beds-baths' onClick={handleShowBbth}>
               <Button>beds & baths</Button>
             </div>
+            <div className='bb-modal'>
+              {showBbth &&
+                createPortal(<BedBath />, document.querySelector('.bb-modal'))}
+            </div>
+
+            {/* more button */}
             <div className='more' onClick={handleShowMore}>
               <Button>
                 more
@@ -45,6 +61,8 @@ const FindPage = () => {
                 createPortal(<More />, document.querySelector('.more-modal'))}
             </div>
           </div>
+
+          {/* buying & renting */}
           <div className='buy-rent'>
             <Button type={'secundary'}>
               Buying & Renting

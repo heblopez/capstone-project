@@ -70,6 +70,11 @@ const BarOption = styled.div`
       }
     }
 
+    div.bb-modal {
+      position: relative;
+      transform: translateX(-200px) translateY(17px);
+    }
+
     div.more-modal {
       position: relative;
       transform: translateX(-160px) translateY(17px);
