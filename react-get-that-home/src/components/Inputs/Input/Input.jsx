@@ -8,20 +8,38 @@ const Input = ({
   placeholder = '',
   type,
   required = false,
-  value = false,
+  value,
+  onChange,
+  onBlur,
 }) => {
   return (
     <InpuytStyle>
-      {label ? <label htmlFor={id}> {label}</label> : ''}
-      <div>
+      {label && type !== 'checkbox' && type !== 'radio' ? (
+        <label className='overline' htmlFor={id}>
+          {label}
+        </label>
+      ) : (
+        ''
+      )}
+      <div className='input'>
         <input
-          type={type ? type : 'text'}
-          placeholder={placeholder}
+          className='input-general'
           id={id}
-          name={name ? name : id}
-          value={value ? value : ''}
+          name={name || id}
+          type={type || 'text'}
+          value={value}
+          placeholder={placeholder}
           required={required}
+          onChange={onChange}
+          onBlur={onBlur}
         />
+        {type === 'checkbox' || type === 'radio' ? (
+          <label className='checkbox-radio' htmlFor={id}>
+            {label}
+          </label>
+        ) : (
+          ''
+        )}
       </div>
     </InpuytStyle>
   );
