@@ -79,6 +79,7 @@ const BedBathModal = styled.div`
     margin: 20px 0;
 
     div.result {
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
       display: flex;
       align-items: center;
       justify-content: center;
