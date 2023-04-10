@@ -9,6 +9,7 @@ const ModalProperty = styled.div`
     width: 211px;
     height: 116px;
     padding: 8px;
+    margin-top: 10px;
     border-radius: 8px;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     background-color: ${colors.white};

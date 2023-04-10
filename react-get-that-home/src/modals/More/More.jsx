@@ -36,12 +36,7 @@ const More = () => {
         >
           <Form>
             <div className='form'>
-              <InputCR
-                label='Pets allowed'
-                type='checkbox'
-                id='pets'
-                name='pets'
-              >
+              <InputCR type='checkbox' id='pets' name='pets'>
                 Pets allowed
               </InputCR>
 

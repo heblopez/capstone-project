@@ -6,10 +6,12 @@ import More from '../modals/More/More';
 import Input from '../components/Inputs/Input/Input';
 import { createPortal } from 'react-dom';
 import BedBath from '../modals/BedBath/BedBath';
+import Property from '../modals/Property/Property';
 
 const FindPage = () => {
   const [showMore, setShowMore] = useState(false);
   const [showBbth, setShowBbth] = useState(false);
+  const [showProperties, setShowProperties] = useState(false);
 
   function handleShowMore() {
     setShowMore(true);
@@ -25,6 +27,13 @@ const FindPage = () => {
     }, 5000);
   }
 
+  function handleShowProperties() {
+    setShowProperties(true);
+    setTimeout(() => {
+      setShowProperties(false);
+    }, 5000);
+  }
+
   return (
     <SectionFind>
       <div className='container'>
@@ -36,8 +45,16 @@ const FindPage = () => {
             <div className='price'>
               <Button>Price</Button>
             </div>
-            <div className='property-type'>
+            {/* Property type */}
+            <div className='property-type' onClick={handleShowProperties}>
               <Button>property type</Button>
+            </div>
+            <div className='property-modal'>
+              {showProperties &&
+                createPortal(
+                  <Property />,
+                  document.querySelector('.property-modal')
+                )}
             </div>
 
             {/* beds and baths */}
