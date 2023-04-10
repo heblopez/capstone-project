@@ -8,7 +8,7 @@ const Field = ({ children, label, ...props }) => {
     <InputContainer>
       <label htmlFor={props.id || props.name}>{label}</label>
       <input className={`${children && 'holder'}`} {...field} {...props} />
-      <IconContainer>{children}</IconContainer>
+      {children && <IconContainer>{children}</IconContainer>}
       {meta.touched && meta.error ? (
         <p className='error'>{meta.error}</p>
       ) : null}
