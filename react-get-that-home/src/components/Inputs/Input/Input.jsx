@@ -7,6 +7,7 @@ const Input = ({
   name,
   placeholder = '',
   type,
+  checked,
   required = false,
   value,
   onChange,
@@ -29,6 +30,7 @@ const Input = ({
           type={type || 'text'}
           value={value}
           placeholder={placeholder}
+          checked={checked}
           required={required}
           onChange={onChange}
           onBlur={onBlur}

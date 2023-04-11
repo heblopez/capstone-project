@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { colors } from '../styles/colors';
+import { typography } from '../styles/typography';
 
 const SectionFind = styled.div`
   width: 100%;
@@ -70,6 +71,7 @@ const BarOption = styled.div`
       }
     }
 
+    // modal where rendering then
     div.price-modal {
       position: relative;
       transform: translateX(-175px) translateY(17px);
@@ -91,9 +93,17 @@ const BarOption = styled.div`
     }
   }
 
-  div.buy-rent {
-    button {
-      width: 215px;
+  div.select-BR {
+    div.buying-renting {
+      button {
+        ${typography.body.body2}
+        text-transform: lowercase;
+        text-transform: capitalize;
+      }
+    }
+
+    div.buy-rent_modal {
+      position: relative;
     }
   }
 `;

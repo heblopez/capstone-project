@@ -8,39 +8,47 @@ import { createPortal } from 'react-dom';
 import BedBath from '../modals/BedBath/BedBath';
 import Property from '../modals/Property/Property';
 import Price from '../modals/Price/Price';
+import BuyOrRent from '../modals/BuyOrRent/BuyOrRent';
 
 const FindPage = () => {
   const [showMore, setShowMore] = useState(false);
   const [showBbth, setShowBbth] = useState(false);
   const [showProperties, setShowProperties] = useState(false);
   const [showPrice, setShowPrices] = useState(false);
+  const [showBuyRent, setShowbuyRent] = useState(false);
+
+  const [data, setData] = useState({
+    both: true,
+    buying: false,
+    renting: false,
+  });
+
+  function handleChange(e) {
+    const name = e.target.name;
+    const isChecked = e.target.checked;
+    setData({ ...data, [name]: isChecked });
+  }
+
+  console.log(data);
 
   function handleShowMore() {
-    setShowMore(true);
-    setTimeout(() => {
-      setShowMore(false);
-    }, 8000);
+    setShowMore(!showMore);
   }
 
   function handleShowBbth() {
-    setShowBbth(true);
-    setTimeout(() => {
-      setShowBbth(false);
-    }, 5000);
+    setShowBbth(!showBbth);
   }
 
   function handleShowProperties() {
-    setShowProperties(true);
-    setTimeout(() => {
-      setShowProperties(false);
-    }, 8000);
+    setShowProperties(!showProperties);
   }
 
   function handleShowPrices() {
-    setShowPrices(true);
-    setTimeout(() => {
-      setShowPrices(false);
-    }, 8000);
+    setShowPrices(!showPrice);
+  }
+
+  function handleShowbuyRent() {
+    setShowbuyRent(!showBuyRent);
   }
 
   return (
@@ -88,16 +96,35 @@ const FindPage = () => {
             </div>
             <div className='more-modal'>
               {showMore &&
-                createPortal(<More />, document.querySelector('.more-modal'))}
+                createPortal(
+                  <More onClose={handleShowMore} />,
+                  document.querySelector('.more-modal')
+                )}
             </div>
           </div>
 
           {/* buying & renting */}
-          <div className='buy-rent'>
-            <Button type={'secundary'}>
-              Buying & Renting
-              <MdKeyboardArrowDown />
-            </Button>
+          <div className='select-BR'>
+            <div className='buying-renting' onClick={handleShowbuyRent}>
+              <Button type={'secundary'}>
+                {((data.both && !data.buying && !data.renting) ||
+                  (data.buying && data.renting)) &&
+                  'Both'}
+                {data.buying && !data.renting && 'Buying'}
+                {data.renting && !data.buying && 'Renting'}
+                {!data.both && !data.buying && !data.renting && 'Choose one'}
+                <MdKeyboardArrowDown />
+              </Button>
+            </div>
+
+            <div className='buy-rent_modal'>
+              {showBuyRent &&
+                createPortal(
+                  <BuyOrRent onHandle={handleChange} data={data} />,
+                  document.querySelector('.buy-rent_modal')
+                )}
+              {/* <BuyOrRent onHandle={handleChange} data={data} /> */}
+            </div>
           </div>
         </BarOption>
 
