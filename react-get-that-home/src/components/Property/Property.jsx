@@ -4,7 +4,7 @@ import Description from '../Description/Description';
 import propertyPhoto from '../../assets/Property.svg';
 
 const Property = ({ prop }) => {
-  const { address, montly_rent, property_type, bedrooms, bathrooms, pets } =
+  const { address, montly_rent, type_property, bedrooms, bathrooms, pets_allowed } =
     prop;
 
   return (
@@ -12,11 +12,11 @@ const Property = ({ prop }) => {
       <Picture picture={propertyPhoto} name={'Property'} />
       <Description
         price={montly_rent}
-        type={property_type}
+        type={type_property}
         address={address}
         bedCount={bedrooms}
         bathroomCount={bathrooms}
-        petss={pets}
+        petss={pets_allowed}
       />
     </div>
   );

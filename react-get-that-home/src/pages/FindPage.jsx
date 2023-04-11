@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../components/Button/Button';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { SectionFind, BarOption } from './FilterOptions-UI';
@@ -9,6 +9,8 @@ import BedBath from '../modals/BedBath/BedBath';
 import Property from '../modals/Property/Property';
 import Price from '../modals/Price/Price';
 import BuyOrRent from '../modals/BuyOrRent/BuyOrRent';
+import Properties from '../services/properties-services';
+import Card from '../components/Card/Card';
 
 const FindPage = () => {
   const [showMore, setShowMore] = useState(false);
@@ -16,20 +18,21 @@ const FindPage = () => {
   const [showProperties, setShowProperties] = useState(false);
   const [showPrice, setShowPrices] = useState(false);
   const [showBuyRent, setShowbuyRent] = useState(false);
-
-  const [data, setData] = useState({
+  const [buyingRenting, setBuyingRentig] = useState({
     both: true,
     buying: false,
     renting: false,
   });
 
+  const [data, setData] = useState([]);
+
   function handleChange(e) {
     const name = e.target.name;
     const isChecked = e.target.checked;
-    setData({ ...data, [name]: isChecked });
+    setBuyingRentig({ ...data, [name]: isChecked });
   }
 
-  console.log(data);
+  console.log(buyingRenting);
 
   function handleShowMore() {
     setShowMore(!showMore);
@@ -50,6 +53,14 @@ const FindPage = () => {
   function handleShowbuyRent() {
     setShowbuyRent(!showBuyRent);
   }
+
+  useEffect(() => {
+    Properties.get()
+      .then((prop) => {
+        setData(prop);
+      })
+      .catch(console.log);
+  }, []);
 
   return (
     <SectionFind>
@@ -107,12 +118,17 @@ const FindPage = () => {
           <div className='select-BR'>
             <div className='buying-renting' onClick={handleShowbuyRent}>
               <Button type={'secundary'}>
-                {((data.both && !data.buying && !data.renting) ||
-                  (data.buying && data.renting)) &&
+                {((buyingRenting.both &&
+                  !buyingRenting.buying &&
+                  !buyingRenting.renting) ||
+                  (buyingRenting.buying && buyingRenting.renting)) &&
                   'Both'}
-                {data.buying && !data.renting && 'Buying'}
-                {data.renting && !data.buying && 'Renting'}
-                {!data.both && !data.buying && !data.renting && 'Choose one'}
+                {buyingRenting.buying && !buyingRenting.renting && 'Buying'}
+                {buyingRenting.renting && !buyingRenting.buying && 'Renting'}
+                {!buyingRenting.both &&
+                  !buyingRenting.buying &&
+                  !buyingRenting.renting &&
+                  'Choose one'}
                 <MdKeyboardArrowDown />
               </Button>
             </div>
@@ -120,17 +136,18 @@ const FindPage = () => {
             <div className='buy-rent_modal'>
               {showBuyRent &&
                 createPortal(
-                  <BuyOrRent onHandle={handleChange} data={data} />,
+                  <BuyOrRent onHandle={handleChange} data={buyingRenting} />,
                   document.querySelector('.buy-rent_modal')
                 )}
               {/* <BuyOrRent onHandle={handleChange} data={data} /> */}
             </div>
           </div>
         </BarOption>
-
-        <div>
-          <p>24 Properties found</p>
-          <div> Lista of houses</div>
+        <p>24 Properties found</p>
+        <div className='section-list'>
+          {data.map((property) => (
+            <Card key={property.id} property={property} />
+          ))}
         </div>
       </div>
     </SectionFind>

@@ -10,7 +10,8 @@ const ActionComponent = styled.div`
   height: 7px;
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
-
+  color: ${colors.white};
+  
   a {
     display: flex;
     align-content: center;
@@ -42,9 +43,8 @@ const ActionComponent = styled.div`
       text-transform: uppercase;
       margin: auto 0;
       letter-spacing: 2px;
-      color: ${colors.white}
+      color: ${colors.white};
     }
-
   }
 
   &.active {

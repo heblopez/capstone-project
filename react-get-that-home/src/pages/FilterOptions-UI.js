@@ -8,6 +8,12 @@ const SectionFind = styled.div`
 
   div.container {
     padding: 0 32px;
+
+    div.section-list {
+      padding: 16px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
   }
 `;
 
