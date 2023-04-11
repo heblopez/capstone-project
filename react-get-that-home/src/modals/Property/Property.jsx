@@ -5,11 +5,6 @@ import Button from '../../components/Button/Button';
 import ModalProperty from './Property-UI';
 
 const Property = () => {
-  // const initialValues = {
-  //   house: false,
-  //   aparment: false,
-  // };
-
   return (
     <ModalProperty>
       <div className='container'>
