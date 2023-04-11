@@ -14,6 +14,7 @@ const Price = () => {
       ? '$' + Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + 'k'
       : Math.sign(num) * Math.abs(num);
   }
+
   return (
     <PrimeModal>
       <div className='container'>
@@ -25,11 +26,15 @@ const Price = () => {
           })}
           onSubmit={(values) => {
             setTimeout(() => {
-              console.log(values);
+              const data = {
+                min: +values.min,
+                max: +values.max,
+              };
+              console.log(data);
             }, 500);
           }}
         >
-          {({ values, touched }) => (
+          {({ values }) => (
             <>
               <Form>
                 <div className='form'>

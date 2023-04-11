@@ -70,7 +70,12 @@ const BarOption = styled.div`
       }
     }
 
-    div.property-modal{
+    div.price-modal {
+      position: relative;
+      transform: translateX(-175px) translateY(17px);
+    }
+
+    div.property-modal {
       position: relative;
       transform: translateX(-188px) translateY(17px);
     }

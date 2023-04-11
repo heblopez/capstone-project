@@ -7,11 +7,13 @@ import Input from '../components/Inputs/Input/Input';
 import { createPortal } from 'react-dom';
 import BedBath from '../modals/BedBath/BedBath';
 import Property from '../modals/Property/Property';
+import Price from '../modals/Price/Price';
 
 const FindPage = () => {
   const [showMore, setShowMore] = useState(false);
   const [showBbth, setShowBbth] = useState(false);
   const [showProperties, setShowProperties] = useState(false);
+  const [showPrice, setShowPrices] = useState(false);
 
   function handleShowMore() {
     setShowMore(true);
@@ -31,7 +33,14 @@ const FindPage = () => {
     setShowProperties(true);
     setTimeout(() => {
       setShowProperties(false);
-    }, 5000);
+    }, 8000);
+  }
+
+  function handleShowPrices() {
+    setShowPrices(true);
+    setTimeout(() => {
+      setShowPrices(false);
+    }, 8000);
   }
 
   return (
@@ -42,8 +51,12 @@ const FindPage = () => {
             <Input name={'search'} placeholder='Search by address' />
           </div>
           <div className='btns'>
-            <div className='price'>
+            <div className='price' onClick={handleShowPrices}>
               <Button>Price</Button>
+            </div>
+            <div className='price-modal'>
+              {showPrice &&
+                createPortal(<Price />, document.querySelector('.price-modal'))}
             </div>
             {/* Property type */}
             <div className='property-type' onClick={handleShowProperties}>
