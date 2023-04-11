@@ -1,5 +1,5 @@
 import React from 'react';
-import BuyRent from './BurOrRent-UI';
+import BuyRent from './BuyOrRent-UI';
 
 const BuyOrRent = ({ onHandle, data }) => {
   return (

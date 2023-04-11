@@ -96,7 +96,6 @@ const BarOption = styled.div`
   div.select-BR {
     div.buying-renting {
       button {
-        ${typography.body.body2}
         text-transform: lowercase;
         text-transform: capitalize;
       }
