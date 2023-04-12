@@ -3,19 +3,20 @@ import dollar from '../../assets/dollar.svg';
 import aparment from '../../assets/aparment.svg';
 import bed from '../../assets/bed.svg';
 import bathroom from '../../assets/bathrrom.svg';
-import area from '../../assets/area.svg';
-import pets from '../../assets/pets.svg';
+import area_icon from '../../assets/area.svg';
+import petsfrom from '../../assets/pets.svg';
 import { Data, InfoContainer, PriceContainer } from './Description-UI';
 
 const Description = ({
-  price,
-  type,
   address,
-  bedCount,
-  bathroomCount,
-  petss = false,
+  price,
+  type_prop,
+  beds,
+  baths,
+  pets = false,
+  area,
 }) => {
-  const typeProp = type.charAt(0).toUpperCase() + type.slice(1);
+  const typeProp = type_prop.charAt(0).toUpperCase() + type_prop.slice(1);
 
   return (
     <Data>
@@ -40,17 +41,17 @@ const Description = ({
         <div className='services'>
           <div className='service'>
             <img src={bed} alt='bed' />
-            <span>{bedCount}</span>
+            <span>{beds}</span>
           </div>
           <div className='service'>
             <img src={bathroom} alt='bathroom' />
-            <span>{bathroomCount}</span>
+            <span>{baths}</span>
           </div>
           <div className='service'>
-            <img src={area} alt='area' />
-            <span>180 m2</span>
+            <img src={area_icon} alt='area' />
+            <span>{area} m2</span>
           </div>
-          {petss && <img src={pets} alt='pets' />}
+          {pets && <img src={petsfrom} alt='pets' />}
         </div>
       </InfoContainer>
     </Data>
