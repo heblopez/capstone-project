@@ -5,6 +5,7 @@ import Field from '../Inputs/Formik/Input';
 import * as Yup from 'yup';
 import Button from '../Button/Button';
 import FormJoin from './JoinForm-UI';
+import User from '../../services/user-services';
 
 const JoinForm = () => {
   const { id } = useParams();
@@ -51,6 +52,7 @@ const JoinForm = () => {
                 role: id,
               };
               console.log(data);
+              User.createUser(data);
             }, 1000);
           }}
         >

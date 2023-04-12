@@ -1,7 +1,6 @@
 import React from 'react';
 import Picture from '../Picture/Picture';
 import Description from '../Description/Description';
-import { BASE_URI } from '../../config';
 import pic from '../../assets/Property.svg';
 import ForBuyRent from '../ForBR/ForBuyRent';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
@@ -24,10 +23,7 @@ const Property = ({ prop }) => {
       <ForBuyRent operation={type_operation}>
         <RiMoneyDollarCircleFill />
       </ForBuyRent>
-      <Picture
-        picture={photo_urls ? BASE_URI + photo_urls[0] : pic}
-        name={'Property'}
-      />
+      <Picture picture={photo_urls ? photo_urls[0] : pic} name={'Property'} />
       <Description
         address={address}
         price={price}
