@@ -65,6 +65,9 @@ const IconContainer = styled.div`
 // inputs type: checkbox & radio
 const ContainerCR = styled.div`
   label {
+    display: flex;
+    align-items: center;
+
     &.form-control {
       display: grid;
       grid-template-columns: 1em auto;

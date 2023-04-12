@@ -2,16 +2,16 @@ import { useField } from 'formik';
 import React from 'react';
 import { ContainerCR } from './StylesInput';
 
-const InputCR = ({ LabelClass = '', children, ...props }) => {
+const InputCR = ({ children, ...props }) => {
   const [field, meta] = useField({ ...props });
   return (
     <ContainerCR>
-      <label className={`form-control ${LabelClass}`}>
+      <label className={`form-control`}>
         <input {...field} {...props} />
         {children}
       </label>
       {meta.touched && meta.error ? (
-        <div className='error'>{meta.error}</div>
+        <p className='error'>{meta.error}</p>
       ) : null}
     </ContainerCR>
   );

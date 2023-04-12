@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleButton } from './Buttton-UI';
 
-const Button = ({ children, typeBtn, size, type, disabled, onshow }) => {
+const Button = ({ children, typeBtn, size, type, disabled }) => {
   return (
     <>
       <StyleButton
@@ -10,7 +10,6 @@ const Button = ({ children, typeBtn, size, type, disabled, onshow }) => {
         } `}
         type={typeBtn}
         disabled={disabled}
-        onClick={onshow}
       >
         {children}
       </StyleButton>
