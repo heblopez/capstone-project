@@ -12,11 +12,12 @@ import BuyOrRent from '../modals/BuyOrRent/BuyOrRent';
 import Properties from '../services/properties-services';
 import Card from '../components/Card/Card';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { useProp } from '../context/Properties';
 
 //filter by address
 function filterByAddress(properties, address) {
   if (address === '') return properties;
-  const byAddress = properties.filter(
+  const byAddress = properties?.filter(
     (prop) => prop.address.toLowerCase().includes(address.toLowerCase()) && prop
   );
 
@@ -27,7 +28,7 @@ function filterByAddress(properties, address) {
 function filterByPrice(properties, price) {
   const { min, max } = price;
 
-  const byPrice = properties.filter(
+  const byPrice = properties?.filter(
     (prop) =>
       (prop.price >= min && prop.price <= max && prop) ||
       (min === 0 && prop.price <= max && prop) ||
@@ -139,13 +140,20 @@ function filterProperties(properties, filter) {
 }
 
 const FindPage = () => {
+  // const { properties } = useProp();
   const [showMore, setShowMore] = useState(false);
   const [showBbth, setShowBbth] = useState(false);
   const [showProperties, setShowProperties] = useState(false);
   const [showPrice, setShowPrices] = useState(false);
   const [showBuyRent, setShowbuyRent] = useState(false);
-  const [properties, setProperties] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [properties, setProperties] = useState([]);
+
+  useEffect(() => {
+    Properties.get().then((prop) => {
+      setProperties(prop);
+    });
+  }, []);
 
   const initial = {
     address: '',
@@ -167,8 +175,6 @@ const FindPage = () => {
       type_operation: { ...filter.type_operation, [name]: isChecked },
     });
   }
-
-  console.log(filter);
 
   function handleChangeSearch(e) {
     setFilter({
@@ -196,17 +202,6 @@ const FindPage = () => {
   function handleShowbuyRent() {
     setShowbuyRent(!showBuyRent);
   }
-
-  useEffect(() => {
-    const properties = setTimeout(() => {
-      Properties.get()
-        .then((prop) => {
-          setProperties(prop);
-        })
-        .catch(console.log);
-    }, 500);
-    return () => clearTimeout(properties);
-  }, []);
 
   function handleGetPrice(data) {
     setFilter({
@@ -266,8 +261,6 @@ const FindPage = () => {
   }
 
   const currentPageData = getPage();
-
-  console.log(currentPageData);
 
   return (
     <SectionFind>

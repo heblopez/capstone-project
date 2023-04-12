@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import JoinPage from '../pages/JoinPage/JoinPage';
 import FindPage from '../pages/FindPage';
 import CreateAccount from '../pages/JoinPage/CreateAccount';
+import PropertyPage from '../pages/PropertyPage';
 
 const UnAuthenticate = () => {
   return (
@@ -13,6 +14,7 @@ const UnAuthenticate = () => {
         <Route path='/find_a_home' element={<FindPage />} />
         <Route path='/join' element={<JoinPage />} />
         <Route path='/create-account/:id' element={<CreateAccount />} />
+        <Route path='/property/:id' element={<PropertyPage />} />
       </Routes>
     </div>
   );

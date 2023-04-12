@@ -7,7 +7,7 @@ import { CardContainer } from './Card-UI';
 const Card = ({ property }) => {
   return (
     <CardContainer>
-      <Link>
+      <Link to={`/property/${property.id}`}>
         <Property prop={property} />
       </Link>
       <Action isActive='none' />

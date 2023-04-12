@@ -9,6 +9,15 @@ const Properties = {
       console.error(error);
     }
   },
+
+  async getProp(id) {
+    try {
+      const response = await apiFetch(`/properties/${id}`);
+      return response;
+    } catch (error) {
+      console.error(error);
+    }
+  },
 };
 
 export default Properties;

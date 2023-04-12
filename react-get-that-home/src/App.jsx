@@ -22,7 +22,7 @@ function App() {
   const landLord = false; // create context de vendedor o comprador / rentador
 
   return (
-    <div className='App'>
+    <div>
       <BrowserRouter>
         <Header user={user} LandLord={landLord} getPage={handleShowLogin} />
         {!user ? <UnAuthenticate /> : <Authenticate />}
