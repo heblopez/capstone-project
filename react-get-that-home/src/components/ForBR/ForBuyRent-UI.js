@@ -3,7 +3,7 @@ import { colors } from '../../styles/colors';
 
 const BuyRent = styled.div`
   position: absolute;
-  z-index: 1;
+  transform: translateY(173px);
 
   div.container {
     width: 110px;
@@ -16,7 +16,6 @@ const BuyRent = styled.div`
     margin: 0;
     padding: 0;
     gap: 8px;
-    border-top-left-radius: 8px;
 
     svg {
       width: 16px;

@@ -2,6 +2,7 @@ import React from 'react';
 import BuyRent from './BuyOrRent-UI';
 
 const BuyOrRent = ({ onHandle, data }) => {
+  console.log(data);
   return (
     <BuyRent>
       <div className='container'>
@@ -12,7 +13,7 @@ const BuyOrRent = ({ onHandle, data }) => {
               name='both'
               id='both'
               checked={data.both}
-              onChange={onHandle}
+              onChange={(e) => onHandle(e)}
             />
             <label htmlFor='both'>Both</label>
           </div>
@@ -22,7 +23,7 @@ const BuyOrRent = ({ onHandle, data }) => {
               type='checkbox'
               name='buying'
               id='buying'
-              onChange={onHandle}
+              onChange={(e) => onHandle(e)}
             />
             <label htmlFor='buying'>Buying</label>
           </div>
@@ -32,7 +33,7 @@ const BuyOrRent = ({ onHandle, data }) => {
               type='checkbox'
               name='renting'
               id='renting'
-              onChange={onHandle}
+              onChange={(e) => onHandle(e)}
             />
             <label htmlFor='renting'>Renting</label>
           </div>

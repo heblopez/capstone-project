@@ -1,13 +1,14 @@
-import { Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import Button from '../../components/Button/Button';
 import BedBathModal from './BedBath-UI';
 
-const BedBath = () => {
+const BedBath = ({ getBB }) => {
   const items = { Any: 0, '1+': 1, '2+': 2, '3+': 3, '4+': 4 };
   const [data, setData] = useState({ beds: 0, baths: 0 });
   const [activeBed, setActiveBed] = useState('Any');
   const [activeBath, setActiveBath] = useState('Any');
+
+  
 
   function handleBeds(e) {
     e.preventDefault();
@@ -28,7 +29,7 @@ const BedBath = () => {
   }
 
   function handleDone() {
-    console.log(data);
+    getBB(data);
   }
 
   return (
@@ -81,4 +82,4 @@ const BedBath = () => {
   );
 };
 
-export default BedBath;
+export { BedBath };

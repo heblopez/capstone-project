@@ -6,7 +6,7 @@ import Button from '../../components/Button/Button';
 import * as Yup from 'yup';
 import PrimeModal from './Price-UI';
 
-const Price = () => {
+const Price = ({ getData }) => {
   function kFormatter(num) {
     if (num === 0) return '';
 
@@ -30,7 +30,8 @@ const Price = () => {
                 min: +values.min,
                 max: +values.max,
               };
-              console.log(data);
+              // console.log(data);
+              getData(data);
             }, 500);
           }}
         >

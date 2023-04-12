@@ -4,23 +4,23 @@ import InputCR from '../../components/Inputs/Formik/InputCR';
 import Button from '../../components/Button/Button';
 import ModalProperty from './Property-UI';
 
-const Property = () => {
+const Property = ({getProperty}) => {
   return (
     <ModalProperty>
       <div className='container'>
         <Formik
           initialValues={{
             house: false,
-            aparment: false,
+            apartment: false,
           }}
           onSubmit={(values) => {
             setTimeout(() => {
               const data = {
-                house: values.house ? 1 : null,
-                aparment: values.aparment ? 0 : null,
+                house: values.house ? 'house' : null,
+                apartment: values.apartment ? 'apartment' : null,
               };
-              console.log(values);
               console.log(data);
+              getProperty(data);
             }, 600);
           }}
         >
@@ -33,7 +33,7 @@ const Property = () => {
                     <InputCR type='checkbox' id='house' name='house'>
                       Houses
                     </InputCR>
-                    <InputCR type='checkbox' id='aparment' name='aparment'>
+                    <InputCR type='checkbox' id='apartment' name='apartment'>
                       Apartments
                     </InputCR>
                   </div>
@@ -44,14 +44,14 @@ const Property = () => {
               </Form>
               <div
                 className={`${
-                  (values.house || values.aparment) && 'result-content'
+                  (values.house || values.apartment) && 'result-content'
                 }`}
               >
                 <div className='result'>
                   <p>
                     {values.house && 'Houser'}{' '}
-                    {values.house && values.aparment && '&'}{' '}
-                    {values.aparment && 'Aparments'}
+                    {values.house && values.apartment && '&'}{' '}
+                    {values.apartment && 'Aparments'}
                   </p>
                 </div>
               </div>

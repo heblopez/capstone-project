@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { colors } from '../styles/colors';
-import { typography } from '../styles/typography';
 
 const SectionFind = styled.div`
   width: 100%;
   padding: 32px 120px;
+  z-index: -10;
 
   div.container {
     padding: 0 32px;
