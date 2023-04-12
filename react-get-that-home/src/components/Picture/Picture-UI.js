@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 
 const PictureContainer = styled.div`
+  position: relative;
+
   img {
     width: 100%;
     height: 200px;
