@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
+import { createProperty } from "../services/properties-services"
 import styled from "@emotion/styled";
 import { Form, Formik } from 'formik';
 import Input from "../components/Inputs/Input/Input";
@@ -18,11 +19,31 @@ const StyledTitle = styled.h1`
 `
 
 function CreateProperty() {
+  const [photos, setPhotos] = useState([]);
+
+  const handleUpload = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    photos.forEach((photo) => {
+      formData.append('photos[]', photo);
+    });
+
+    createProperty(formData)
+  };
+
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files);
+    setPhotos([...photos, ...files]);
+  };
+
+  const handleDelete = (photo) => {
+    setPhotos(photos.filter((p) => p !== photo));
+  };
   return (
     <WrapperPage>
       <StyledTitle>Create a property listing</StyledTitle>
       <Formik>
-        <Form>
+        <Form onSubmit={handleUpload}>
           <Input label="Address" placeholder="start typing to autocomplete" />
           <Input label="Monthly rent" type="number" placeholder="2000" />
           <Input label="Maintenance" type="number" placeholder="100" />
@@ -45,6 +66,15 @@ function CreateProperty() {
           <small>Renters will read this first, so highlight any features or important information the apartment has.</small>
           <h2>Photos</h2>
           <p>Upload as many photos as you wish</p>
+          <input type="file" onChange={handleFileChange} multiple />
+          <div style={{display: "flex"}}>
+            {photos?.map((photo) => (
+              <div key={photo.name}>
+                <img src={URL.createObjectURL(photo)} alt={photo.name} />
+                <button type="button" onClick={() => handleDelete(photo)}>Delete</button>
+              </div>
+            ))}
+          </div>
         </Form>
       </Formik>
     </WrapperPage>
