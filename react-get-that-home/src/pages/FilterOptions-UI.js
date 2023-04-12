@@ -14,6 +14,31 @@ const SectionFind = styled.div`
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     }
+
+    div.pages {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin: 0 auto;
+      width: 219px;
+      height: 31px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      div.page {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 31px;
+        height: 31px;
+        border: 1px solid ${colors.lightGray};
+        border-radius: 3px;
+      }
+    }
   }
 `;
 

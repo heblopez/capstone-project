@@ -11,6 +11,7 @@ import { BedBath } from '../modals/BedBath/BedBath';
 import BuyOrRent from '../modals/BuyOrRent/BuyOrRent';
 import Properties from '../services/properties-services';
 import Card from '../components/Card/Card';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 //filter by address
 function filterByAddress(properties, address) {
@@ -144,6 +145,7 @@ const FindPage = () => {
   const [showPrice, setShowPrices] = useState(false);
   const [showBuyRent, setShowbuyRent] = useState(false);
   const [properties, setProperties] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const initial = {
     address: '',
@@ -196,11 +198,14 @@ const FindPage = () => {
   }
 
   useEffect(() => {
-    Properties.get()
-      .then((prop) => {
-        setProperties(prop);
-      })
-      .catch(console.log);
+    const properties = setTimeout(() => {
+      Properties.get()
+        .then((prop) => {
+          setProperties(prop);
+        })
+        .catch(console.log);
+    }, 500);
+    return () => clearTimeout(properties);
   }, []);
 
   function handleGetPrice(data) {
@@ -246,7 +251,23 @@ const FindPage = () => {
   }
 
   const PropertiesFiltered = filterProperties(properties, filter);
-  console.log(PropertiesFiltered);
+
+  const pageSize = 9;
+  const totalPage = Math.ceil(PropertiesFiltered.length / pageSize);
+
+  function goToPage(pageNumber) {
+    setCurrentPage(pageNumber);
+  }
+
+  function getPage() {
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    return PropertiesFiltered.slice(startIndex, endIndex);
+  }
+
+  const currentPageData = getPage();
+
+  console.log(currentPageData);
 
   return (
     <SectionFind>
@@ -349,9 +370,37 @@ const FindPage = () => {
         </BarOption>
         <p> {PropertiesFiltered.length} Properties found</p>
         <div className='section-list'>
-          {PropertiesFiltered.map((property) => (
+          {currentPageData.map((property) => (
             <Card key={property.id} property={property} />
           ))}
+        </div>
+
+        <div className='pages'>
+          <IoIosArrowBack
+            onClick={() => {
+              currentPage <= 1 ? '' : goToPage(currentPage - 1);
+            }}
+          />
+          {Array.from({ length: totalPage }, (_, index) => (
+            <div
+              key={index}
+              className='page'
+              style={{
+                backgroundColor:
+                  currentPage == index + 1
+                    ? 'rgba(244, 143, 177, 0.15)'
+                    : 'white',
+                color: currentPage == index + 1 ? '#616161' : 'black',
+              }}
+            >
+              {index + 1}
+            </div>
+          ))}
+          <IoIosArrowForward
+            onClick={() => {
+              currentPage >= totalPage ? '' : goToPage(currentPage + 1);
+            }}
+          />
         </div>
       </div>
     </SectionFind>
