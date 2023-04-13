@@ -16,7 +16,22 @@ const User = {
   async getUser(id) {
     try {
       const response = await apiFetch(`/users/${id}`);
-      return response;
+      const { _token, ...user } = response;
+      return user;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  async upDateUser(id, data) {
+    try {
+      const response = await apiFetch(`/users/${id}`, {
+        method: 'PATCH',
+        body: data,
+      });
+      const { _token, ...user } = response;
+      window.location.reload();
+      return user;
     } catch (error) {
       console.error(error);
     }
