@@ -5,10 +5,12 @@ import Field from '../Inputs/Formik/Input';
 import * as Yup from 'yup';
 import Button from '../Button/Button';
 import FormJoin from './JoinForm-UI';
-import User from '../../services/user-services';
+import { useUser } from '../../context/UserContext';
 
 const JoinForm = () => {
+  const { signUp } = useUser();
   const { id } = useParams();
+  const role = id;
 
   const initialValues = {
     name: '',
@@ -49,10 +51,9 @@ const JoinForm = () => {
                 email: values.email,
                 phone: +values.phone,
                 password: values.password,
-                role: id,
+                role: role,
               };
-              console.log(data);
-              User.createUser(data);
+              signUp(data);
             }, 1000);
           }}
         >
