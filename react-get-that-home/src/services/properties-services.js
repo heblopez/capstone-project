@@ -1,6 +1,5 @@
 import apiFetch from './apiFetch';
-const tokenKey = import.meta.env.VITE_API_TOKEN_KEY;
-const BASE_URI = import.meta.env.VITE_API_BASE_URI;
+import { BASE_URI, TOKEN_KEY } from "../config"
 
 const Properties = {
   async get() {
@@ -25,7 +24,7 @@ const Properties = {
 export default Properties;
 
 const createProperty = async (new_property) => {
-  const token = sessionStorage.getItem(tokenKey);
+  const token = sessionStorage.getItem(TOKEN_KEY);
   try {
     await fetch(`${BASE_URI}/properties`, {
       method: 'POST',

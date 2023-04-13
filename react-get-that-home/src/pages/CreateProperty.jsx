@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { createProperty } from "../services/properties-services"
+import Button from '../components/Button/Button';
 import styled from "@emotion/styled";
 import { Form, Formik } from 'formik';
 import Field from "../components/Inputs/Formik/Input";
@@ -22,24 +23,25 @@ function CreateProperty() {
 
   const initialValues = {
     address: '',
-    type_operation: '',
+    type_operation: 'rent',
     monthly_rent: '',
     maintanance: '',
-    type_property: '',
-    bedrooms: '',
-    bathrooms: '',
+    type_property: 'house',
+    bedrooms: 2,
+    bathrooms: 2,
     area: '',
     pets_allowed: '',
-    description: '',
+    description: 'casa nuevaaaaaaa'
   };
 
-  const handleUpload = (event) => {
-    event.preventDefault();
+  const handleUpload = (value) => {
     const formData = new FormData();
     photos.forEach((photo) => {
       formData.append('photos[]', photo);
     });
-
+    for(const key in value) {
+      formData.append(key, value[key])
+    }
     createProperty(formData)
   };
 
@@ -54,8 +56,8 @@ function CreateProperty() {
   return (
     <WrapperPage>
       <StyledTitle>Create a property listing</StyledTitle>
-      <Formik initialValues={initialValues}>
-        <Form onSubmit={handleUpload}>
+      <Formik initialValues={initialValues} onSubmit={handleUpload}>
+        <Form>
           <Field name="address" label="Address" placeholder="start typing to autocomplete" />
           <Field name="monthly_rent" label="Monthly rent" type="number" placeholder="2000" />
           <Field name="maintanance" label="Maintanance" type="number" placeholder="100" />
@@ -87,6 +89,9 @@ function CreateProperty() {
               </div>
             ))}
           </div>
+          <Button type={'primary'} typeBtn={'submit'} size={'lg'}>
+                Publish Property Listing
+          </Button>
         </Form>
       </Formik>
     </WrapperPage>
