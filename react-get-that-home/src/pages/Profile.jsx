@@ -7,6 +7,7 @@ import { Form, Formik } from 'formik';
 import Button from '../components/Button/Button';
 import styled from '@emotion/styled';
 import { colors } from '../styles';
+import { ID } from '../config';
 
 const ProfileContainer = styled.div`
   margin: 30px 0;
@@ -52,7 +53,7 @@ const ProfileContainer = styled.div`
 `;
 
 const Profile = () => {
-  const { user } = useUser();
+  const { user, upDate } = useUser();
 
   const initialValue = {
     email: user.email,
@@ -71,7 +72,6 @@ const Profile = () => {
       .matches(phoneRegExp, 'Phone number is not valid')
       .required('Please Enter your Phone'),
   });
-  console.log(user.name);
 
   return (
     <ProfileContainer>
@@ -83,7 +83,13 @@ const Profile = () => {
           initialValues={initialValue}
           validationSchema={validates}
           onSubmit={(values) => {
-            console.log(values);
+            const data = {
+              email: values.email,
+              name: values.name,
+              phone: values.phone,
+            };
+            const id = sessionStorage.getItem(ID);
+            upDate(id, data);
           }}
         >
           {({ isValid }) => (
