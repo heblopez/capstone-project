@@ -18,8 +18,6 @@ function App() {
 
   const whoIs = user ? user.role : '';
 
-  console.log(user)
-
   return (
     <div>
       <BrowserRouter>

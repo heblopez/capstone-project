@@ -5,6 +5,7 @@ import { typography } from '../../styles/typography';
 const CreateSection = styled.div`
   width: 100%;
   height: 312px;
+  display: flex;
   background-color: ${colors.shallowpink};
 
   div.field-create {
@@ -22,9 +23,13 @@ const CreateSection = styled.div`
       padding: 0 30px;
     }
 
-    button {
-      width: 264px;
-      height: 56px;
+    a {
+      text-decoration: none;
+
+      button {
+        width: 264px;
+        height: 56px;
+      }
     }
   }
 `;

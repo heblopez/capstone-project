@@ -33,7 +33,7 @@ const Search = () => {
             <div className='search'>
               <Select label={`i'm looking for`} name='looking'>
                 <option value='aparment'>An Aparment</option>
-                <option value='house'>An House</option>
+                <option value='house'>A House</option>
               </Select>
             </div>
             <div className='search'>

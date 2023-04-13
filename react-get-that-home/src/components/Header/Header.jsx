@@ -110,8 +110,6 @@ const Header = ({ user, whoIs, getPage }) => {
   const landLord = whoIs;
   const seeker = whoIs;
 
-  console.log(seeker);
-
   return (
     <HeaderCtn>
       <nav className='nav'>
