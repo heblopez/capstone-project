@@ -59,7 +59,7 @@ const Profile = () => {
     email: user.email,
     name: user.name,
     phone: user.phone,
-    role: user.role ? 'home seeker' : '',
+    role: user.role === 'home_seeker' ? 'Home seeker' : 'LandLord',
   };
 
   const phoneRegExp =
