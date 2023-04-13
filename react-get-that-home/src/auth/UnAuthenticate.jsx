@@ -5,12 +5,8 @@ import JoinPage from '../pages/JoinPage/JoinPage';
 import FindPage from '../pages/FindPage';
 import CreateAccount from '../pages/JoinPage/CreateAccount';
 import PropertyPage from '../pages/PropertyPage';
-import { useProp } from '../context/Context';
 
 const UnAuthenticate = () => {
-  const { properties } = useProp();
-  console.log(properties);
-
   return (
     <div>
       <Routes>
