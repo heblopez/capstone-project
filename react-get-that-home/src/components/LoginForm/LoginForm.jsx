@@ -5,10 +5,10 @@ import Button from '../Button/Button';
 import { RiUserReceived2Line } from 'react-icons/ri';
 import * as Yup from 'yup';
 import Field from '../Inputs/Formik/Input';
-import { login } from '../../services/auth-services';
+import { useUser } from '../../context/UserContext';
 
 const LoginForm = () => {
-  const [user, setUser] = useState({});
+  const { login } = useUser();
   const initialValues = {
     email: '',
     password: '',
@@ -27,11 +27,7 @@ const LoginForm = () => {
           initialValues={initialValues}
           validationSchema={validates}
           onSubmit={(values) => {
-            login(values)
-              .then((user) => {
-                setUser(user);
-              })
-              .catch(console.log);
+            login(values);
           }}
         >
           <Form>

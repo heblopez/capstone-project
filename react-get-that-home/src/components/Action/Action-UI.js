@@ -11,7 +11,7 @@ const ActionComponent = styled.div`
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
   color: ${colors.white};
-  
+
   a {
     display: flex;
     align-content: center;

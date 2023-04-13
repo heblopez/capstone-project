@@ -5,6 +5,7 @@ import { Form, Formik } from 'formik';
 import Select from '../Inputs/Formik/Select';
 import Input from '../Inputs/Formik/Input';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 
 const Search = () => {
   const initialData = {
@@ -33,7 +34,7 @@ const Search = () => {
             <div className='search'>
               <Select label={`i'm looking for`} name='looking'>
                 <option value='aparment'>An Aparment</option>
-                <option value='house'>An House</option>
+                <option value='house'>A House</option>
               </Select>
             </div>
             <div className='search'>
@@ -50,9 +51,11 @@ const Search = () => {
               />
             </div>
             <div className='btn'>
-              <Button type={'primary'} typebtn={'submit'}>
-                search
-              </Button>
+              <Link to={'/find_a_home'}>
+                <Button type={'primary'} typebtn={'submit'}>
+                  search
+                </Button>
+              </Link>
             </div>
           </Form>
         </Formik>

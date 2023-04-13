@@ -21,7 +21,10 @@ const PropertyPage = () => {
   return (
     <div>
       <div>
-        <img src={property.photo} alt='' />
+        <img
+          src={property.photo_urls ? property.photo_urls[0] : ''}
+          alt='Photo'
+        />
         <p>{property.address}</p>
         <div>
           <p>$ {property.price}</p>

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useProp } from '../context/Context';
 import Button from '../components/Button/Button';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { SectionFind, BarOption } from './FilterOptions-UI';
@@ -9,10 +10,8 @@ import Property from '../modals/Property/Property';
 import Price from '../modals/Price/Price';
 import { BedBath } from '../modals/BedBath/BedBath';
 import BuyOrRent from '../modals/BuyOrRent/BuyOrRent';
-import Properties from '../services/properties-services';
 import Card from '../components/Card/Card';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { useProp } from '../context/Properties';
 
 //filter by address
 function filterByAddress(properties, address) {
@@ -140,20 +139,13 @@ function filterProperties(properties, filter) {
 }
 
 const FindPage = () => {
-  // const { properties } = useProp();
+  const { properties } = useProp();
   const [showMore, setShowMore] = useState(false);
   const [showBbth, setShowBbth] = useState(false);
   const [showProperties, setShowProperties] = useState(false);
   const [showPrice, setShowPrices] = useState(false);
   const [showBuyRent, setShowbuyRent] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [properties, setProperties] = useState([]);
-
-  useEffect(() => {
-    Properties.get().then((prop) => {
-      setProperties(prop);
-    });
-  }, []);
 
   const initial = {
     address: '',

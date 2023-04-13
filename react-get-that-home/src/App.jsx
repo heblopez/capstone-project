@@ -6,29 +6,27 @@ import Authenticate from './auth/Authenticate';
 import { useState } from 'react';
 import LoginForm from './components/LoginForm/LoginForm';
 import { createPortal } from 'react-dom';
+import { useUser } from './context/UserContext';
 
 function App() {
+  const { user } = useUser();
   const [showLogin, setShowLogin] = useState(false);
 
   function handleShowLogin() {
-    setShowLogin(true);
+    setShowLogin(!showLogin);
   }
 
-  function handleCloseLogin() {
-    setShowLogin(false);
-  }
-
-  const user = false; // create Context
-  const landLord = false; // create context de vendedor o comprador / rentador
+  const whoIs = user ? user.role : '';
 
   return (
     <div>
       <BrowserRouter>
-        <Header user={user} LandLord={landLord} getPage={handleShowLogin} />
-        {!user ? <UnAuthenticate /> : <Authenticate />}
+        <Header user={user} whoIs={whoIs} getPage={handleShowLogin} />
+        {user ? <Authenticate /> : <UnAuthenticate />}
         {showLogin &&
+          !user &&
           createPortal(<LoginForm />, document.getElementById('portal-login'))}
-        <Footer user={landLord} />
+        <Footer user={whoIs} />
       </BrowserRouter>
     </div>
   );
