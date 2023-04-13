@@ -41,8 +41,12 @@ const Searching = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      button {
-        width: 96px;
+
+      a {
+        text-decoration: none;
+        button {
+          width: 96px;
+        }
       }
     }
   }
