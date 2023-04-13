@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { colors, typography } from '../styles';
 import styled from '@emotion/styled';
+import Button from '../components/Button/Button';
+import { Link } from 'react-router-dom';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
 
 const MyPropContainer = styled.div`
   margin: 20px;
@@ -10,7 +13,17 @@ const MyPropContainer = styled.div`
     padding: 0 32px;
     margin: 0 auto;
 
-    div {
+    div.btn-new_property {
+      a {
+        text-decoration: none;
+
+        button {
+          width: 188px;
+        }
+      }
+    }
+
+    div.btns {
       display: flex;
       gap: 6px;
 
@@ -43,7 +56,15 @@ const MyProperties = () => {
   return (
     <MyPropContainer>
       <div className='container'>
-        <div>
+        <div className='btn-new_property'>
+          <Link to={'/new_property'}>
+            <Button type={'primary'}>
+              <AiOutlinePlusCircle />
+              new property
+            </Button>
+          </Link>
+        </div>
+        <div className='btns'>
           <button
             onClick={handleClick}
             className={section === 'active' ? 'active' : ''}
