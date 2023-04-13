@@ -58,8 +58,8 @@ function UserProvider({ children }) {
       );
   }
 
-  function upDate(userData) {
-    User.upDateUser(userData)
+  function upDate(id, userData) {
+    User.upDateUser(id, userData)
       .then((u) => setUser(u))
       .catch((error) =>
         setErrorLogin({
