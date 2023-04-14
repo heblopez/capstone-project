@@ -113,6 +113,15 @@ function filterByBuyingRenting(properties, type_operation) {
   return byBoR;
 }
 
+// function sort
+function sortedBy(properties) {
+  const sorted = properties.sort(
+    (a, b) => new Date(a.create_at) - new Date(b.create_at)
+  );
+  return sorted;
+}
+
+// filter properties by
 function filterProperties(properties, filter) {
   const {
     address,
@@ -138,6 +147,7 @@ function filterProperties(properties, filter) {
   return filteredByBoR;
 }
 
+// component Find Properties
 const FindPage = () => {
   const { properties } = useProp();
   const [showMore, setShowMore] = useState(false);
@@ -146,8 +156,7 @@ const FindPage = () => {
   const [showPrice, setShowPrices] = useState(false);
   const [showBuyRent, setShowbuyRent] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-
-  const initial = {
+  const [filter, setFilter] = useState({
     address: '',
     price: { min: 0, max: 9999999 },
     type_property: { house: null, apartment: null },
@@ -155,9 +164,7 @@ const FindPage = () => {
     pets: false,
     area: { min: 0, max: 999999 },
     type_operation: { both: true, buying: false, renting: false },
-  };
-
-  const [filter, setFilter] = useState(initial);
+  });
 
   function handleChange(e) {
     const name = e.target.name;
@@ -168,31 +175,37 @@ const FindPage = () => {
     });
   }
 
+  // show modal more
+  function handleShowMore() {
+    setShowMore(!showMore);
+  }
+
+  // show modal beds & bathrooms
+  function handleShowBbth() {
+    setShowBbth(!showBbth);
+  }
+
+  // show modal property type
+  function handleShowProperties() {
+    setShowProperties(!showProperties);
+  }
+
+  // Show modal price
+  function handleShowPrices() {
+    setShowPrices(!showPrice);
+  }
+
+  // show modal buy or rent
+  function handleShowbuyRent() {
+    setShowbuyRent(!showBuyRent);
+  }
+
+
   function handleChangeSearch(e) {
     setFilter({
       ...filter,
       address: e.target.value,
     });
-  }
-
-  function handleShowMore() {
-    setShowMore(!showMore);
-  }
-
-  function handleShowBbth() {
-    setShowBbth(!showBbth);
-  }
-
-  function handleShowProperties() {
-    setShowProperties(!showProperties);
-  }
-
-  function handleShowPrices() {
-    setShowPrices(!showPrice);
-  }
-
-  function handleShowbuyRent() {
-    setShowbuyRent(!showBuyRent);
   }
 
   function handleGetPrice(data) {
@@ -229,7 +242,6 @@ const FindPage = () => {
   }
 
   function handleGetMore(data) {
-    console.log(data);
     setFilter({
       ...filter,
       pets: data.pets,
@@ -237,9 +249,13 @@ const FindPage = () => {
     });
   }
 
-  const PropertiesFiltered = filterProperties(properties, filter);
+  // sort properties by create at
+  const propSorted = sortedBy(properties);
 
-  const pageSize = 9;
+  // properties filtered
+  const PropertiesFiltered = filterProperties(propSorted, filter);
+
+  const pageSize = 12;
   const totalPage = Math.ceil(PropertiesFiltered.length / pageSize);
 
   function goToPage(pageNumber) {

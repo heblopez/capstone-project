@@ -12,10 +12,10 @@ const BuyRent = styled.div`
     color: ${colors.white};
     display: flex;
     align-items: center;
-    justify-content: center;
     margin: 0;
     padding: 0;
-    gap: 8px;
+    padding-left: 8px;
+    gap: 4px;
 
     svg {
       width: 16px;

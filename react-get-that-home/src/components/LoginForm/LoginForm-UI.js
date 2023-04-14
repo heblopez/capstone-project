@@ -21,10 +21,32 @@ const ContainerModal = styled.div`
     padding: 16px;
     margin: 35vh auto;
     background-color: ${colors.white};
-    
+
     p.title-login {
       text-align: center;
       ${typography.head.headline5}
+    }
+
+    button.close {
+      position: absolute;
+      right: 1.3%;
+      top: 1.3%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border: none;
+      background-color: ${colors.darkpink2};
+      border-radius: 50%;
+
+      svg {
+        width: 20px;
+        height: 20px;
+        color: ${colors.white};
+        :hover {
+          transform: scale(1.1);
+        }
+      }
     }
 
     form {
