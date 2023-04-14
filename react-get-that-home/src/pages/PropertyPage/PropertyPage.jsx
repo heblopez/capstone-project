@@ -20,22 +20,24 @@ const PropertyPage = () => {
     return () => clearTimeout(property);
   }, []);
 
-  const { address, price,monthly_rent, maintanance, bedrooms, bathrooms, area, pets_allowed, description, photo_urls } = property;
+  const { address, price, monthly_rent, maintanance, bedrooms, bathrooms, area, pets_allowed, description, photo_urls } = property;
 
   const street = address ? address.split(',')[0].trim() : '';
   const city = address ? address.split(',')[1].trim() : '';
   const state = address ? address.split(',')[2].trim().split(' ')[0] : '';
 
-  if (address) {
-    const geocoder = new window.google.maps.Geocoder();
+  const queryMaps = (street + ', ' + city + ', ' + state) || address;
 
-    geocoder.geocode({ address: address }, (results, status) => {
+  const geocoder = new window.google.maps.Geocoder();
+
+  if (address) {
+    geocoder.geocode({ address: queryMaps }, (results, status) => {
       if (status === 'OK') {
         const map = new window.google.maps.Map(document.querySelector('.map'), {
           center: results[0].geometry.location,
           zoom: 12
         });
-
+  
         new window.google.maps.Marker({
           map: map,
           position: results[0].geometry.location

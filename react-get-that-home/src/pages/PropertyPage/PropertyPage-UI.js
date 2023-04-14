@@ -25,8 +25,19 @@ const Wrapper = styled.div`
   justify-content: center;
 
   div.container-photos {
-    width: 512px;
-    height: 384px;
+    display: flex;
+    width: 100%;
+    min-width: 512px;
+    height: auto;
+    max-height: 512px;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   div.title-and-price {
