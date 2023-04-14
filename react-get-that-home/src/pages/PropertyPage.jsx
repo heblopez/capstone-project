@@ -73,7 +73,7 @@ const PropertyPage = () => {
         {/* cuando el login es home seeker */}
         {whoIs === 'home_seeker' && (
           <Target>
-            <div className='btn-contact' onClick={handleShow}>
+            <div className='btn-contact'>
               <Button>contact advertiser</Button>
               <div>
                 <AiOutlineHeart />

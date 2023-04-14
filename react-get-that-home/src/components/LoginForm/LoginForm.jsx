@@ -36,6 +36,7 @@ const LoginForm = () => {
           validationSchema={validates}
           onSubmit={(values) => {
             login(values);
+            handleShow();
             navigate('/');
           }}
         >

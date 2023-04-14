@@ -17,9 +17,13 @@ const BuyRent = styled.div`
     padding-left: 8px;
     gap: 4px;
 
-    svg {
-      width: 16px;
-      height: 16px;
+    div.icon {
+      width: 18px;
+      height: 18px;
+      svg {
+        width: 16px;
+        height: 16px;
+      }
     }
 
     p {
