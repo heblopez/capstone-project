@@ -5,11 +5,20 @@ import { MainSection, Wrapper, SideBar, MapContainer} from './PropertyPage-UI';
 import { RiMoneyDollarCircleLine } from 'react-icons/ri';
 import { BiBed, BiBath, BiArea } from 'react-icons/bi';
 import PetsIcon from '../../assets/pets.svg';
+import { useUser } from '../../context/UserContext';
+import { useShow } from '../../context/ShowContext';
+import Button from '../../components/Button/Button';
+import Target from '../../components/Target/Target';
+import { AiOutlineUserAdd, AiOutlineHeart } from 'react-icons/ai';
 
 const PropertyPage = () => {
   const { id } = useParams();
+  const { user } = useUser();
+  const { handleShow } = useShow();
 
   const [property, setProperty] = useState({});
+
+  const whoIs = user ? user.role : '';
 
   useEffect(() => {
     const property = setTimeout(() => {
@@ -20,7 +29,7 @@ const PropertyPage = () => {
     return () => clearTimeout(property);
   }, []);
 
-  const { address, price, monthly_rent, maintanance, bedrooms, bathrooms, area, pets_allowed, description, photo_urls } = property;
+  const { address, price, monthly_rent, maintanance, bedrooms, bathrooms, area, pets_allowed, description, photo_urls, type_operation } = property;
 
   const street = address ? address.split(',')[0].trim() : '';
   const city = address ? address.split(',')[1].trim() : '';
@@ -65,9 +74,9 @@ const PropertyPage = () => {
           <div className='container-price'>
             <div className='price-dollar'>
               <RiMoneyDollarCircleLine size="40px" className='dollar-icon' />
-              <p className='text-xl'> {monthly_rent}</p>
+              <p className='text-xl'> {type_operation === 'rent' ? monthly_rent : price}</p>
             </div>
-            <span className='text-maintanance'>+ {maintanance}</span>
+            <span className='text-maintanance'>{type_operation === 'rent' ? `+ ${maintanance}` : ''}</span>
           </div>
         </div>
         <div className='info-property'>
@@ -101,7 +110,40 @@ const PropertyPage = () => {
           </div>
         </MapContainer>
     </Wrapper>
-    <SideBar>Boton para login</SideBar>
+    <SideBar>
+      {!user && (
+        <Target>
+          <p>Log in or Join to contact the advertiser</p>
+          <div className='btn-login' onClick={handleShow}>
+            <Button>
+              <AiOutlineUserAdd />
+              login
+            </Button>
+          </div>
+        </Target>
+      )}
+
+      {whoIs === 'home_seeker' && (
+        <Target>
+          <div className='btn-contact'>
+            <Button>contact advertiser</Button>
+            <div>
+              <AiOutlineHeart />
+              <p> Add to favorites</p>
+            </div>
+          </div>
+        </Target>
+      )}
+
+      {whoIs === 'landlord' && (
+        <div className='btn-edit_property'>
+          <Link to={`/edit/property/${id}`}>
+            <Button>edit property</Button>
+          </Link>
+        </div>
+      )}
+
+    </SideBar>
     </MainSection>
   );
 };

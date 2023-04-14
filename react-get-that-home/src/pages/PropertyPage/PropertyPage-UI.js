@@ -5,20 +5,19 @@ const MainSection = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  gap: 16px;
 `;
 
 const SideBar = styled.div`
-  width: 15%;
+  width: 20%;
 `;
 
 const Wrapper = styled.div`
   position: relative;
   margin: 0;
-  width: 85%;
+  width: 80%;
   height: auto;
   min-width: 600px;
-  padding: 32px 10%;
+  padding: 32px 32px 32px 10%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -136,7 +135,7 @@ const Wrapper = styled.div`
 
 const MapContainer = styled.div`
   width: 100%;
-  margin-top: 16px;
+  margin-top: 32px;
   display: flex;
   justify-content: center;
   align-items: center;
