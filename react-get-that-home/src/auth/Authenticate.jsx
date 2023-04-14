@@ -17,6 +17,8 @@ const Authenticate = () => {
         <Route path='/my_properties' element={<MyProperties />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/property/:id' element={<PropertyPage />} />
+        <Route path='/new_property' element={'new property form'} />
+        <Route path='/edit/property/:id' element={'Edit property'} />
       </Routes>
     </div>
   );
