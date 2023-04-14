@@ -158,11 +158,11 @@ const FindPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState({
     address: '',
-    price: { min: 0, max: 9999999 },
+    price: { min: 0, max: Infinity },
     type_property: { house: null, apartment: null },
     services: { bathrooms: 0, bedrooms: 0 },
     pets: false,
-    area: { min: 0, max: 999999 },
+    area: { min: 0, max: 999999999 },
     type_operation: { both: true, buying: false, renting: false },
   });
 
@@ -199,7 +199,6 @@ const FindPage = () => {
   function handleShowbuyRent() {
     setShowbuyRent(!showBuyRent);
   }
-
 
   function handleChangeSearch(e) {
     setFilter({
@@ -270,6 +269,14 @@ const FindPage = () => {
 
   const currentPageData = getPage();
 
+  function kFormatter(num) {
+    if (!num) return;
+
+    return Math.abs(num) > 999
+      ? '$' + Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + 'k'
+      : Math.sign(num) * Math.abs(num);
+  }
+
   return (
     <SectionFind>
       <div className='container'>
@@ -283,12 +290,23 @@ const FindPage = () => {
           </div>
           <div className='btns'>
             <div className='price' onClick={handleShowPrices}>
-              <Button>Price</Button>
+              <Button>
+                {!filter.price.min && filter.price.max === Infinity && 'Price'}
+                {filter.price.min ? kFormatter(filter.price.min) : ''}
+                {(filter.price.min ? filter.price.min : '') &&
+                  filter.price.max === Infinity &&
+                  '>='}
+                {(filter.price.min ? filter.price.min : '') &&
+                  filter.price.max !== Infinity &&
+                  '-'}
+                {!filter.price.min && filter.price.max !== Infinity && '<='}
+                {filter.price.max !== Infinity && kFormatter(filter.price.max)}
+              </Button>
             </div>
             <div className='price-modal'>
               {showPrice &&
                 createPortal(
-                  <Price getData={handleGetPrice} />,
+                  <Price getData={handleGetPrice} onClose={handleShowPrices} />,
                   document.querySelector('.price-modal')
                 )}
             </div>
