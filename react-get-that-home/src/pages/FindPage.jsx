@@ -255,7 +255,7 @@ const FindPage = () => {
   // properties filtered
   const PropertiesFiltered = filterProperties(propSorted, filter);
 
-  const pageSize = 9;
+  const pageSize = 12;
   const totalPage = Math.ceil(PropertiesFiltered.length / pageSize);
 
   function goToPage(pageNumber) {

@@ -37,7 +37,6 @@ function UserProvider({ children }) {
   }
 
   function logout() {
-    console.log('hola');
     Auth.logout()
       .then(() => {
         sessionStorage.removeItem(TOKEN_KEY);
