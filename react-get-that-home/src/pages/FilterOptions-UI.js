@@ -7,7 +7,7 @@ const SectionFind = styled.div`
   z-index: -10;
 
   div.container {
-    padding: 0 32px;
+    /* padding: 0 32px; */
 
     div.section-list {
       display: grid;

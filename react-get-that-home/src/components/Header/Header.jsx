@@ -76,7 +76,7 @@ function MyProperties() {
         <Link to={'/my_properties'}>
           <Button type={'primary'}>
             <RiHome8Line />
-            My promerties
+            My properties
           </Button>
         </Link>
       </div>
@@ -91,7 +91,7 @@ function MySaveProp() {
         <Link to={'/saved_properties'}>
           <Button type={'primary'}>
             <BsFillHeartFill />
-            saved promerties
+            saved properties
           </Button>
         </Link>
       </div>
