@@ -92,7 +92,7 @@ const BarOption = styled.div`
 
     div.beds-baths {
       button {
-        min-width: 147px;
+        min-width: 167px;
       }
     }
 
@@ -115,7 +115,7 @@ const BarOption = styled.div`
 
     div.bb-modal {
       position: relative;
-      transform: translateX(-200px) translateY(17px);
+      transform: translateX(-220px) translateY(17px);
     }
 
     div.more-modal {

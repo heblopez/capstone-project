@@ -160,7 +160,7 @@ const FindPage = () => {
     address: '',
     price: { min: 0, max: Infinity },
     type_property: { house: null, apartment: null },
-    services: { bathrooms: 0, bedrooms: 0 },
+    services: { bathrooms: null, bedrooms: null },
     pets: false,
     area: { min: 0, max: 999999999 },
     type_operation: { both: true, buying: false, renting: false },
@@ -339,12 +339,32 @@ const FindPage = () => {
 
             {/* beds and baths */}
             <div className='beds-baths' onClick={handleShowBbth}>
-              <Button>beds & baths</Button>
+              <Button>
+                {filter.services.bathrooms === null &&
+                  filter.services.bedrooms === null &&
+                  'beds & baths'}
+
+                <span>
+                  {filter.services.bedrooms === 0 && 0 + '+ BD,'}
+
+                  {filter.services.bedrooms !== 0 &&
+                    filter.services.bedrooms !== null &&
+                    filter.services.bedrooms + '+ BD,'}
+                </span>
+
+                <span>
+                  {filter.services.bathrooms === 0 && 0 + '+ BA'}
+
+                  {filter.services.bathrooms !== 0 &&
+                    filter.services.bathrooms !== null &&
+                    filter.services.bathrooms + '+ BA'}
+                </span>
+              </Button>
             </div>
             <div className='bb-modal'>
               {showBbth &&
                 createPortal(
-                  <BedBath getBB={handleGetBB} />,
+                  <BedBath getBB={handleGetBB} onClose={ handleShowBbth} />,
                   document.querySelector('.bb-modal')
                 )}
             </div>

@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import Button from '../../components/Button/Button';
 import BedBathModal from './BedBath-UI';
 
-const BedBath = ({ getBB }) => {
+const BedBath = ({ getBB, onClose }) => {
   const items = { Any: 0, '1+': 1, '2+': 2, '3+': 3, '4+': 4 };
   const [data, setData] = useState({ beds: 0, baths: 0 });
   const [activeBed, setActiveBed] = useState('Any');
   const [activeBath, setActiveBath] = useState('Any');
-
-  
 
   function handleBeds(e) {
     e.preventDefault();
@@ -30,6 +28,7 @@ const BedBath = ({ getBB }) => {
 
   function handleDone() {
     getBB(data);
+    onClose();
   }
 
   return (
@@ -71,11 +70,6 @@ const BedBath = ({ getBB }) => {
         </div>
         <div className='btn-done' onClick={handleDone}>
           <Button>done</Button>
-        </div>
-      </div>
-      <div className='result-content'>
-        <div className='result'>
-          {data.beds}+ BD, {data.baths}+ BA
         </div>
       </div>
     </BedBathModal>
