@@ -7,8 +7,6 @@ const SectionFind = styled.div`
   z-index: -10;
 
   div.container {
-    /* padding: 0 32px; */
-
     div.section-list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
@@ -82,25 +80,25 @@ const BarOption = styled.div`
 
     div.price {
       button {
-        width: 78px;
+        min-width: 78px;
       }
     }
 
     div.property-type {
       button {
-        width: 162px;
+        min-width: 220px;
       }
     }
 
     div.beds-baths {
       button {
-        width: 147px;
+        min-width: 167px;
       }
     }
 
     div.more {
       button {
-        width: 109px;
+        min-width: 109px;
       }
     }
 
@@ -112,12 +110,12 @@ const BarOption = styled.div`
 
     div.property-modal {
       position: relative;
-      transform: translateX(-188px) translateY(17px);
+      transform: translateX(-232px) translateY(17px);
     }
 
     div.bb-modal {
       position: relative;
-      transform: translateX(-200px) translateY(17px);
+      transform: translateX(-220px) translateY(17px);
     }
 
     div.more-modal {

@@ -67,31 +67,6 @@ const PrimeModal = styled.div`
         }
       }
     }
-
-    div.result-content {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-
-      div.result {
-        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        min-width: 135px;
-        height: 40px;
-        background: #f48fb1;
-        border-radius: 16px;
-        text-align: center;
-        padding: 0 15px;
-
-        p.price-range {
-          display: flex;
-          gap: 5px;
-        }
-      }
-    }
   }
 `;
 

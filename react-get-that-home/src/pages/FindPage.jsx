@@ -158,11 +158,11 @@ const FindPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState({
     address: '',
-    price: { min: 0, max: 9999999 },
+    price: { min: 0, max: Infinity },
     type_property: { house: null, apartment: null },
-    services: { bathrooms: 0, bedrooms: 0 },
+    services: { bathrooms: null, bedrooms: null },
     pets: false,
-    area: { min: 0, max: 999999 },
+    area: { min: 0, max: 999999999 },
     type_operation: { both: true, buying: false, renting: false },
   });
 
@@ -199,7 +199,6 @@ const FindPage = () => {
   function handleShowbuyRent() {
     setShowbuyRent(!showBuyRent);
   }
-
 
   function handleChangeSearch(e) {
     setFilter({
@@ -270,6 +269,14 @@ const FindPage = () => {
 
   const currentPageData = getPage();
 
+  function kFormatter(num) {
+    if (!num) return;
+
+    return Math.abs(num) > 999
+      ? '$' + Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + 'k'
+      : Math.sign(num) * Math.abs(num);
+  }
+
   return (
     <SectionFind>
       <div className='container'>
@@ -283,36 +290,81 @@ const FindPage = () => {
           </div>
           <div className='btns'>
             <div className='price' onClick={handleShowPrices}>
-              <Button>Price</Button>
+              <Button>
+                {!filter.price.min && filter.price.max === Infinity && 'Price'}
+                {filter.price.min ? kFormatter(filter.price.min) : ''}
+                {(filter.price.min ? filter.price.min : '') &&
+                  filter.price.max === Infinity &&
+                  '>='}
+                {(filter.price.min ? filter.price.min : '') &&
+                  filter.price.max !== Infinity &&
+                  '-'}
+                {!filter.price.min && filter.price.max !== Infinity && '<='}
+                {filter.price.max !== Infinity && kFormatter(filter.price.max)}
+              </Button>
             </div>
             <div className='price-modal'>
               {showPrice &&
                 createPortal(
-                  <Price getData={handleGetPrice} />,
+                  <Price getData={handleGetPrice} onClose={handleShowPrices} />,
                   document.querySelector('.price-modal')
                 )}
             </div>
 
             {/* Property type */}
             <div className='property-type' onClick={handleShowProperties}>
-              <Button>property type</Button>
+              <Button>
+                {!filter.type_property.house &&
+                  !filter.type_property.apartment &&
+                  'property type'}
+                {filter.type_property.house && 'Houses'}
+                <span>
+                  {filter.type_property.house &&
+                    filter.type_property.apartment &&
+                    '&'}
+                </span>
+                {filter.type_property.apartment && 'Aparments'}
+              </Button>
             </div>
             <div className='property-modal'>
               {showProperties &&
                 createPortal(
-                  <Property getProperty={handleGetProperty} />,
+                  <Property
+                    getProperty={handleGetProperty}
+                    onClose={handleShowProperties}
+                  />,
                   document.querySelector('.property-modal')
                 )}
             </div>
 
             {/* beds and baths */}
             <div className='beds-baths' onClick={handleShowBbth}>
-              <Button>beds & baths</Button>
+              <Button>
+                {filter.services.bathrooms === null &&
+                  filter.services.bedrooms === null &&
+                  'beds & baths'}
+
+                <span>
+                  {filter.services.bedrooms === 0 && 0 + '+ BD,'}
+
+                  {filter.services.bedrooms !== 0 &&
+                    filter.services.bedrooms !== null &&
+                    filter.services.bedrooms + '+ BD,'}
+                </span>
+
+                <span>
+                  {filter.services.bathrooms === 0 && 0 + '+ BA'}
+
+                  {filter.services.bathrooms !== 0 &&
+                    filter.services.bathrooms !== null &&
+                    filter.services.bathrooms + '+ BA'}
+                </span>
+              </Button>
             </div>
             <div className='bb-modal'>
               {showBbth &&
                 createPortal(
-                  <BedBath getBB={handleGetBB} />,
+                  <BedBath getBB={handleGetBB} onClose={handleShowBbth} />,
                   document.querySelector('.bb-modal')
                 )}
             </div>
@@ -327,7 +379,7 @@ const FindPage = () => {
             <div className='more-modal'>
               {showMore &&
                 createPortal(
-                  <More getMore={handleGetMore} />,
+                  <More getMore={handleGetMore} onClose={handleShowMore} />,
                   document.querySelector('.more-modal')
                 )}
             </div>
