@@ -5,7 +5,7 @@ import FindPage from '../pages/FindPage';
 import SavedProperties from '../pages/SavedProperties';
 import Profile from '../pages/Profile';
 import MyProperties from '../pages/MyProperties';
-import PropertyPage from '../pages/PropertyPage';
+import PropertyPage from '../pages/PropertyPage/PropertyPage';
 
 const Authenticate = () => {
   return (
