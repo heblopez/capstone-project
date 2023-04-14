@@ -16,6 +16,7 @@ const Wrapper = styled.div`
   position: relative;
   margin: 0;
   width: 85%;
+  height: auto;
   min-width: 600px;
   padding: 32px 10%;
   display: flex;
@@ -119,6 +120,12 @@ const Wrapper = styled.div`
       letter-spacing: 0.15px;
       color: ${colors.darkpink2};
       margin: 8px 0;
+  }
+
+  div.map-property {
+    width: 600px;
+    height: 600px;
+    margin: 16px 0;
   }
 `;
 

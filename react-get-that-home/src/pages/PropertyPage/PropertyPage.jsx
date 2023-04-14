@@ -16,6 +16,8 @@ const PropertyPage = () => {
       Properties.getProp(id)
         .then((prop) => setProperty(prop))
         .catch(console.log);
+
+      
     });
     return () => clearTimeout(property);
   }, []);
@@ -25,6 +27,28 @@ const PropertyPage = () => {
   const street = address ? address.split(',')[0].trim() : '';
   const city = address ? address.split(',')[1].trim() : '';
   const state = address ? address.split(',')[2].trim().split(' ')[0] : '';
+
+  if (address) {
+    const geocoder = new window.google.maps.Geocoder();
+
+    geocoder.geocode({ address: address }, (results, status) => {
+      if (status === 'OK') {
+        const map = new window.google.maps.Map(document.getElementById('map-property'), {
+          center: results[0].geometry.location,
+          zoom: 12
+        });
+
+        new window.google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+        });
+      } else {
+        console.log('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+
+  
 
   return (
     <MainSection>
@@ -42,7 +66,7 @@ const PropertyPage = () => {
           </div>
           <div className='container-price'>
             <div className='price-dollar'>
-              <RiMoneyDollarCircleLine className='dollar-icon' />
+              <RiMoneyDollarCircleLine size="40px" className='dollar-icon' />
               <p className='text-xl'> {monthly_rent}</p>
             </div>
             <span className='text-maintanance'>+ {maintanance}</span>
@@ -73,6 +97,9 @@ const PropertyPage = () => {
         <div className='about-location'>
           <h2>Location</h2>
           <p>{address}</p>
+        </div>
+        <div id='map-property' className='map-property'>
+          mapa
         </div>
     </Wrapper>
     <SideBar>Boton para login</SideBar>
