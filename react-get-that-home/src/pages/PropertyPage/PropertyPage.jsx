@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Properties from '../../services/properties-services';
-import { MainSection, Wrapper, SideBar} from './PropertyPage-UI';
+import { MainSection, Wrapper, SideBar, MapContainer} from './PropertyPage-UI';
 import { RiMoneyDollarCircleLine } from 'react-icons/ri';
 import { BiBed, BiBath, BiArea } from 'react-icons/bi';
 import PetsIcon from '../../assets/pets.svg';
@@ -15,9 +15,7 @@ const PropertyPage = () => {
     const property = setTimeout(() => {
       Properties.getProp(id)
         .then((prop) => setProperty(prop))
-        .catch(console.log);
-
-      
+        .catch(console.log);      
     });
     return () => clearTimeout(property);
   }, []);
@@ -33,7 +31,7 @@ const PropertyPage = () => {
 
     geocoder.geocode({ address: address }, (results, status) => {
       if (status === 'OK') {
-        const map = new window.google.maps.Map(document.getElementById('map-property'), {
+        const map = new window.google.maps.Map(document.querySelector('.map'), {
           center: results[0].geometry.location,
           zoom: 12
         });
@@ -47,8 +45,6 @@ const PropertyPage = () => {
       }
     });
   }
-
-  
 
   return (
     <MainSection>
@@ -98,9 +94,10 @@ const PropertyPage = () => {
           <h2>Location</h2>
           <p>{address}</p>
         </div>
-        <div id='map-property' className='map-property'>
-          mapa
-        </div>
+        <MapContainer>
+          <div className="map">
+          </div>
+        </MapContainer>
     </Wrapper>
     <SideBar>Boton para login</SideBar>
     </MainSection>
