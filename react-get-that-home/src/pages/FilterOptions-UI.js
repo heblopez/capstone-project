@@ -7,12 +7,11 @@ const SectionFind = styled.div`
   z-index: -10;
 
   div.container {
-    padding: 0 32px;
+    /* padding: 0 32px; */
 
     div.section-list {
-      padding: 16px 40px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
     }
 
     div.pages {
@@ -46,11 +45,14 @@ const BarOption = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
 
   div.input-search {
+    width: 240px;
     input {
       border: none;
-      width: 100%;
+      /* width: 100%; */
       height: 36px;
       border: 1px solid ${colors.pink};
       border-radius: 8px;

@@ -23,7 +23,7 @@ const BuildBy = () => {
             <BsGithub />
           </Content>
         </a>
-        <a href='' target='_blank'>
+        <a href='https://github.com/Wilder-wfo' target='_blank'>
           <Content description={'Wilder Flores'}>
             <BsGithub />
           </Content>

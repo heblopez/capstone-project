@@ -4,6 +4,7 @@ import { colors } from '../../styles/colors';
 const BuyRent = styled.div`
   position: absolute;
   transform: translateY(173px);
+  display: block;
 
   div.container {
     width: 110px;
@@ -12,14 +13,20 @@ const BuyRent = styled.div`
     color: ${colors.white};
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     margin: 0;
-    padding: 0;
-    gap: 8px;
+    /* padding: 0; */
+    padding: 8px;
+    gap: 4px;
 
-    svg {
-      width: 16px;
-      height: 16px;
+    div.icon {
+      width: 18px;
+      height: 18px;
+      
+      svg {
+        width: 16px;
+        height: 16px;
+      }
     }
 
     p {
