@@ -28,7 +28,9 @@ const BedBath = ({ getBB, onClose }) => {
 
   function handleDone() {
     getBB(data);
-    onClose();
+    setTimeout(() => {
+      onClose();
+    }, 500);
   }
 
   return (

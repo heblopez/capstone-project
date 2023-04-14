@@ -364,7 +364,7 @@ const FindPage = () => {
             <div className='bb-modal'>
               {showBbth &&
                 createPortal(
-                  <BedBath getBB={handleGetBB} onClose={ handleShowBbth} />,
+                  <BedBath getBB={handleGetBB} onClose={handleShowBbth} />,
                   document.querySelector('.bb-modal')
                 )}
             </div>
@@ -379,7 +379,7 @@ const FindPage = () => {
             <div className='more-modal'>
               {showMore &&
                 createPortal(
-                  <More getMore={handleGetMore} />,
+                  <More getMore={handleGetMore} onClose={handleShowMore} />,
                   document.querySelector('.more-modal')
                 )}
             </div>
