@@ -313,12 +313,26 @@ const FindPage = () => {
 
             {/* Property type */}
             <div className='property-type' onClick={handleShowProperties}>
-              <Button>property type</Button>
+              <Button>
+                {!filter.type_property.house &&
+                  !filter.type_property.apartment &&
+                  'property type'}
+                {filter.type_property.house && 'Houses'}
+                <span>
+                  {filter.type_property.house &&
+                    filter.type_property.apartment &&
+                    '&'}
+                </span>
+                {filter.type_property.apartment && 'Aparments'}
+              </Button>
             </div>
             <div className='property-modal'>
               {showProperties &&
                 createPortal(
-                  <Property getProperty={handleGetProperty} />,
+                  <Property
+                    getProperty={handleGetProperty}
+                    onClose={handleShowProperties}
+                  />,
                   document.querySelector('.property-modal')
                 )}
             </div>

@@ -86,7 +86,7 @@ const BarOption = styled.div`
 
     div.property-type {
       button {
-        min-width: 162px;
+        min-width: 220px;
       }
     }
 
@@ -110,7 +110,7 @@ const BarOption = styled.div`
 
     div.property-modal {
       position: relative;
-      transform: translateX(-188px) translateY(17px);
+      transform: translateX(-232px) translateY(17px);
     }
 
     div.bb-modal {

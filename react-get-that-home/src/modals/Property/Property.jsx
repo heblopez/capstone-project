@@ -4,7 +4,7 @@ import InputCR from '../../components/Inputs/Formik/InputCR';
 import Button from '../../components/Button/Button';
 import ModalProperty from './Property-UI';
 
-const Property = ({getProperty}) => {
+const Property = ({ getProperty, onClose }) => {
   return (
     <ModalProperty>
       <div className='container'>
@@ -19,8 +19,8 @@ const Property = ({getProperty}) => {
                 house: values.house ? 'house' : null,
                 apartment: values.apartment ? 'apartment' : null,
               };
-              console.log(data);
               getProperty(data);
+              onClose();
             }, 600);
           }}
         >
@@ -42,19 +42,6 @@ const Property = ({getProperty}) => {
                   </div>
                 </div>
               </Form>
-              <div
-                className={`${
-                  (values.house || values.apartment) && 'result-content'
-                }`}
-              >
-                <div className='result'>
-                  <p>
-                    {values.house && 'Houser'}{' '}
-                    {values.house && values.apartment && '&'}{' '}
-                    {values.apartment && 'Aparments'}
-                  </p>
-                </div>
-              </div>
             </>
           )}
         </Formik>
