@@ -5,7 +5,7 @@ const ForBuyRent = ({ operation, children }) => {
   return (
     <BuyRent>
       <div className='container'>
-        {children}
+        <div className='icon'>{children}</div>
         <p>For {operation}</p>
       </div>
     </BuyRent>

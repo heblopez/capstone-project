@@ -6,7 +6,7 @@ import Button from '../../components/Button/Button';
 import * as Yup from 'yup';
 import PrimeModal from './Price-UI';
 
-const Price = ({ getData }) => {
+const Price = ({ getData, onClose }) => {
   function kFormatter(num) {
     if (num === 0) return '';
 
@@ -30,8 +30,8 @@ const Price = ({ getData }) => {
                 min: +values.min,
                 max: +values.max,
               };
-              // console.log(data);
               getData(data);
+              onClose();
             }, 500);
           }}
         >
@@ -70,24 +70,6 @@ const Price = ({ getData }) => {
                   </div>
                 </div>
               </Form>
-              {}
-              <div
-                className={`${
-                  (values.min || values.max) !== '' ? 'result-content' : ''
-                }`}
-              >
-                <div className='result'>
-                  <p className='price-range'>
-                    <span>{kFormatter(values.min * 1000)}</span>
-                    <span>
-                      {values.max !== '' && values.min !== '' && '-'}
-                      {values.max !== '' && values.min === '' && '<='}
-                      {values.max === '' && values.min !== '' && '>='}
-                    </span>
-                    <span>{kFormatter(values.max * 1000)}</span>
-                  </p>
-                </div>
-              </div>
             </>
           )}
         </Formik>

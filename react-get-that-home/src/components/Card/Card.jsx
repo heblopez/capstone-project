@@ -10,7 +10,7 @@ const Card = ({ property }) => {
       <Link to={`/property/${property.id}`}>
         <Property prop={property} />
       </Link>
-      <Action isActive='none' />
+      <Action id={property.id} />
     </CardContainer>
   );
 };

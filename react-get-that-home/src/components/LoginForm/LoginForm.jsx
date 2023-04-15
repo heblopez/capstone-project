@@ -1,14 +1,19 @@
 import { Form, Formik } from 'formik';
-import React, { useState } from 'react';
+import React from 'react';
 import ContainerModal from './LoginForm-UI';
 import Button from '../Button/Button';
 import { RiUserReceived2Line } from 'react-icons/ri';
 import * as Yup from 'yup';
 import Field from '../Inputs/Formik/Input';
-import { login } from '../../services/auth-services';
+import { useUser } from '../../context/UserContext';
+import { useNavigate } from 'react-router-dom';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { useShow } from '../../context/ShowContext';
 
 const LoginForm = () => {
-  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+  const { handleShow } = useShow();
+  const { login } = useUser();
   const initialValues = {
     email: '',
     password: '',
@@ -23,15 +28,16 @@ const LoginForm = () => {
     <ContainerModal>
       <div className='content-modal'>
         <p className='title-login'>Login</p>
+        <button className='close' onClick={handleShow}>
+          <AiOutlineCloseCircle />
+        </button>
         <Formik
           initialValues={initialValues}
           validationSchema={validates}
           onSubmit={(values) => {
-            login(values)
-              .then((user) => {
-                setUser(user);
-              })
-              .catch(console.log);
+            login(values);
+            handleShow();
+            navigate('/');
           }}
         >
           <Form>

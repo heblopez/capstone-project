@@ -6,7 +6,7 @@ import Field from '../../components/Inputs/Formik/Input';
 import InputCR from '../../components/Inputs/Formik/InputCR';
 import * as Yup from 'yup';
 
-const More = ({ getMore }) => {
+const More = ({ getMore, onClose }) => {
   const initialValues = {
     pets: false,
     min: '',
@@ -31,7 +31,8 @@ const More = ({ getMore }) => {
                 max: +values.max,
               };
               getMore(data);
-            }, 1000);
+              onClose();
+            }, 400);
           }}
         >
           <Form>

@@ -1,21 +1,21 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import Properties from '../services/properties-services';
-
 const PropertyContext = createContext();
 
 function PropertyProvider({ children }) {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
-    Properties.get()
-      .then((prop) => setProperties(prop))
-      .catch(console.log);
+    const properties = setTimeout(() => {
+      Properties.get()
+        .then((prop) => setProperties(prop))
+        .catch(console.log);
+    }, 500);
+    return () => clearTimeout(properties);
   }, []);
 
-  // console.log(properties);
-
   return (
-    <PropertyContext.Provider value={properties}>
+    <PropertyContext.Provider value={{ properties }}>
       {children}
     </PropertyContext.Provider>
   );

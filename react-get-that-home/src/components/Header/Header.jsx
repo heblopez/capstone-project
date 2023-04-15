@@ -7,7 +7,9 @@ import { BiLogOutCircle, BiUser } from 'react-icons/bi';
 import { BsFillHeartFill } from 'react-icons/bs';
 import logo from '../../assets/icon-gth.svg';
 import HeaderCtn from './Header-UI';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useUser } from '../../context/UserContext';
+import { useShow } from '../../context/ShowContext';
 
 function Find() {
   return (
@@ -24,7 +26,8 @@ function Find() {
   );
 }
 
-function UnAthenticate({ getPage }) {
+function UnAthenticate() {
+  const { handleShow } = useShow();
   return (
     <>
       <div className='btn-join'>
@@ -35,7 +38,7 @@ function UnAthenticate({ getPage }) {
           </Button>
         </Link>
       </div>
-      <div className='btn-login' onClick={getPage}>
+      <div className='btn-login' onClick={handleShow}>
         <Button type={'primary'}>
           <RiUserReceived2Line />
           login
@@ -46,9 +49,17 @@ function UnAthenticate({ getPage }) {
 }
 
 function Logout() {
+  const navigate = useNavigate();
+  const { logout } = useUser();
+
+  function handleClick() {
+    logout();
+    navigate('/');
+  }
+
   return (
     <>
-      <div className='btn-logout'>
+      <div className='btn-logout' onClick={handleClick}>
         <Button type={'secundary'}>
           <BiLogOutCircle />
           logout
@@ -62,42 +73,51 @@ function MyProperties() {
   return (
     <>
       <div className='btn-my-properties'>
-        <Button type={'primary'}>
-          <RiHome8Line />
-          My promerties
-        </Button>
+        <Link to={'/my_properties'}>
+          <Button type={'primary'}>
+            <RiHome8Line />
+            My properties
+          </Button>
+        </Link>
       </div>
     </>
   );
 }
 
 function MySaveProp() {
-  <>
-    <div className='btn-save-properties'>
-      <Button type={'primary'}>
-        <BsFillHeartFill />
-        saved promerties
-      </Button>
-    </div>
-  </>;
+  return (
+    <>
+      <div className='btn-save-properties'>
+        <Link to={'/saved_properties'}>
+          <Button type={'primary'}>
+            <BsFillHeartFill />
+            saved properties
+          </Button>
+        </Link>
+      </div>
+    </>
+  );
 }
 
 function Profile() {
   return (
     <>
       <div className='btn-profile' id='profile'>
-        <Button type={'primary'} click>
-          <BiUser />
-          profile
-        </Button>
+        <Link to={'/profile'}>
+          <Button type={'primary'} click>
+            <BiUser />
+            profile
+          </Button>
+        </Link>
       </div>
     </>
   );
 }
 
-const Header = ({ user, LandLord, getPage }) => {
+const Header = ({ user, whoIs, getPage }) => {
   const isLogin = user;
-  const isLandLord = LandLord;
+  const landLord = whoIs;
+  const seeker = whoIs;
 
   return (
     <HeaderCtn>
@@ -113,8 +133,8 @@ const Header = ({ user, LandLord, getPage }) => {
               {<Find />}
               {!isLogin && <UnAthenticate getPage={getPage} />}
               {isLogin && <Logout />}
-              {isLogin && isLandLord && <MyProperties />}
-              {isLogin && !isLandLord && <MySaveProp />}
+              {isLogin && landLord === 'landlord' && <MyProperties />}
+              {isLogin && seeker === 'home_seeker' && <MySaveProp />}
               {isLogin && <Profile />}
             </div>
           </div>

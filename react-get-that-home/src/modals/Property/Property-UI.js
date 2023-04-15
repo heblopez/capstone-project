@@ -6,7 +6,7 @@ const ModalProperty = styled.div`
   position: absolute;
 
   div.container {
-    width: 211px;
+    min-width: 211px;
     height: 116px;
     padding: 8px;
     margin-top: 10px;
@@ -28,6 +28,7 @@ const ModalProperty = styled.div`
           display: flex;
           align-items: center;
           justify-content: space-between;
+          gap: 10px;
         }
       }
 
@@ -42,26 +43,6 @@ const ModalProperty = styled.div`
           height: 32px;
           border-radius: 8px;
         }
-      }
-    }
-
-    div.result-content {
-      display: flex;
-      justify-content: center;
-      margin: 20px 0;
-
-      div.result {
-        box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        min-width: 135px;
-        height: 40px;
-        background: #f48fb1;
-        border-radius: 16px;
-        text-align: center;
-        padding: 0 15px;
       }
     }
   }

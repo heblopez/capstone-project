@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useProp } from '../context/Context';
 import Button from '../components/Button/Button';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { SectionFind, BarOption } from './FilterOptions-UI';
@@ -9,10 +10,8 @@ import Property from '../modals/Property/Property';
 import Price from '../modals/Price/Price';
 import { BedBath } from '../modals/BedBath/BedBath';
 import BuyOrRent from '../modals/BuyOrRent/BuyOrRent';
-import Properties from '../services/properties-services';
 import Card from '../components/Card/Card';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { useProp } from '../context/Properties';
 
 //filter by address
 function filterByAddress(properties, address) {
@@ -114,6 +113,15 @@ function filterByBuyingRenting(properties, type_operation) {
   return byBoR;
 }
 
+// function sort
+function sortedBy(properties) {
+  const sorted = properties.sort(
+    (a, b) => new Date(a.create_at) - new Date(b.create_at)
+  );
+  return sorted;
+}
+
+// filter properties by
 function filterProperties(properties, filter) {
   const {
     address,
@@ -139,33 +147,24 @@ function filterProperties(properties, filter) {
   return filteredByBoR;
 }
 
+// component Find Properties
 const FindPage = () => {
-  // const { properties } = useProp();
+  const { properties } = useProp();
   const [showMore, setShowMore] = useState(false);
   const [showBbth, setShowBbth] = useState(false);
   const [showProperties, setShowProperties] = useState(false);
   const [showPrice, setShowPrices] = useState(false);
   const [showBuyRent, setShowbuyRent] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [properties, setProperties] = useState([]);
-
-  useEffect(() => {
-    Properties.get().then((prop) => {
-      setProperties(prop);
-    });
-  }, []);
-
-  const initial = {
+  const [filter, setFilter] = useState({
     address: '',
-    price: { min: 0, max: 9999999 },
+    price: { min: 0, max: Infinity },
     type_property: { house: null, apartment: null },
-    services: { bathrooms: 0, bedrooms: 0 },
+    services: { bathrooms: null, bedrooms: null },
     pets: false,
-    area: { min: 0, max: 999999 },
+    area: { min: 0, max: 999999999 },
     type_operation: { both: true, buying: false, renting: false },
-  };
-
-  const [filter, setFilter] = useState(initial);
+  });
 
   function handleChange(e) {
     const name = e.target.name;
@@ -176,31 +175,36 @@ const FindPage = () => {
     });
   }
 
+  // show modal more
+  function handleShowMore() {
+    setShowMore(!showMore);
+  }
+
+  // show modal beds & bathrooms
+  function handleShowBbth() {
+    setShowBbth(!showBbth);
+  }
+
+  // show modal property type
+  function handleShowProperties() {
+    setShowProperties(!showProperties);
+  }
+
+  // Show modal price
+  function handleShowPrices() {
+    setShowPrices(!showPrice);
+  }
+
+  // show modal buy or rent
+  function handleShowbuyRent() {
+    setShowbuyRent(!showBuyRent);
+  }
+
   function handleChangeSearch(e) {
     setFilter({
       ...filter,
       address: e.target.value,
     });
-  }
-
-  function handleShowMore() {
-    setShowMore(!showMore);
-  }
-
-  function handleShowBbth() {
-    setShowBbth(!showBbth);
-  }
-
-  function handleShowProperties() {
-    setShowProperties(!showProperties);
-  }
-
-  function handleShowPrices() {
-    setShowPrices(!showPrice);
-  }
-
-  function handleShowbuyRent() {
-    setShowbuyRent(!showBuyRent);
   }
 
   function handleGetPrice(data) {
@@ -237,7 +241,6 @@ const FindPage = () => {
   }
 
   function handleGetMore(data) {
-    console.log(data);
     setFilter({
       ...filter,
       pets: data.pets,
@@ -245,9 +248,13 @@ const FindPage = () => {
     });
   }
 
-  const PropertiesFiltered = filterProperties(properties, filter);
+  // sort properties by create at
+  const propSorted = sortedBy(properties);
 
-  const pageSize = 9;
+  // properties filtered
+  const PropertiesFiltered = filterProperties(propSorted, filter);
+
+  const pageSize = 12;
   const totalPage = Math.ceil(PropertiesFiltered.length / pageSize);
 
   function goToPage(pageNumber) {
@@ -262,6 +269,14 @@ const FindPage = () => {
 
   const currentPageData = getPage();
 
+  function kFormatter(num) {
+    if (!num) return;
+
+    return Math.abs(num) > 999
+      ? '$' + Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + 'k'
+      : Math.sign(num) * Math.abs(num);
+  }
+
   return (
     <SectionFind>
       <div className='container'>
@@ -275,36 +290,81 @@ const FindPage = () => {
           </div>
           <div className='btns'>
             <div className='price' onClick={handleShowPrices}>
-              <Button>Price</Button>
+              <Button>
+                {!filter.price.min && filter.price.max === Infinity && 'Price'}
+                {filter.price.min ? kFormatter(filter.price.min) : ''}
+                {(filter.price.min ? filter.price.min : '') &&
+                  filter.price.max === Infinity &&
+                  '>='}
+                {(filter.price.min ? filter.price.min : '') &&
+                  filter.price.max !== Infinity &&
+                  '-'}
+                {!filter.price.min && filter.price.max !== Infinity && '<='}
+                {filter.price.max !== Infinity && kFormatter(filter.price.max)}
+              </Button>
             </div>
             <div className='price-modal'>
               {showPrice &&
                 createPortal(
-                  <Price getData={handleGetPrice} />,
+                  <Price getData={handleGetPrice} onClose={handleShowPrices} />,
                   document.querySelector('.price-modal')
                 )}
             </div>
 
             {/* Property type */}
             <div className='property-type' onClick={handleShowProperties}>
-              <Button>property type</Button>
+              <Button>
+                {!filter.type_property.house &&
+                  !filter.type_property.apartment &&
+                  'property type'}
+                {filter.type_property.house && 'Houses'}
+                <span>
+                  {filter.type_property.house &&
+                    filter.type_property.apartment &&
+                    '&'}
+                </span>
+                {filter.type_property.apartment && 'Aparments'}
+              </Button>
             </div>
             <div className='property-modal'>
               {showProperties &&
                 createPortal(
-                  <Property getProperty={handleGetProperty} />,
+                  <Property
+                    getProperty={handleGetProperty}
+                    onClose={handleShowProperties}
+                  />,
                   document.querySelector('.property-modal')
                 )}
             </div>
 
             {/* beds and baths */}
             <div className='beds-baths' onClick={handleShowBbth}>
-              <Button>beds & baths</Button>
+              <Button>
+                {filter.services.bathrooms === null &&
+                  filter.services.bedrooms === null &&
+                  'beds & baths'}
+
+                <span>
+                  {filter.services.bedrooms === 0 && 0 + '+ BD,'}
+
+                  {filter.services.bedrooms !== 0 &&
+                    filter.services.bedrooms !== null &&
+                    filter.services.bedrooms + '+ BD,'}
+                </span>
+
+                <span>
+                  {filter.services.bathrooms === 0 && 0 + '+ BA'}
+
+                  {filter.services.bathrooms !== 0 &&
+                    filter.services.bathrooms !== null &&
+                    filter.services.bathrooms + '+ BA'}
+                </span>
+              </Button>
             </div>
             <div className='bb-modal'>
               {showBbth &&
                 createPortal(
-                  <BedBath getBB={handleGetBB} />,
+                  <BedBath getBB={handleGetBB} onClose={handleShowBbth} />,
                   document.querySelector('.bb-modal')
                 )}
             </div>
@@ -319,7 +379,7 @@ const FindPage = () => {
             <div className='more-modal'>
               {showMore &&
                 createPortal(
-                  <More getMore={handleGetMore} />,
+                  <More getMore={handleGetMore} onClose={handleShowMore} />,
                   document.querySelector('.more-modal')
                 )}
             </div>

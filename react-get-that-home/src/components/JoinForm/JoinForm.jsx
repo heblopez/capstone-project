@@ -1,13 +1,17 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Field from '../Inputs/Formik/Input';
 import * as Yup from 'yup';
 import Button from '../Button/Button';
 import FormJoin from './JoinForm-UI';
+import { useUser } from '../../context/UserContext';
 
 const JoinForm = () => {
+  const navigate = useNavigate();
+  const { signUp } = useUser();
   const { id } = useParams();
+  const role = id;
 
   const initialValues = {
     name: '',
@@ -48,9 +52,10 @@ const JoinForm = () => {
                 email: values.email,
                 phone: +values.phone,
                 password: values.password,
-                role: id,
+                role: role,
               };
-              console.log(data);
+              signUp(data);
+              navigate('/');
             }, 1000);
           }}
         >
