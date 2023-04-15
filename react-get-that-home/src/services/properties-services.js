@@ -1,4 +1,5 @@
 import apiFetch from './apiFetch';
+import { BASE_URI, TOKEN_KEY } from "../config"
 
 const Properties = {
   async get() {
@@ -21,3 +22,22 @@ const Properties = {
 };
 
 export default Properties;
+
+const createProperty = async (new_property) => {
+  const token = sessionStorage.getItem(TOKEN_KEY);
+  try {
+    await fetch(`${BASE_URI}/properties`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: new_property,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export {
+  createProperty
+}
