@@ -34,23 +34,28 @@ const WrapperForm = styled.div`
       }
 
       div.services {
-        display: flex;
-        align-items: center;
-        gap: 16px;
+        div.services--inputs {
+          display: flex;
+          justify-content: flex-start;
+          gap: 16px;
 
-        div.select {
-          width: 120px;
+          div.select {
+            width: 120px;
+          }
         }
       }
 
-      div.check-text {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
+      div.list-check__text {
+        div.check-text {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
 
-        small {
-          ${typography.caption}
-          color: ${colors.gray};
+          small {
+            margin: 8px 0;
+            ${typography.caption}
+            color: ${colors.gray};
+          }
         }
       }
 

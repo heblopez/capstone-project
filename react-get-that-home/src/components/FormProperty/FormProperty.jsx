@@ -42,15 +42,21 @@ const FormProperty = ({ initialValues }) => {
   const validates = Yup.object({
     address: Yup.string().required('Enter the address'),
     type_operation: Yup.string(),
-    monthly_rent: Yup.number().positive().required(),
-    maintanance: Yup.number().positive(),
-    price: Yup.number().positive().required(),
-    type_property: Yup.string().required(),
-    bedrooms: Yup.number().positive().required(),
-    bathrooms: Yup.number().positive().required(),
-    area: Yup.number().positive().required(),
+    monthly_rent:
+      rentOrSale === 'rent' &&
+      Yup.number().positive().required('Monthly rent is a required'),
+    maintanance:
+      rentOrSale === 'rent' && Yup.number().positive().required('Required'),
+    price:
+      rentOrSale === 'sale' && Yup.number().positive().required('Required'),
+    type_property: Yup.string(),
+    bedrooms: Yup.number().positive().required('Is required'),
+    bathrooms: Yup.number().positive().required('Is required'),
+    area: Yup.number().positive().required('Is required'),
     pets_allowed: Yup.boolean(),
-    description: Yup.string().min(15, 'Must to be 15 characters or greater'),
+    description: Yup.string()
+      .min(15, 'Must to be 15 characters or greater')
+      .required(),
   });
 
   return (
@@ -59,175 +65,193 @@ const FormProperty = ({ initialValues }) => {
         initialValues={initialValues}
         validationSchema={validates}
         onSubmit={(values) => {
-          const newProperty = {
-            address: values.address,
-            type_operation: rentOrSale,
-            monthly_rent: values.monthly_rent,
-            maintanance: values.maintanance,
-            price: values.price,
-            type_property: values.house
-              ? 'house'
-              : values.apartment
-              ? 'apartment'
-              : null,
-            bedrooms: values.bedrooms,
-            bathrooms: values.bathrooms,
-            area: values.area,
-            pets_allowed: values.pets_allowed,
-            description: values.description,
-          };
-          handleUpload(newProperty);
-          navigate('/my_properties');
+          setTimeout(() => {
+            const newProperty = {
+              address: values.address,
+              type_operation: rentOrSale,
+              monthly_rent: values.monthly_rent,
+              maintanance: values.maintanance,
+              price: values.price,
+              type_property: values.house
+                ? 'house'
+                : values.apartment
+                ? 'apartment'
+                : null,
+              bedrooms: values.bedrooms,
+              bathrooms: values.bathrooms,
+              area: values.area,
+              pets_allowed: values.pets_allowed,
+              description: values.description,
+            };
+            handleUpload(newProperty);
+            navigate('/my_properties');
+          }, 1000);
         }}
       >
-        <Form>
-          <div className='form-create'>
-            <Field
-              name='address'
-              label='Address'
-              placeholder='start typing to autocomplete'
-            >
-              <FiSearch />
-            </Field>
-            {rentOrSale === 'rent' ? (
-              <>
-                <div className='montly-rent'>
+        {({ isValid }) => (
+          <Form>
+            <div className='form-create'>
+              <Field
+                name='address'
+                label='Address'
+                placeholder='start typing to autocomplete'
+              >
+                <FiSearch />
+              </Field>
+              {rentOrSale === 'rent' ? (
+                <>
+                  <div className='montly-rent'>
+                    <Field
+                      name='monthly_rent'
+                      label='Monthly rent'
+                      type='number'
+                      placeholder='2000'
+                    >
+                      <HiOutlineCurrencyDollar />
+                    </Field>
+                  </div>
+                  <div className='maintance'>
+                    <Field
+                      name='maintanance'
+                      label='Maintanance'
+                      type='number'
+                      placeholder='100'
+                    >
+                      <HiOutlineCurrencyDollar />
+                    </Field>
+                  </div>
+                </>
+              ) : (
+                <div className='price'>
                   <Field
-                    name='monthly_rent'
-                    label='Monthly rent'
-                    type='number'
-                    placeholder='2000'
-                  >
-                    <HiOutlineCurrencyDollar />
-                  </Field>
-                </div>
-                <div className='maintance'>
-                  <Field
-                    name='maintanance'
-                    label='Maintanance'
+                    name='price'
+                    label='Price'
                     type='number'
                     placeholder='100'
                   >
                     <HiOutlineCurrencyDollar />
                   </Field>
                 </div>
-              </>
-            ) : (
-              <div className='price'>
-                <Field
-                  name='price'
-                  label='Price'
-                  type='number'
-                  placeholder='100'
-                >
-                  <HiOutlineCurrencyDollar />
-                </Field>
-              </div>
-            )}
-            <div className='property-type'>
-              <label className='label--property-type'>Property Type</label>
-              <div className='checkboxes'>
-                <InputCR type='checkbox' id='apartment' name='apartment'>
-                  Apartment
-                </InputCR>
-                <InputCR type='checkbox' id='house' name='house'>
-                  House
-                </InputCR>
-              </div>
-            </div>
-
-            <div className='services'>
-              <div className='select'>
-                <Select name='bedrooms' label='Bedrooms'>
-                  <option>Select...</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                </Select>
-              </div>
-              <div className='select'>
-                <Select name='bathrooms' label='Bathrooms'>
-                  <option>Select...</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                </Select>
-              </div>
-              <div className='select'>
-                <Field
-                  name='area'
-                  label='Area in m2'
-                  type='number'
-                  placeholder='##'
-                />
-              </div>
-            </div>
-            <div className='check-text'>
-              <InputCR type='checkbox' id='pets_allowed' name='pets_allowed'>
-                Pets Allowed
-              </InputCR>
-              <small className='small'>
-                Allowing pets increases the likehood of renters liking the
-                property by 9001%. It also makes you a better person.
-              </small>
-            </div>
-            <div className='check-text'>
-              <Field
-                label={'About this property'}
-                name='description'
-                as='textarea'
-                placeholder='My apartment is great because...'
-              />
-              <small>
-                Renters will read this first, so highlight any features or
-                important information the apartment has.
-              </small>
-            </div>
-
-            <div className='charge-photo'>
-              <p className='title-photo'>Photos</p>
-              <p className='upload'>Upload as many photos as you wish</p>
-              <div className='input-upload'>
-                <label className='upload' htmlFor='file-upload'>
-                  Choose a file
-                  <input
-                    type='file'
-                    id='file-upload'
-                    name='file-upload'
-                    onChange={handleFileChange}
-                    multiple
-                  />
-                </label>
-                <label htmlFor='file-upload' className='file-no'>
-                  No file chosen
-                </label>
-                <div className='icon-upload'>
-                  <AiOutlineUpload />
-                </div>
-                <div className='size-img'>
-                  <small className='size-max'>Only images, max 5MB</small>
+              )}
+              <div className='property-type'>
+                <label className='label--property-type'>Property Type</label>
+                <div className='checkboxes'>
+                  <InputCR type='checkbox' id='apartment' name='apartment'>
+                    Apartment
+                  </InputCR>
+                  <InputCR type='checkbox' id='house' name='house'>
+                    House
+                  </InputCR>
                 </div>
               </div>
-              <div style={{ display: 'flex' }}>
-                {photos?.map((photo) => (
-                  <div key={photo.name}>
-                    <img src={URL.createObjectURL(photo)} alt={photo.name} />
-                    <button type='button' onClick={() => handleDelete(photo)}>
-                      Delete
-                    </button>
+
+              <div className='services'>
+                <div className='services--inputs'>
+                  <div className='select'>
+                    <Select name='bedrooms' label='Bedrooms'>
+                      <option>Select...</option>
+                      <option value={1}>1</option>
+                      <option value={2}>2</option>
+                      <option value={3}>3</option>
+                      <option value={4}>4</option>
+                    </Select>
                   </div>
-                ))}
+                  <div className='select'>
+                    <Select name='bathrooms' label='Bathrooms'>
+                      <option>Select...</option>
+                      <option value={1}>1</option>
+                      <option value={2}>2</option>
+                      <option value={3}>3</option>
+                      <option value={4}>4</option>
+                    </Select>
+                  </div>
+                  <div className='select'>
+                    <Field
+                      name='area'
+                      label='Area in m2'
+                      type='number'
+                      placeholder='##'
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className='list-check__text'>
+                <div className='check-text'>
+                  <InputCR
+                    type='checkbox'
+                    id='pets_allowed'
+                    name='pets_allowed'
+                  >
+                    Pets Allowed
+                  </InputCR>
+                  <small className='small'>
+                    Allowing pets increases the likehood of renters liking the
+                    property by 9001%. It also makes you a better person.
+                  </small>
+                </div>
+                <div className='check-text'>
+                  <Field
+                    label={'About this property'}
+                    name='description'
+                    as='textarea'
+                    placeholder='My apartment is great because...'
+                  />
+                  <small>
+                    Renters will read this first, so highlight any features or
+                    important information the apartment has.
+                  </small>
+                </div>
+              </div>
+
+              <div className='charge-photo'>
+                <p className='title-photo'>Photos</p>
+                <p className='upload'>Upload as many photos as you wish</p>
+                <div className='input-upload'>
+                  <label className='upload' htmlFor='file-upload'>
+                    Choose a file
+                    <input
+                      type='file'
+                      id='file-upload'
+                      name='file-upload'
+                      onChange={handleFileChange}
+                      multiple
+                    />
+                  </label>
+                  <label htmlFor='file-upload' className='file-no'>
+                    No file chosen
+                  </label>
+                  <div className='icon-upload'>
+                    <AiOutlineUpload />
+                  </div>
+                  <div className='size-img'>
+                    <small className='size-max'>Only images, max 5MB</small>
+                  </div>
+                </div>
+                <div style={{ display: 'flex' }}>
+                  {photos?.map((photo) => (
+                    <div key={photo.name}>
+                      <img src={URL.createObjectURL(photo)} alt={photo.name} />
+                      <button type='button' onClick={() => handleDelete(photo)}>
+                        Delete
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className='btn-create__property'>
+                <Button
+                  type={'primary'}
+                  typeBtn={'submit'}
+                  size={'lg'}
+                  disabled={!isValid}
+                >
+                  Publish Property Listing
+                </Button>
               </div>
             </div>
-            <div className='btn-create__property'>
-              <Button type={'primary'} typeBtn={'submit'} size={'lg'}>
-                Publish Property Listing
-              </Button>
-            </div>
-          </div>
-        </Form>
+          </Form>
+        )}
       </Formik>
     </WrapperForm>
   );
