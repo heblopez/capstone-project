@@ -10,11 +10,12 @@ const InputContainer = styled.div`
 
   label {
     ${typography.overline}
-    padding: 0 8px;
+    padding: 0 2px;
   }
 
   input,
-  select {
+  select,
+  textarea {
     border: none;
     width: 100%;
     height: 36px;
@@ -23,6 +24,9 @@ const InputContainer = styled.div`
     padding: 8px;
     background-color: transparent;
     margin: 0;
+    color: ${colors.lightGray};
+    background-color: ${colors.white};
+    ${typography.body.body2}
 
     :focus {
       outline: none;
@@ -41,6 +45,10 @@ const InputContainer = styled.div`
   p.error {
     color: ${colors.darkpink2};
     ${typography.caption}
+  }
+
+  textarea.textarea {
+    height: 76px;
   }
 `;
 
@@ -65,6 +73,8 @@ const IconContainer = styled.div`
 // inputs type: checkbox & radio
 const ContainerCR = styled.div`
   label {
+    ${typography.body.body2}
+    color:${colors.gray};
     display: flex;
     align-items: center;
 

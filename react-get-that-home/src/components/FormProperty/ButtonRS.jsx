@@ -1,8 +1,8 @@
 import React from 'react';
-import { useProp } from '../../context/Context';
 import styled from '@emotion/styled';
 import { typography } from '../../styles/typography';
 import { colors } from '../../styles/colors';
+import { useProp } from '../../context/PropertyContext';
 
 const ButtonCont = styled.div`
   p {
@@ -53,22 +53,22 @@ const ButtonCont = styled.div`
 `;
 
 const ButtonRS = () => {
-  const { handleSale, handleRent, RentOrSale } = useProp();
+  const { handleChange, rentOrSale } = useProp();
 
   return (
     <ButtonCont>
       <p>operation type</p>
       <div className='btns'>
         <button
-          onClick={handleRent}
-          className={`${RentOrSale.rent === 'rent' && 'active'}`}
+          onClick={handleChange}
+          className={`${rentOrSale === 'rent' && 'active'}`}
         >
           rent
         </button>
 
         <button
-          onClick={handleSale}
-          className={`${RentOrSale.sale === 'sale' && 'active'}`}
+          onClick={handleChange}
+          className={`${rentOrSale === 'sale' && 'active'}`}
         >
           sale
         </button>

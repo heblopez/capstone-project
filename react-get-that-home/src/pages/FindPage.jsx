@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useProp } from '../context/Context';
 import Button from '../components/Button/Button';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { SectionFind, BarOption } from './FilterOptions-UI';
@@ -12,6 +11,7 @@ import { BedBath } from '../modals/BedBath/BedBath';
 import BuyOrRent from '../modals/BuyOrRent/BuyOrRent';
 import Card from '../components/Card/Card';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { useProp } from '../context/PropertyContext';
 
 //filter by address
 function filterByAddress(properties, address) {

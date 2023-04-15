@@ -4,6 +4,7 @@ const PropertyContext = createContext();
 
 function PropertyProvider({ children }) {
   const [properties, setProperties] = useState([]);
+  const [rentOrSale, setRentOrSale] = useState('rent');
 
   useEffect(() => {
     const properties = setTimeout(() => {
@@ -14,8 +15,13 @@ function PropertyProvider({ children }) {
     return () => clearTimeout(properties);
   }, []);
 
+  function handleChange(e) {
+    const value = e.target.textContent;
+    setRentOrSale(value);
+  }
+
   return (
-    <PropertyContext.Provider value={{ properties }}>
+    <PropertyContext.Provider value={{ properties, rentOrSale, handleChange }}>
       {children}
     </PropertyContext.Provider>
   );
