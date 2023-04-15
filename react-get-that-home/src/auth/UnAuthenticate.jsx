@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import JoinPage from '../pages/JoinPage/JoinPage';
 import FindPage from '../pages/FindPage';
 import CreateAccount from '../pages/JoinPage/CreateAccount';
-import PropertyPage from '../pages/PropertyPage';
+import PropertyPage from '../pages/PropertyPage/PropertyPage';
 import CreateProperty from '../pages/CreateProperty';
 
 const UnAuthenticate = () => {
