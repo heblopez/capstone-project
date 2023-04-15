@@ -4,8 +4,8 @@ import styled from '@emotion/styled';
 import Button from '../components/Button/Button';
 import { Link } from 'react-router-dom';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
-import STORE from '../store/store';
 import Card from '../components/Card/Card';
+import { useUser } from '../context/UserContext';
 
 const MyPropContainer = styled.div`
   margin: 20px;
@@ -57,13 +57,30 @@ const MyPropContainer = styled.div`
   }
 `;
 
+function filterByActive(data) {
+  const onlyActives = data.filter((prop) => (prop.status ? prop : null));
+  return onlyActives;
+}
+
+function filterByClosed(data) {
+  const onlyClosed = data.filter((prop) =>
+    prop.status === false ? prop : null
+  );
+  return onlyClosed;
+}
+
 const MyProperties = () => {
   const [section, setSection] = useState('active');
+  const { user } = useUser();
+  const propeties = user ? user.properties : [];
 
   function handleClick(e) {
     e.preventDefault();
     setSection(e.target.textContent);
   }
+
+  const propertiesStatusActive = filterByActive(propeties);
+  const propertiesStatusClosed = filterByClosed(propeties);
 
   return (
     <MyPropContainer>
@@ -96,7 +113,7 @@ const MyProperties = () => {
             <div className='section'>
               <h3>active</h3>
               <div className='grid'>
-                {STORE.landlord.active.map((prop) => (
+                {propertiesStatusActive.map((prop) => (
                   <Card key={prop.id} property={prop} />
                 ))}
               </div>
@@ -104,7 +121,7 @@ const MyProperties = () => {
           ) : (
             <div className='grid'>
               <h3>closed</h3>
-              {STORE.landlord.closed.map((prop) => (
+              {propertiesStatusClosed.map((prop) => (
                 <Card key={prop.id} property={prop} />
               ))}
             </div>

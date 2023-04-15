@@ -27,7 +27,10 @@ function UserProvider({ children }) {
 
   function login(credentials) {
     Auth.login(credentials)
-      .then((u) => setUser(u))
+      .then((u) => {
+        setUser(u);
+        window.location.reload();
+      })
       .catch((error) =>
         setErrorLogin({
           ...statusError,
