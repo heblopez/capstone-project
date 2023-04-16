@@ -10,13 +10,16 @@ import { Data, InfoContainer, PriceContainer } from './Description-UI';
 const Description = ({
   address,
   price,
-  type_prop,
-  beds,
-  baths,
-  pets = false,
+  monthly_rent,
+  bedrooms,
+  bathrooms,
   area,
+  pets_allowed,
+  type_operation,
+  type_property,
 }) => {
-  const typeProp = type_prop.charAt(0).toUpperCase() + type_prop.slice(1);
+  const typeProp =
+    type_property.charAt(0).toUpperCase() + type_property.slice(1);
 
   return (
     <Data>
@@ -25,7 +28,9 @@ const Description = ({
           <div>
             <img src={dollar} alt='dollar' />
           </div>
-          <span className='montly-rent'>{price}</span>
+          <span className='montly-rent'>
+            {type_operation === 'rent' ? monthly_rent : price}
+          </span>
         </div>
 
         <div className='price-cont'>
@@ -41,17 +46,17 @@ const Description = ({
         <div className='services'>
           <div className='service'>
             <img src={bed} alt='bed' />
-            <span>{beds}</span>
+            <span>{bedrooms}</span>
           </div>
           <div className='service'>
             <img src={bathroom} alt='bathroom' />
-            <span>{baths}</span>
+            <span>{bathrooms}</span>
           </div>
           <div className='service'>
             <img src={area_icon} alt='area' />
             <span>{area} m2</span>
           </div>
-          {pets && <img src={petsfrom} alt='pets' />}
+          {pets_allowed && <img src={petsfrom} alt='pets' />}
         </div>
       </InfoContainer>
     </Data>
