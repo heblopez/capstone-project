@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { createProperty } from '../../services/properties-services';
+import { createProperty, updateProperty } from '../../services/properties-services';
 import Button from '../../components/Button/Button';
 import { Form, Formik } from 'formik';
 import Field from '../../components/Inputs/Formik/Input';
@@ -13,7 +13,7 @@ import { AiOutlineUpload } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-const FormProperty = ({ initialValues }) => {
+const FormProperty = ({ initialValues, location, id }) => {
   const navigate = useNavigate();
   const { rentOrSale } = useProp();
   const [photos, setPhotos] = useState([]);
@@ -27,7 +27,9 @@ const FormProperty = ({ initialValues }) => {
     for (const key in value) {
       formData.append(key, value[key]);
     }
-    createProperty(formData);
+    location === '/new_property'
+      ? createProperty(formData)
+      : updateProperty(formData, id);
   };
 
   const handleFileChange = (event) => {
@@ -66,7 +68,7 @@ const FormProperty = ({ initialValues }) => {
         validationSchema={validates}
         onSubmit={(values) => {
           setTimeout(() => {
-            const newProperty = {
+            const data = {
               address: values.address,
               type_operation: rentOrSale,
               monthly_rent: values.monthly_rent,
@@ -83,7 +85,8 @@ const FormProperty = ({ initialValues }) => {
               pets_allowed: values.pets_allowed,
               description: values.description,
             };
-            handleUpload(newProperty);
+
+            handleUpload(data);
             navigate('/my_properties');
           }, 1000);
         }}
@@ -94,6 +97,7 @@ const FormProperty = ({ initialValues }) => {
               <Field
                 name='address'
                 label='Address'
+                type='text'
                 placeholder='start typing to autocomplete'
               >
                 <FiSearch />

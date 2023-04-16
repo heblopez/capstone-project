@@ -21,7 +21,9 @@ function PropertyProvider({ children }) {
   }
 
   return (
-    <PropertyContext.Provider value={{ properties, rentOrSale, handleChange }}>
+    <PropertyContext.Provider
+      value={{ properties, rentOrSale, handleChange }}
+    >
       {children}
     </PropertyContext.Provider>
   );

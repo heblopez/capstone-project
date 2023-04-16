@@ -7,6 +7,7 @@ import Profile from '../pages/Profile';
 import MyProperties from '../pages/MyProperties';
 import PropertyPage from '../pages/PropertyPage/PropertyPage';
 import CreateProperty from '../pages/CreateProperty/CreateProperty';
+import EditProperty from '../pages/EditProperty/EditProperty';
 
 const Authenticate = () => {
   return (
@@ -19,7 +20,7 @@ const Authenticate = () => {
         <Route path='/profile' element={<Profile />} />
         <Route path='/property/:id' element={<PropertyPage />} />
         <Route path='/new_property' element={<CreateProperty />} />
-        <Route path='/edit/property/:id' element={'Edit property'} />
+        <Route path='/edit/property/:id' element={<EditProperty />} />
       </Routes>
     </div>
   );

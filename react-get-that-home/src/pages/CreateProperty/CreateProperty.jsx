@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import FormProperty from '../../components/FormProperty/FormProperty';
 import ButtonRS from '../../components/FormProperty/ButtonRS';
+import { useLocation } from 'react-router-dom';
 
 const WrapperPage = styled.div`
   padding: 32px 10%;
@@ -11,6 +12,8 @@ const WrapperPage = styled.div`
 `;
 
 function CreateProperty() {
+  const location = useLocation();
+  const locationPage = location.pathname;
   const initialValues = {
     address: '',
     apartment: false,
@@ -31,7 +34,7 @@ function CreateProperty() {
       <div>
         <ButtonRS />
       </div>
-      <FormProperty initialValues={initialValues} />
+      <FormProperty initialValues={initialValues} location={locationPage} />
     </WrapperPage>
   );
 }

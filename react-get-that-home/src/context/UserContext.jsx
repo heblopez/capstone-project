@@ -14,6 +14,8 @@ function UserProvider({ children }) {
     updateError: {},
   });
 
+  const role = user ? user.role : '';
+
   const userID = sessionStorage.getItem(ID);
 
   useEffect(() => {
@@ -75,6 +77,7 @@ function UserProvider({ children }) {
     <UserContext.Provider
       value={{
         user,
+        role,
         login,
         logout,
         signUp,

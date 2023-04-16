@@ -8,18 +8,16 @@ import { useUser } from './context/UserContext';
 import { useShow } from './context/ShowContext';
 
 function App() {
-  const { user } = useUser();
+  const { user, role } = useUser();
   const { show } = useShow();
-
-  const whoIs = user ? user.role : '';
 
   return (
     <div>
       <BrowserRouter>
-        <Header user={user} whoIs={whoIs} />
+        <Header user={user} whoIs={role} />
         {user ? <Authenticate /> : <UnAuthenticate />}
         {show && <LoginForm />}
-        <Footer user={whoIs} />
+        <Footer user={role} />
       </BrowserRouter>
     </div>
   );

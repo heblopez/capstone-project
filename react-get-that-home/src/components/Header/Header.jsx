@@ -116,8 +116,6 @@ function Profile() {
 
 const Header = ({ user, whoIs, getPage }) => {
   const isLogin = user;
-  const landLord = whoIs;
-  const seeker = whoIs;
 
   return (
     <HeaderCtn>
@@ -133,8 +131,8 @@ const Header = ({ user, whoIs, getPage }) => {
               {<Find />}
               {!isLogin && <UnAthenticate getPage={getPage} />}
               {isLogin && <Logout />}
-              {isLogin && landLord === 'landlord' && <MyProperties />}
-              {isLogin && seeker === 'home_seeker' && <MySaveProp />}
+              {whoIs === 'landlord' && <MyProperties />}
+              {whoIs === 'home_seeker' && <MySaveProp />}
               {isLogin && <Profile />}
             </div>
           </div>
