@@ -1,36 +1,34 @@
 import styled from '@emotion/styled';
 import { colors } from '../../styles/colors';
+import { typography } from '../../styles/typography';
 
 const BuyRent = styled.div`
   position: absolute;
   transform: translateY(173px);
-  display: block;
 
-  div.container {
-    width: 110px;
-    height: 28px;
+  div.buy-rent__container {
     background-color: ${colors.pink};
     color: ${colors.white};
+    min-width: 110px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin: 0;
-    /* padding: 0; */
-    padding: 8px;
-    gap: 4px;
+    padding: 0 9px;
 
-    div.icon {
-      width: 18px;
-      height: 18px;
-      
+    div.icon--buy_rent {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       svg {
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
       }
     }
 
-    p {
-      text-transform: capitalize;
+    span.operation__content {
+      ${typography.body.body2}
     }
   }
 `;

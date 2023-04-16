@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import Properties from '../../services/properties-services';
 import { MainSection, Wrapper, SideBar, MapContainer } from './PropertyPage-UI';
 import { RiMoneyDollarCircleLine } from 'react-icons/ri';
-import { BiBed, BiBath, BiArea } from 'react-icons/bi';
+import { BiBed, BiBath, BiArea, BiEdit } from 'react-icons/bi';
 import PetsIcon from '../../assets/pets.svg';
 import { useUser } from '../../context/UserContext';
 import { useShow } from '../../context/ShowContext';
@@ -160,8 +160,11 @@ const PropertyPage = () => {
 
         {whoIs === 'landlord' && (
           <div className='btn-edit_property'>
-            <Link to={`/edit/property/${id}`}>
-              <Button>edit property</Button>
+            <Link to={`/edit/property/${id}`} className='edit-btn'>
+              <Button>
+                <BiEdit />
+                edit property
+              </Button>
             </Link>
           </div>
         )}

@@ -3,7 +3,7 @@ import { typography } from '../../styles/typography';
 import { colors } from '../../styles/colors';
 
 const SectionBestPrice = styled.div`
-  padding: 45px 20px 64px 20px;
+  padding: 45px 0px 64px 0px;
 
   div.container {
     max-width: 1000px;
@@ -29,7 +29,7 @@ const SectionBestPrice = styled.div`
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 40px;
     }
 
     @media (max-width: 412px) {

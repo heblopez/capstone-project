@@ -4,9 +4,9 @@ import Description from '../Description/Description';
 import pic from '../../assets/Property.svg';
 import ForBuyRent from '../ForBR/ForBuyRent';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
+import WrapperProperty from './Property-UI';
 
 const Property = ({ prop }) => {
-  console.log(prop);
   const {
     address,
     price,
@@ -22,11 +22,11 @@ const Property = ({ prop }) => {
   } = prop;
 
   return (
-    <div>
+    <WrapperProperty>
+      <Picture picture={photo_urls ? photo_urls[0] : pic} name={'Property'} />
       <ForBuyRent operation={type_operation}>
         <RiMoneyDollarCircleFill />
       </ForBuyRent>
-      <Picture picture={photo_urls ? photo_urls[0] : pic} name={'Property'} />
       <Description
         address={address}
         price={price}
@@ -39,7 +39,7 @@ const Property = ({ prop }) => {
         type_operation={type_operation}
         type_property={type_property}
       />
-    </div>
+    </WrapperProperty>
   );
 };
 

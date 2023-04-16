@@ -8,14 +8,14 @@ const CardContainer = styled.div`
   color: ${colors.gray};
   margin: 20px auto;
 
-  a {
-    text-decoration: none;
+  a.card {
+    display: flex;
     color: ${colors.gray};
+    text-decoration: none;
   }
 
-
   @media (max-width: 768px) {
-    /* width: 250px; */
+    width: 250px;
   }
 `;
 

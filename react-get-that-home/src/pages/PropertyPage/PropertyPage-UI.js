@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { colors } from "../../styles/colors";
+import styled from '@emotion/styled';
+import { colors } from '../../styles/colors';
 
 const MainSection = styled.div`
   display: flex;
@@ -9,6 +9,18 @@ const MainSection = styled.div`
 
 const SideBar = styled.div`
   width: 20%;
+
+  div.btn-edit_property {
+    margin-top: 37px;
+
+    a.edit-btn {
+      text-decoration: none;
+
+      button {
+        width: 198px;
+      }
+    }
+  }
 `;
 
 const Wrapper = styled.div`
@@ -130,6 +142,7 @@ const Wrapper = styled.div`
       letter-spacing: 0.15px;
       color: ${colors.darkpink2};
       margin: 8px 0;
+    }
   }
 `;
 
