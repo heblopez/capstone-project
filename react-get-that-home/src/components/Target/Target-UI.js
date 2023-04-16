@@ -1,13 +1,15 @@
 import styled from '@emotion/styled';
 
 const TargerCont = styled.div`
-  max-width: 290px;
-  max-height: 248px;
-  padding: 32px;
+  width: 290px;
+  height: 248px;
+  padding: 32px 16px;
 
   div.container {
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
+    min-width: 226px;
+    min-height: 184px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -21,7 +23,7 @@ const TargerCont = styled.div`
 
     div.btn-login {
       button {
-        width: 112px;
+        min-width: 112px;
       }
     }
   }

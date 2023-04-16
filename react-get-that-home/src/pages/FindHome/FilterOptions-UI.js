@@ -1,12 +1,14 @@
 import styled from '@emotion/styled';
-import { colors } from '../styles/colors';
+import { colors } from '../../styles/colors';
 
 const SectionFind = styled.div`
   width: 100%;
-  padding: 32px 120px;
-  z-index: -10;
 
-  div.container {
+  div.container-find__page {
+    max-width: 1200px;
+    margin: auto;
+    padding: 32px 0;
+
     div.section-list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
@@ -44,19 +46,18 @@ const BarOption = styled.div`
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 15px;
 
   div.input-search {
-    width: 240px;
     input {
       border: none;
-      /* width: 100%; */
       height: 36px;
       border: 1px solid ${colors.pink};
       border-radius: 8px;
       padding: 8px;
       background-color: transparent;
       margin: 0;
+      max-width: 240px;
 
       :focus {
         outline: none;
@@ -80,25 +81,26 @@ const BarOption = styled.div`
 
     div.price {
       button {
-        min-width: 78px;
+        max-width: 141px;
       }
     }
 
     div.property-type {
       button {
-        min-width: 220px;
+        min-width: 222px;
       }
     }
-
+    
     div.beds-baths {
       button {
-        min-width: 167px;
+        min-width: 135px;
+        padding: 0;
       }
     }
 
     div.more {
       button {
-        min-width: 109px;
+        max-width: 109px;
       }
     }
 
@@ -129,6 +131,8 @@ const BarOption = styled.div`
       button {
         text-transform: lowercase;
         text-transform: capitalize;
+        max-width: 185px;
+        border-radius: 8px;
       }
     }
 

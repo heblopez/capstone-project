@@ -150,9 +150,9 @@ const PropertyPage = () => {
           <Target>
             <div className='btn-contact'>
               <Button>contact advertiser</Button>
-              <div>
+              <div className='add--favorites'>
                 <AiOutlineHeart />
-                <p> Add to favorites</p>
+                <p className='p__favorite'> Add to favorites</p>
               </div>
             </div>
           </Target>

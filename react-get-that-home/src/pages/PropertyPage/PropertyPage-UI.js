@@ -1,14 +1,43 @@
 import styled from '@emotion/styled';
 import { colors } from '../../styles/colors';
+import { typography } from '../../styles';
 
 const MainSection = styled.div`
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 const SideBar = styled.div`
-  width: 20%;
+  div.btn-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    button {
+      width: 215px;
+    }
+    div.add--favorites {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+
+        :hover {
+          transform: scale(1.3);
+        }
+      }
+
+      p.p__favorite {
+        ${typography.caption}
+      }
+    }
+  }
 
   div.btn-edit_property {
     margin-top: 37px;
@@ -24,12 +53,9 @@ const SideBar = styled.div`
 `;
 
 const Wrapper = styled.div`
-  position: relative;
   margin: 0;
-  width: 80%;
-  height: auto;
-  min-width: 600px;
   padding: 32px 32px 32px 10%;
+  max-width: 830px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,16 +63,11 @@ const Wrapper = styled.div`
 
   div.container-photos {
     display: flex;
-    width: 100%;
-    min-width: 512px;
     height: auto;
-    max-height: 512px;
     justify-content: center;
     align-items: center;
 
     img {
-      width: 100%;
-      height: 100%;
       object-fit: cover;
     }
   }

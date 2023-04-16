@@ -2,7 +2,6 @@ import React from 'react';
 import BuyRent from './ForBuyRent-UI';
 
 const ForBuyRent = ({ operation, children }) => {
-  console.log(operation);
   return (
     <BuyRent>
       <div className='buy-rent__container'>

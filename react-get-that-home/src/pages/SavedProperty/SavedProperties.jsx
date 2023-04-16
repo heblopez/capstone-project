@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { colors, typography } from '../styles';
+import { colors, typography } from '../../styles';
 
 const SavedContainer = styled.div`
   margin: 20px;

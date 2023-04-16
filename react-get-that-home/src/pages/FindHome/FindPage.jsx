@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import Button from '../components/Button/Button';
+import Button from '../../components/Button/Button';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { SectionFind, BarOption } from './FilterOptions-UI';
-import More from '../modals/More/More';
-import Input from '../components/Inputs/Input/Input';
+import More from '../../modals/More/More';
+import Input from '../../components/Inputs/Input/Input';
 import { createPortal } from 'react-dom';
-import Property from '../modals/Property/Property';
-import Price from '../modals/Price/Price';
-import { BedBath } from '../modals/BedBath/BedBath';
-import BuyOrRent from '../modals/BuyOrRent/BuyOrRent';
-import Card from '../components/Card/Card';
+import Property from '../../modals/Property/Property';
+import Price from '../../modals/Price/Price';
+import { BedBath } from '../../modals/BedBath/BedBath';
+import BuyOrRent from '../../modals/BuyOrRent/BuyOrRent';
+import Card from '../../components/Card/Card';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { useProp } from '../context/PropertyContext';
+import { useProp } from '../../context/PropertyContext';
 
 //filter by address
 function filterByAddress(properties, address) {
@@ -254,7 +254,7 @@ const FindPage = () => {
   // properties filtered
   const PropertiesFiltered = filterProperties(propSorted, filter);
 
-  const pageSize = 12;
+  const pageSize = 9;
   const totalPage = Math.ceil(PropertiesFiltered.length / pageSize);
 
   function goToPage(pageNumber) {
@@ -279,7 +279,7 @@ const FindPage = () => {
 
   return (
     <SectionFind>
-      <div className='container'>
+      <div className='container-find__page'>
         <BarOption>
           <div className='input-search'>
             <Input
