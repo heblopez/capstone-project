@@ -6,16 +6,19 @@ import ForBuyRent from '../ForBR/ForBuyRent';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 
 const Property = ({ prop }) => {
+  console.log(prop);
   const {
     address,
     price,
-    bathrooms,
+    monthly_rent,
+    maintanance,
     bedrooms,
-    type_property,
-    pets_allowed,
+    bathrooms,
     area,
+    pets_allowed,
     photo_urls,
     type_operation,
+    type_property,
   } = prop;
 
   return (
@@ -27,11 +30,14 @@ const Property = ({ prop }) => {
       <Description
         address={address}
         price={price}
-        baths={bathrooms}
-        beds={bedrooms}
-        type_prop={type_property}
-        pets={pets_allowed}
+        monthly_rent={monthly_rent}
+        maintanance={maintanance}
+        bathrooms={bathrooms}
+        bedrooms={bedrooms}
         area={area}
+        pets_allowed={pets_allowed}
+        type_operation={type_operation}
+        type_property={type_property}
       />
     </div>
   );
