@@ -1,36 +1,5 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled';
-import { colors, typography } from '../../styles';
-
-const SavedContainer = styled.div`
-  margin: 20px;
-
-  div.container {
-    max-width: 1200px;
-    padding: 0 32px;
-    margin: 0 auto;
-
-    div {
-      display: flex;
-      gap: 6px;
-
-      button {
-        ${typography.button}
-        padding: 8px;
-        border: none;
-        background-color: transparent;
-
-        &.favorite {
-          border-bottom: 2px solid ${colors.pink};
-        }
-
-        &.contacted {
-          border-bottom: 2px solid ${colors.pink};
-        }
-      }
-    }
-  }
-`;
+import SavedContainer from './SavedProperties-UI';
 
 const SavedProperties = () => {
   const [section, setSection] = useState('favorite');
@@ -42,8 +11,8 @@ const SavedProperties = () => {
 
   return (
     <SavedContainer>
-      <div className='container'>
-        <div>
+      <div className='container--favorites_seeker'>
+        <div className='btns--fav_cont'>
           <button
             onClick={handleClick}
             className={section === 'favorite' ? 'favorite' : ''}
