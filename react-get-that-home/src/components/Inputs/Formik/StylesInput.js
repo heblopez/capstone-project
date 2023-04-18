@@ -24,7 +24,7 @@ const InputContainer = styled.div`
     padding: 8px;
     background-color: transparent;
     margin: 0;
-    color: ${colors.lightGray};
+    color: ${colors.gray};
     background-color: ${colors.white};
     ${typography.body.body2}
 

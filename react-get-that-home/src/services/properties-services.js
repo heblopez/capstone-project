@@ -19,6 +19,15 @@ const Properties = {
       console.error(error);
     }
   },
+
+  async deleteProp(id) {
+    try {
+      await apiFetch(`/properties/${id}`, { method: 'DELETE' });
+      location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 export default Properties;

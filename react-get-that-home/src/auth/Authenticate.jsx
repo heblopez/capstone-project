@@ -3,11 +3,11 @@ import { Route, Routes } from 'react-router-dom';
 import LandingPage from '../pages/LandingPage';
 import FindPage from '../pages/FindHome/FindPage';
 import Profile from '../pages/Profile';
-import MyProperties from '../pages/MyProperties';
 import PropertyPage from '../pages/PropertyPage/PropertyPage';
 import CreateProperty from '../pages/CreateProperty/CreateProperty';
 import EditProperty from '../pages/EditProperty/EditProperty';
 import SavedProperties from '../pages/SavedProperty/SavedProperties';
+import MyProperties from '../pages/MyProperties/MyProperties';
 
 const Authenticate = () => {
   return (
