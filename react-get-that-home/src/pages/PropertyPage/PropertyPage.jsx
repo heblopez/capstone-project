@@ -25,6 +25,7 @@ const PropertyPage = () => {
   const { id } = useParams();
   const { user } = useUser();
   const { handleShow } = useShow();
+  const [indexImg, setIndexImg] = useState(0);
 
   const [property, setProperty] = useState({});
 
@@ -62,7 +63,7 @@ const PropertyPage = () => {
       if (status === 'OK') {
         const map = new window.google.maps.Map(document.querySelector('.map'), {
           center: results[0].geometry.location,
-          zoom: 12,
+          zoom: 17,
         });
 
         new window.google.maps.Marker({
@@ -77,11 +78,31 @@ const PropertyPage = () => {
     });
   }
 
+  function nextImg() {
+    if (indexImg === photo_urls.length - 1) {
+      setIndexImg(0);
+    } else {
+      setIndexImg(indexImg + 1);
+    }
+  }
+
+  function prevImg() {
+    if (indexImg === 0) {
+      setIndexImg(photo_urls.length - 1);
+    } else {
+      setIndexImg(indexImg - 1);
+    }
+  }
+
   return (
     <MainSection>
       <Wrapper>
         <div className='container-photos'>
-          <img src={photo_urls ? photo_urls[0] : ''} alt='Property photo' />
+          <div className='slideshow'>
+          {photo_urls && <img key={indexImg+1} src={photo_urls[indexImg]} alt='Property-photo' className='slides' />}
+          <button className='prev' onClick={prevImg}>&#10094;</button>
+          <button className='next' onClick={nextImg}>&#10095;</button>
+          </div>
         </div>
         <div className='title-and-price'>
           <div>
