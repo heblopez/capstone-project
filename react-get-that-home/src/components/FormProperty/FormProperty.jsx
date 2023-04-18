@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { createProperty, updateProperty } from '../../services/properties-services';
+import {
+  createProperty,
+  updateProperty,
+} from '../../services/properties-services';
 import Button from '../../components/Button/Button';
 import { Form, Formik } from 'formik';
 import Field from '../../components/Inputs/Formik/Input';

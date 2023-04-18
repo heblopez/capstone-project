@@ -15,8 +15,9 @@ const Action = ({ id }) => {
       : 'none';
 
   function handlesRemove() {
-    const data = { status: false };
-    updateProperty(data, id);
+    const formData = new FormData();
+    formData.append('status', false);
+    updateProperty(formData, id);
   }
 
   return (

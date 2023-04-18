@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { colors, typography } from '../styles';
 import styled from '@emotion/styled';
 import Button from '../components/Button/Button';
 import { Link } from 'react-router-dom';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import Card from '../components/Card/Card';
-import { useUser } from '../context/UserContext';
+import User from '../services/user-services';
+import { ID } from '../config';
 
 const MyPropContainer = styled.div`
   margin: 20px;
@@ -58,20 +59,28 @@ const MyPropContainer = styled.div`
 `;
 
 function filterByActive(data) {
-  const onlyActives = data.filter((prop) => (prop.status ? prop : null));
+  const onlyActives = data?.filter((prop) => (prop.status ? prop : null));
   return onlyActives;
 }
 
 function filterByClosed(data) {
-  const onlyClosed = data.filter((prop) =>
+  const onlyClosed = data?.filter((prop) =>
     prop.status === false ? prop : null
   );
   return onlyClosed;
 }
 
 const MyProperties = () => {
+  const [user, setUser] = useState([]);
   const [section, setSection] = useState('active');
-  const { user } = useUser();
+
+  useEffect(() => {
+    const id = sessionStorage.getItem(ID);
+    User.getUser(id)
+      .then((u) => setUser(u))
+      .catch(console.log);
+  }, []);
+
   const propeties = user ? user.properties : [];
 
   function handleClick(e) {
@@ -113,7 +122,7 @@ const MyProperties = () => {
             <div className='section'>
               <h3>active</h3>
               <div className='grid'>
-                {propertiesStatusActive.map((prop) => (
+                {propertiesStatusActive?.map((prop) => (
                   <Card key={prop.id} property={prop} />
                 ))}
               </div>
@@ -121,7 +130,7 @@ const MyProperties = () => {
           ) : (
             <div className='grid'>
               <h3>closed</h3>
-              {propertiesStatusClosed.map((prop) => (
+              {propertiesStatusClosed?.map((prop) => (
                 <Card key={prop.id} property={prop} />
               ))}
             </div>

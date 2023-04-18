@@ -8,11 +8,6 @@ const UserContext = createContext();
 
 function UserProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [statusError, setErrorLogin] = useState({
-    loginError: {},
-    signupError: {},
-    updateError: {},
-  });
 
   const role = user ? user.role : '';
 
@@ -31,14 +26,9 @@ function UserProvider({ children }) {
     Auth.login(credentials)
       .then((u) => {
         setUser(u);
-        window.location.reload();
+        // window.location.reload();
       })
-      .catch((error) =>
-        setErrorLogin({
-          ...statusError,
-          loginError: error,
-        })
-      );
+      .catch(console.log(error));
   }
 
   function logout() {
@@ -54,23 +44,13 @@ function UserProvider({ children }) {
   function signUp(userData) {
     User.createUser(userData)
       .then((u) => setUser(u))
-      .catch((error) =>
-        setErrorLogin({
-          ...statusError,
-          signupError: error,
-        })
-      );
+      .catch(console.log);
   }
 
   function upDate(id, userData) {
     User.upDateUser(id, userData)
       .then((u) => setUser(u))
-      .catch((error) =>
-        setErrorLogin({
-          ...statusError,
-          update: JSON.stringify(error),
-        })
-      );
+      .catch(console.log);
   }
 
   return (
@@ -82,7 +62,6 @@ function UserProvider({ children }) {
         logout,
         signUp,
         upDate,
-        statusError,
       }}
     >
       {children}
