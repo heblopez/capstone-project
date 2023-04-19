@@ -10,6 +10,8 @@ import { useShow } from '../../context/ShowContext';
 import Button from '../../components/Button/Button';
 import Target from '../../components/Target/Target';
 import { AiOutlineUserAdd, AiOutlineHeart } from 'react-icons/ai';
+import { ID } from '../../config';
+import { addFavorite } from '../../services/favorites-services';
 
 function splitAddress(address) {
   const parts = address ? address.split(',') : '';
@@ -94,14 +96,30 @@ const PropertyPage = () => {
     }
   }
 
+  function handleAddToFavorite() {
+    const userId = sessionStorage.getItem(ID);
+    addFavorite(userId, id);
+  }
+
   return (
     <MainSection>
       <Wrapper>
         <div className='container-photos'>
           <div className='slideshow'>
-          {photo_urls && <img key={indexImg+1} src={photo_urls[indexImg]} alt='Property-photo' className='slides' />}
-          <button className='prev' onClick={prevImg}>&#10094;</button>
-          <button className='next' onClick={nextImg}>&#10095;</button>
+            {photo_urls && (
+              <img
+                key={indexImg + 1}
+                src={photo_urls[indexImg]}
+                alt='Property-photo'
+                className='slides'
+              />
+            )}
+            <button className='prev' onClick={prevImg}>
+              &#10094;
+            </button>
+            <button className='next' onClick={nextImg}>
+              &#10095;
+            </button>
           </div>
         </div>
         <div className='title-and-price'>
@@ -172,7 +190,7 @@ const PropertyPage = () => {
             <div className='btn-contact'>
               <Button>contact advertiser</Button>
               <div className='add--favorites'>
-                <AiOutlineHeart />
+                <AiOutlineHeart onClick={handleAddToFavorite} />
                 <p className='p__favorite'> Add to favorites</p>
               </div>
             </div>

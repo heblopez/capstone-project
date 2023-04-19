@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SavedContainer from './SavedProperties-UI';
+import { ID } from '../../config';
+import { getFavorites } from '../../services/favorites-services';
+import { useProp } from '../../context/PropertyContext';
+import Card from '../../components/Card/Card';
 
 const SavedProperties = () => {
+  const { properties } = useProp();
   const [section, setSection] = useState('favorite');
+  const [favorites, setFavorites] = useState([]);
 
   function handleClick(e) {
     e.preventDefault();
     setSection(e.target.textContent);
   }
+
+  useEffect(() => {
+    const userId = sessionStorage.getItem(ID);
+    getFavorites(userId)
+      .then((favs) => setFavorites(favs))
+      .catch(console.log);
+  }, []);
+
+  const favs = properties.filter((obj) => {
+    return favorites.some((fav) => fav.property_id === obj.id);
+  });
 
   return (
     <SavedContainer>
@@ -31,6 +48,13 @@ const SavedProperties = () => {
           {section === 'favorite' ? (
             <div>
               <h3>Favorites</h3>
+              <div className='container-saved_properties'>
+                <div>
+                  {favs?.map((prop) => (
+                    <Card property={prop} section={section} />
+                  ))}
+                </div>
+              </div>
             </div>
           ) : (
             <div>

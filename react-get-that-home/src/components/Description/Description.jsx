@@ -5,9 +5,11 @@ import bed from '../../assets/bed.svg';
 import bathroom from '../../assets/bathrrom.svg';
 import area_icon from '../../assets/area.svg';
 import petsfrom from '../../assets/pets.svg';
+import { AiFillHeart } from 'react-icons/ai';
 import { Data, InfoContainer, PriceContainer } from './Description-UI';
 
 const Description = ({
+  id,
   address,
   price,
   monthly_rent,
@@ -56,7 +58,11 @@ const Description = ({
             <img src={area_icon} alt='area' />
             <span>{area} m2</span>
           </div>
-          {pets_allowed && <img src={petsfrom} alt='pets' />}
+
+          <div className='service'>
+            {pets_allowed && <img src={petsfrom} alt='pets' />}
+            {'favorite' && <AiFillHeart className='heart-icon' />}
+          </div>
         </div>
       </InfoContainer>
     </Data>

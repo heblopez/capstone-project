@@ -81,6 +81,12 @@ const InfoContainer = styled.div`
       span {
         margin: auto;
       }
+
+      svg.heart-icon {
+        width: 20px;
+        height: 20px;
+        color: ${colors.pink};
+      }
     }
   }
 `;

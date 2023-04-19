@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import { colors, typography } from '../../styles';
 
 const SavedContainer = styled.div`
-  margin: 20px;
+  margin: 20px 0;
   width: 100%;
-  min-height: 100vh;
+  min-height: 80vh;
 
   div.container--favorites_seeker {
     max-width: 1200px;
