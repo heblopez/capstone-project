@@ -3,7 +3,6 @@ import { colors, typography } from '../../styles';
 
 const MyPropContainer = styled.div`
   margin: 64px 0;
-  min-height: 730px;
 
   div.container {
     max-width: 1200px;
@@ -42,6 +41,7 @@ const MyPropContainer = styled.div`
 
     div.body {
       div.section {
+        min-height: 60vh;
         div.grid,
         div.grid {
           padding: 16px 40px;

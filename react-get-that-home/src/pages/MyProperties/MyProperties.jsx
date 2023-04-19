@@ -9,6 +9,7 @@ import User from '../../services/user-services';
 import { ID } from '../../config';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import MyPropContainer from './MyProperties-UI';
+import NotFound from '../../components/NoFound/NotFound';
 
 function filterByActive(data) {
   const onlyActives = data?.filter((prop) => (prop.status ? prop : null));
@@ -107,45 +108,51 @@ const MyProperties = () => {
 
         <div className='body'>
           {section === 'active' ? (
-            <div className='section'>
-              <div className='grid'>
-                {activesProperties?.map((prop) => (
-                  <Card key={prop.id} property={prop} section={section} />
-                ))}
-              </div>
-              <div className='pages'>
-                <IoIosArrowBack
-                  onClick={() =>
-                    currentPage.active <= 1
-                      ? ''
-                      : goToPageActive(currentPage.active - 1)
-                  }
-                />
-                {Array.from({ length: TotalInActiveSection }, (_, index) => (
-                  <div
-                    key={index}
-                    className='page'
-                    style={{
-                      backgroundColor:
-                        currentPage.active === index + 1
-                          ? 'rgba(244, 143, 177, 0.15)'
-                          : 'white',
-                      color:
-                        currentPage.active == index + 1 ? '#616161' : 'black',
+            !activesProperties.length ? (
+              <NotFound />
+            ) : (
+              <div className='section'>
+                <div className='grid'>
+                  {activesProperties?.map((prop) => (
+                    <Card key={prop.id} property={prop} section={section} />
+                  ))}
+                </div>
+                <div className='pages'>
+                  <IoIosArrowBack
+                    onClick={() =>
+                      currentPage.active <= 1
+                        ? ''
+                        : goToPageActive(currentPage.active - 1)
+                    }
+                  />
+                  {Array.from({ length: TotalInActiveSection }, (_, index) => (
+                    <div
+                      key={index}
+                      className='page'
+                      style={{
+                        backgroundColor:
+                          currentPage.active === index + 1
+                            ? 'rgba(244, 143, 177, 0.15)'
+                            : 'white',
+                        color:
+                          currentPage.active == index + 1 ? '#616161' : 'black',
+                      }}
+                    >
+                      {index + 1}
+                    </div>
+                  ))}
+                  <IoIosArrowForward
+                    onClick={() => {
+                      currentPage.active >= TotalInActiveSection
+                        ? ''
+                        : goToPageActive(currentPage.active + 1);
                     }}
-                  >
-                    {index + 1}
-                  </div>
-                ))}
-                <IoIosArrowForward
-                  onClick={() => {
-                    currentPage.active >= TotalInActiveSection
-                      ? ''
-                      : goToPageActive(currentPage.active + 1);
-                  }}
-                />
+                  />
+                </div>
               </div>
-            </div>
+            )
+          ) : !closedProperties.length ? (
+            <NotFound />
           ) : (
             <div className='section'>
               <div className='grid'>

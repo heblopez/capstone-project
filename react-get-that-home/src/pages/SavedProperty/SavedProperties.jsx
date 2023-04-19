@@ -8,6 +8,7 @@ import {
 import { useProp } from '../../context/PropertyContext';
 import Card from '../../components/Card/Card';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import NotFound from '../../components/NoFound/NotFound';
 
 const SavedProperties = () => {
   const userId = sessionStorage.getItem(ID);
@@ -100,51 +101,61 @@ const SavedProperties = () => {
 
         <div className='section'>
           {section === 'favorite' ? (
-            <div className='section-cards'>
-              <h3 className='title-section'>{favs.length} Properties found</h3>
-              <div className='container-saved_properties'>
-                {favProps?.map((prop) => (
-                  <Card
-                    key={prop.id}
-                    property={prop}
-                    section={section}
-                    favorite={uniqIdProp}
+            !favProps.length ? (
+              <NotFound />
+            ) : (
+              <div className='section-cards'>
+                <h3 className='title-section'>
+                  {favs.length} Properties found
+                </h3>
+                <div className='container-saved_properties'>
+                  {favProps?.map((prop) => (
+                    <Card
+                      key={prop.id}
+                      property={prop}
+                      section={section}
+                      favorite={uniqIdProp}
+                    />
+                  ))}
+                </div>
+                <div className='pages'>
+                  <IoIosArrowBack
+                    onClick={() =>
+                      currentPage.favorite <= 1
+                        ? ''
+                        : goToPagefavorite(currentPage.favorite - 1)
+                    }
                   />
-                ))}
-              </div>
-              <div className='pages'>
-                <IoIosArrowBack
-                  onClick={() =>
-                    currentPage.favorite <= 1
-                      ? ''
-                      : goToPagefavorite(currentPage.favorite - 1)
-                  }
-                />
-                {Array.from({ length: TotalFavSection }, (_, index) => (
-                  <div
-                    key={index}
-                    className='page'
-                    style={{
-                      backgroundColor:
-                        currentPage.favorite === index + 1
-                          ? 'rgba(244, 143, 177, 0.15)'
-                          : 'white',
-                      color:
-                        currentPage.favorite == index + 1 ? '#616161' : 'black',
+                  {Array.from({ length: TotalFavSection }, (_, index) => (
+                    <div
+                      key={index}
+                      className='page'
+                      style={{
+                        backgroundColor:
+                          currentPage.favorite === index + 1
+                            ? 'rgba(244, 143, 177, 0.15)'
+                            : 'white',
+                        color:
+                          currentPage.favorite == index + 1
+                            ? '#616161'
+                            : 'black',
+                      }}
+                    >
+                      {index + 1}
+                    </div>
+                  ))}
+                  <IoIosArrowForward
+                    onClick={() => {
+                      currentPage.favorite >= TotalFavSection
+                        ? ''
+                        : goToPagefavorite(currentPage.favorite + 1);
                     }}
-                  >
-                    {index + 1}
-                  </div>
-                ))}
-                <IoIosArrowForward
-                  onClick={() => {
-                    currentPage.favorite >= TotalFavSection
-                      ? ''
-                      : goToPagefavorite(currentPage.favorite + 1);
-                  }}
-                />
+                  />
+                </div>
               </div>
-            </div>
+            )
+          ) : !PropContected.length ? (
+            <NotFound />
           ) : (
             <div className='section-cards'>
               <h3 className='title-section'>
