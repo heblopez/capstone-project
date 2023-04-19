@@ -6,8 +6,9 @@ import ForBuyRent from '../ForBR/ForBuyRent';
 import { RiMoneyDollarCircleFill } from 'react-icons/ri';
 import WrapperProperty from './Property-UI';
 
-const Property = ({ prop }) => {
+const Property = ({ prop, favorite }) => {
   const {
+    id,
     address,
     price,
     monthly_rent,
@@ -28,6 +29,7 @@ const Property = ({ prop }) => {
         <RiMoneyDollarCircleFill />
       </ForBuyRent>
       <Description
+        id={id}
         address={address}
         price={price}
         monthly_rent={monthly_rent}
@@ -38,6 +40,7 @@ const Property = ({ prop }) => {
         pets_allowed={pets_allowed}
         type_operation={type_operation}
         type_property={type_property}
+        favorite={favorite}
       />
     </WrapperProperty>
   );

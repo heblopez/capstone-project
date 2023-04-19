@@ -11,7 +11,7 @@ import Button from '../../components/Button/Button';
 import Target from '../../components/Target/Target';
 import { AiOutlineUserAdd, AiOutlineHeart } from 'react-icons/ai';
 import { ID } from '../../config';
-import { addFavorite } from '../../services/favorites-services';
+import { addFavorite, contactAdvertiser } from '../../services/favorites-services';
 
 function splitAddress(address) {
   const parts = address ? address.split(',') : '';
@@ -28,8 +28,9 @@ const PropertyPage = () => {
   const { user } = useUser();
   const { handleShow } = useShow();
   const [indexImg, setIndexImg] = useState(0);
-
   const [property, setProperty] = useState({});
+
+  const userId = sessionStorage.getItem(ID);
 
   const whoIs = user ? user.role : '';
 
@@ -97,8 +98,12 @@ const PropertyPage = () => {
   }
 
   function handleAddToFavorite() {
-    const userId = sessionStorage.getItem(ID);
     addFavorite(userId, id);
+  }
+
+  function handleContacted() {
+    console.log('Hola');
+    contactAdvertiser(userId, id);
   }
 
   return (
@@ -188,7 +193,9 @@ const PropertyPage = () => {
         {whoIs === 'home_seeker' && (
           <Target>
             <div className='btn-contact'>
-              <Button>contact advertiser</Button>
+              <div onClick={handleContacted}>
+                <Button>contact advertiser</Button>
+              </div>
               <div className='add--favorites'>
                 <AiOutlineHeart onClick={handleAddToFavorite} />
                 <p className='p__favorite'> Add to favorites</p>

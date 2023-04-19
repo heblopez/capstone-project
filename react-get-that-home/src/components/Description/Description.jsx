@@ -19,9 +19,11 @@ const Description = ({
   pets_allowed,
   type_operation,
   type_property,
+  favorite,
 }) => {
   const typeProp =
     type_property.charAt(0).toUpperCase() + type_property.slice(1);
+  const isFavorite = favorite ? favorite.includes(id) : false;
 
   return (
     <Data>
@@ -61,7 +63,7 @@ const Description = ({
 
           <div className='service'>
             {pets_allowed && <img src={petsfrom} alt='pets' />}
-            {'favorite' && <AiFillHeart className='heart-icon' />}
+            {isFavorite && <AiFillHeart className='heart-icon' />}
           </div>
         </div>
       </InfoContainer>
