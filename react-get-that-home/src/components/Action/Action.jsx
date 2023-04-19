@@ -15,8 +15,6 @@ const Action = ({ id, section }) => {
       ? 'active'
       : 'none';
 
-  console.log(section);
-
   function handlesRemove() {
     const formData = new FormData();
     formData.append('status', false);

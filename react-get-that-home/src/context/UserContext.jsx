@@ -3,11 +3,13 @@ import { createContext } from 'react';
 import User from '../services/user-services';
 import Auth from '../services/auth-services';
 import { TOKEN_KEY, ID } from '../config';
+import { useShow } from './ShowContext';
 
 const UserContext = createContext();
 
 function UserProvider({ children }) {
   const [user, setUser] = useState(null);
+  const { handleShow } = useShow();
 
   const role = user ? user.role : '';
 
@@ -26,7 +28,7 @@ function UserProvider({ children }) {
     Auth.login(credentials)
       .then((u) => {
         setUser(u);
-        // window.location.reload();
+        handleShow();
       })
       .catch(console.log(error));
   }

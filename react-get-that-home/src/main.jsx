@@ -11,12 +11,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Global styles={reset} />
     <Global styles={global} />
-    <UserProvider>
-      <PropertyProvider>
-        <ShowProvider>
+    <ShowProvider>
+      <UserProvider>
+        <PropertyProvider>
           <App />
-        </ShowProvider>
-      </PropertyProvider>
-    </UserProvider>
+        </PropertyProvider>
+      </UserProvider>
+    </ShowProvider>
   </React.StrictMode>
 );

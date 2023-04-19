@@ -79,8 +79,6 @@ const MyProperties = () => {
   const activesProperties = getPage(propertiesStatusActive, currentPage.active);
   const closedProperties = getPage(propertiesStatusClosed, currentPage.closed);
 
-  console.log(section);
-
   return (
     <MyPropContainer>
       <div className='container'>

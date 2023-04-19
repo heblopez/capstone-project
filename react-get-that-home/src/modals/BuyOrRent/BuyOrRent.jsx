@@ -2,7 +2,6 @@ import React from 'react';
 import BuyRent from './BuyOrRent-UI';
 
 const BuyOrRent = ({ onHandle, data }) => {
-  console.log(data);
   return (
     <BuyRent>
       <div className='container'>

@@ -9,6 +9,7 @@ import { useUser } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useShow } from '../../context/ShowContext';
+import { BiMinus } from 'react-icons/bi';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -21,7 +22,9 @@ const LoginForm = () => {
 
   const validates = Yup.object({
     email: Yup.string().email().required('Please Enter your email'),
-    password: Yup.string().required('Please Enter your password'),
+    password: Yup.string()
+      .min(6, 'Must be 6 characters or more')
+      .required('Please Enter your password'),
   });
 
   return (
@@ -34,34 +37,35 @@ const LoginForm = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={validates}
-          onSubmit={(values) => {
+          onSubmit={(values, { isSubmiting }) => {
             login(values);
-            handleShow();
             navigate('/');
           }}
         >
-          <Form>
-            <Field
-              label={'email'}
-              name='email'
-              type='email'
-              placeholder='user@mail.com'
-              required
-            />
-            <Field
-              label={'password'}
-              name='password'
-              type='password'
-              placeholder='******'
-              required
-            />
-            <div className='btn-login-modal'>
-              <Button type={'primary'} typeBtn={'submit'}>
-                <RiUserReceived2Line />
-                Login
-              </Button>
-            </div>
-          </Form>
+          {({ isValid }) => (
+            <Form>
+              <Field
+                label={'email'}
+                name='email'
+                type='email'
+                placeholder='user@mail.com'
+                required
+              />
+              <Field
+                label={'password'}
+                name='password'
+                type='password'
+                placeholder='******'
+                required
+              />
+              <div className='btn-login-modal'>
+                <Button type={'primary'} typeBtn={'submit'} disabled={!isValid}>
+                  <RiUserReceived2Line />
+                  Login
+                </Button>
+              </div>
+            </Form>
+          )}
         </Formik>
       </div>
     </ContainerModal>
