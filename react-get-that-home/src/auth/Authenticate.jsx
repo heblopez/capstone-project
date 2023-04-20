@@ -8,6 +8,8 @@ import CreateProperty from '../pages/CreateProperty/CreateProperty';
 import EditProperty from '../pages/EditProperty/EditProperty';
 import SavedProperties from '../pages/SavedProperty/SavedProperties';
 import MyProperties from '../pages/MyProperties/MyProperties';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from '../errorPage/ErrorPage';
 
 const Authenticate = () => {
   return (
@@ -15,8 +17,22 @@ const Authenticate = () => {
       <Routes>
         <Route path='/' element={<LandingPage />} />
         <Route path='/find_a_home' element={<FindPage />} />
-        <Route path='/saved_properties' element={<SavedProperties />} />
-        <Route path='/my_properties' element={<MyProperties />} />
+        <Route
+          path='/saved_properties'
+          element={
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <SavedProperties />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path='/my_properties'
+          element={
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <MyProperties />
+            </ErrorBoundary>
+          }
+        />
         <Route path='/profile' element={<Profile />} />
         <Route path='/property/:id' element={<PropertyPage />} />
         <Route path='/new_property' element={<CreateProperty />} />
