@@ -29,16 +29,33 @@ const getFavorites = async (userId) => {
     headers: { Authorization: `Token token=${token}` },
   };
 
-  try {
-    const response = await fetch(
-      `${BASE_URI}/users/${userId}/favorites`,
-      options
-    );
-    const favorites = await response.json();
-    return favorites;
-  } catch (error) {
-    console.error(error);
+  const response = await fetch(
+    `${BASE_URI}/users/${userId}/favorites`,
+    options
+  );
+
+  let favorites;
+  if (!response.ok) {
+    if (token && response.status == 401) {
+      sessionStorage.removeItem(TOKEN_KEY);
+      sessionStorage.removeItem(ID);
+      window.location.reload();
+    }
+
+    try {
+      favorites = await response.json();
+    } catch (error) {
+      throw new Error(response.statusText);
+    }
+    throw new Error(data.errors);
   }
+
+  try {
+    favorites = await response.json();
+  } catch (error) {
+    favorites = response.statusText;
+  }
+  return favorites;
 };
 
 const contactAdvertiser = async (userId, propertyId) => {
