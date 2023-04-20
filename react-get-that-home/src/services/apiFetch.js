@@ -32,7 +32,6 @@ export default async function apiFetch(
   if (!response.ok) {
     if (token && response.status == 401) {
       sessionStorage.removeItem(TOKEN_KEY);
-      window.location.reload();
     }
     try {
       data = await response.json();

@@ -25,14 +25,7 @@ const Authenticate = () => {
             </ErrorBoundary>
           }
         />
-        <Route
-          path='/my_properties'
-          element={
-            <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <MyProperties />
-            </ErrorBoundary>
-          }
-        />
+        <Route path='/my_properties' element={<MyProperties />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/property/:id' element={<PropertyPage />} />
         <Route path='/new_property' element={<CreateProperty />} />
