@@ -40,9 +40,9 @@ const SavedProperties = () => {
       .catch(console.log);
   }, [section]);
 
-  const fav = favorites.map((f) => f.property_id);
+  const propsId = favorites.map((f) => f.property_id);
 
-  const uniqIdProp = [...new Set(fav)];
+  const uniqIdProp = [...new Set(propsId)];
 
   const favs = properties.filter((obj) => {
     return favorites.some((fav) => fav.property_id === obj.id);
