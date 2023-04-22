@@ -102,7 +102,6 @@ const PropertyPage = () => {
   }
 
   function handleContacted() {
-    console.log('Hola');
     contactAdvertiser(userId, id);
   }
 

@@ -8,7 +8,7 @@ const SearchContainer = styled.div`
   width: 100%;
 
   img {
-    width: 100vw;
+    width: 100%;
     object-fit: cover;
   }
 
@@ -26,38 +26,18 @@ const SearchContainer = styled.div`
     transform: translateX(0%);
 
     h1 {
-      ${typography.head.headline2}
+      font-style: normal;
+      font-size: clamp(1.8rem, 3.5vw, 4rem);
+      font-weight: 300;
+      line-height: 5.5rem;
     }
 
     h2 {
-      ${typography.head.headline5}
-      color: ${colors.gray}
+      font-style: normal;
+      font-size: clamp(0.8rem, 1.9vw, 1.5rem);
+      font-weight: 400;
+      color: ${colors.gray};
     }
-
-    @media (max-width: 1024px) {
-      h1 {
-        ${typography.head.headline3}
-      }
-
-      h2 {
-        ${typography.head.headline6}
-      }
-    }
-
-    @media (max-width: 768px) {
-      top: 23%;
-    }
-
-    @media (max-width: 425px) {
-      top: 15%;
-
-      h1 {
-        ${typography.head.headline4}
-      }
-
-      h2 {
-        ${typography.caption}
-      }
     }
   }
 `;

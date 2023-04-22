@@ -5,18 +5,21 @@ import { Form, Formik } from 'formik';
 import Select from '../Inputs/Formik/Select';
 import Input from '../Inputs/Formik/Input';
 import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
+import { useProp } from '../../context/PropertyContext';
+import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
+  const navigate = useNavigate();
+  const { setSearchBy } = useProp();
   const initialData = {
-    looking: '',
-    want: '',
+    looking: 'apartment',
+    want: 'rent',
     where: '',
   };
 
   const validates = Yup.object({
-    looking: Yup.string().required(),
-    want: Yup.string().required(),
+    looking: Yup.string(),
+    want: Yup.string(),
     where: Yup.string(),
   });
 
@@ -28,6 +31,8 @@ const Search = () => {
           validationSchema={validates}
           onSubmit={(values) => {
             console.log(values);
+            setSearchBy(values);
+            navigate('/find_a_home');
           }}
         >
           <Form>
@@ -51,11 +56,9 @@ const Search = () => {
               />
             </div>
             <div className='btn'>
-              <Link to={'/find_a_home'}>
-                <Button type={'primary'} typebtn={'submit'}>
-                  search
-                </Button>
-              </Link>
+              <Button type={'primary'} typebtn={'submit'}>
+                search
+              </Button>
             </div>
           </Form>
         </Formik>

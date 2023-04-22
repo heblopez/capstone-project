@@ -8,6 +8,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import MyPropContainer from './MyProperties-UI';
 import NotFound from '../../components/NoFound/NotFound';
 import ErrorFallback from '../../errorPage/ErrorPage';
+import { Link } from 'react-router-dom';
 
 function filterByActive(data) {
   const onlyActives = data?.filter((prop) => (prop.status ? prop : null));

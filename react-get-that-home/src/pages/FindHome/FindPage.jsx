@@ -100,8 +100,6 @@ function filterByBuyingRenting(properties, type_operation) {
     return properties;
   }
 
-  console.log(buy);
-
   const byBoR = properties.filter((prop) =>
     prop.type_operation === buy
       ? prop
@@ -149,7 +147,7 @@ function filterProperties(properties, filter) {
 
 // component Find Properties
 const FindPage = () => {
-  const { properties } = useProp();
+  const { properties, searchBy } = useProp();
   const [showMore, setShowMore] = useState(false);
   const [showBbth, setShowBbth] = useState(false);
   const [showProperties, setShowProperties] = useState(false);
@@ -157,13 +155,20 @@ const FindPage = () => {
   const [showBuyRent, setShowbuyRent] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState({
-    address: '',
+    address: searchBy.where || '',
     price: { min: 0, max: Infinity },
-    type_property: { house: null, apartment: null },
+    type_property: {
+      house: searchBy.looking === 'house' ? 'house' : null,
+      apartment: searchBy.looking === 'apartment' ? 'apartment' : null,
+    },
     services: { bathrooms: null, bedrooms: null },
     pets: false,
     area: { min: 0, max: 999999999 },
-    type_operation: { both: true, buying: false, renting: false },
+    type_operation: {
+      both: true,
+      buying: searchBy.want === 'buy' ? true : false,
+      renting: searchBy.want === 'rent' ? true : false,
+    },
   });
 
   function handleChange(e) {
@@ -200,6 +205,7 @@ const FindPage = () => {
     setShowbuyRent(!showBuyRent);
   }
 
+  // search by address
   function handleChangeSearch(e) {
     setFilter({
       ...filter,
@@ -207,6 +213,7 @@ const FindPage = () => {
     });
   }
 
+  // search by price
   function handleGetPrice(data) {
     setFilter({
       ...filter,
@@ -218,6 +225,9 @@ const FindPage = () => {
     });
   }
 
+  console.log(filter);
+
+  // search by property
   function handleGetProperty(data) {
     setFilter({
       ...filter,
@@ -229,6 +239,7 @@ const FindPage = () => {
     });
   }
 
+  // search by bathrooms and bedrooms
   function handleGetBB(data) {
     setFilter({
       ...filter,
@@ -240,6 +251,7 @@ const FindPage = () => {
     });
   }
 
+  // search by pets allowed or area m^2
   function handleGetMore(data) {
     setFilter({
       ...filter,
@@ -421,7 +433,7 @@ const FindPage = () => {
             </div>
           </div>
         </BarOption>
-        <p> {PropertiesFiltered.length} Properties found</p>
+        <p className='count_properties'> {PropertiesFiltered.length} Properties found</p>
         <div className='section-list'>
           {currentPageData.map((property) => (
             <Card key={property.id} property={property} />

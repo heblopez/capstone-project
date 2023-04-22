@@ -7,7 +7,12 @@ const SectionFind = styled.div`
   div.container-find__page {
     max-width: 1200px;
     margin: auto;
-    padding: 32px 0;
+    padding: 32px 20px;
+
+    p.count_properties {
+      margin-top: 20px;
+      padding-left: 30px;
+    }
 
     div.section-list {
       display: grid;
@@ -77,6 +82,9 @@ const BarOption = styled.div`
   div.btns {
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
     gap: 8px;
 
     div.price {

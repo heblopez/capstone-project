@@ -5,6 +5,7 @@ const PropertyContext = createContext();
 function PropertyProvider({ children }) {
   const [properties, setProperties] = useState([]);
   const [rentOrSale, setRentOrSale] = useState('rent');
+  const [searchBy, setSearchBy] = useState({});
 
   useEffect(() => {
     const properties = setTimeout(() => {
@@ -20,9 +21,11 @@ function PropertyProvider({ children }) {
     setRentOrSale(value);
   }
 
+  // console.log(search);
+
   return (
     <PropertyContext.Provider
-      value={{ properties, rentOrSale, handleChange }}
+      value={{ properties, rentOrSale, handleChange, setSearchBy, searchBy }}
     >
       {children}
     </PropertyContext.Provider>
