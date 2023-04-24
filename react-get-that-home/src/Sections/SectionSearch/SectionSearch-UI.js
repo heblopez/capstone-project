@@ -9,7 +9,7 @@ const SearchContainer = styled.div`
 
   img {
     width: 100%;
-    height: 500px;
+    height: 650px;
     object-fit: cover;
   }
 
