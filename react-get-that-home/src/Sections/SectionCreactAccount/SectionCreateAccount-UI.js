@@ -4,7 +4,8 @@ import { typography } from '../../styles/typography';
 
 const CreateSection = styled.div`
   width: 100%;
-  height: 312px;
+  min-height: 312px;
+  padding: 30px;
   display: flex;
   background-color: ${colors.shallowpink};
 
@@ -18,7 +19,10 @@ const CreateSection = styled.div`
     gap: 32px;
 
     p {
-      ${typography.head.headline4}
+      font-style: normal;
+      font-weight: 400;
+      font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+      line-height: 3rem;
       text-align: center;
       padding: 0 30px;
     }
