@@ -14,30 +14,45 @@ const WrapperPage = styled.div`
 
 const EditProperty = () => {
   const { id } = useParams();
-  const [property, setProperty] = useState({});
+  const initial = {
+    address: '',
+    apartment: false,
+    area: '',
+    bathrooms: '',
+    bedrooms: '',
+    description: '',
+    house: false,
+    maintanance: '',
+    monthly_rent: '',
+    price: '',
+    pets_allowed: false,
+  };
+
+  const p = JSON.parse(localStorage.getItem('property'));
+  const prop = {
+    address: p.address,
+    apartment: p.type_property === 'apartment',
+    house: p.type_property === 'house',
+    area: p.area,
+    bathrooms: p.bathrooms,
+    bedrooms: p.bedrooms,
+    description: p.description,
+    maintanance: p.maintanance,
+    monthly_rent: p.monthly_rent,
+    price: p.price,
+    pets_allowed: p.pets_allowed,
+  };
+
+  const [property, setProperty] = useState(prop || initial);
 
   useEffect(() => {
-    const property = setTimeout(() => {
-      Properties.getProp(id)
-        .then((prop) => {
-          setProperty({
-            address: prop.address,
-            apartment: prop.type_property === 'apartment',
-            house: prop.type_property === 'house',
-            area: prop.area,
-            bathrooms: prop.bathrooms,
-            bedrooms: prop.bedrooms,
-            description: prop.description,
-            maintanance: prop.maintanance,
-            monthly_rent: prop.monthly_rent,
-            price: prop.price,
-            pets_allowed: prop.pets_allowed,
-          });
-        })
-        .catch(console.log);
-    });
-    return () => clearTimeout(property);
-  }, []);
+    Properties.getProp(id)
+      .then((prop) => {
+        localStorage.setItem('property', JSON.stringify(prop));
+        setProperty(prop);
+      })
+      .catch(console.log);
+  }, [id]);
 
   return (
     <WrapperPage>
@@ -45,7 +60,7 @@ const EditProperty = () => {
       <div>
         <ButtonRS />
       </div>
-      <FormProperty initialValues={property} id={id} />
+      <FormProperty valuesProp={property} id={id} />
     </WrapperPage>
   );
 };
