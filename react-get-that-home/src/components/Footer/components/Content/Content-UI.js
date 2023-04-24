@@ -17,6 +17,7 @@ const Container = styled.div`
 
   p {
     ${typography.body.body2}
+    font-size: clamp(.6rem, 2vw, 0.875rem);
   }
 `;
 
