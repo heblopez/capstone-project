@@ -12,14 +12,16 @@ function App() {
   const { show } = useShow();
 
   return (
-    <div>
+    <>
       <BrowserRouter>
         <Header user={user} whoIs={role} />
-        {user ? <Authenticate /> : <UnAuthenticate />}
-        {show && <LoginForm />}
+        <div style={{ minHeight: '70vh' }}>
+          {user ? <Authenticate /> : <UnAuthenticate />}
+          {show && <LoginForm />}
+        </div>
         <Footer user={role} />
       </BrowserRouter>
-    </div>
+    </>
   );
 }
 

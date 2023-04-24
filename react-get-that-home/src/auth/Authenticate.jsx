@@ -13,7 +13,7 @@ import ErrorFallback from '../errorPage/ErrorPage';
 
 const Authenticate = () => {
   return (
-    <div>
+    <>
       <Routes>
         <Route path='/' element={<LandingPage />} />
         <Route path='/find_a_home' element={<FindPage />} />
@@ -31,7 +31,7 @@ const Authenticate = () => {
         <Route path='/new_property' element={<CreateProperty />} />
         <Route path='/edit/property/:id' element={<EditProperty />} />
       </Routes>
-    </div>
+    </>
   );
 };
 
