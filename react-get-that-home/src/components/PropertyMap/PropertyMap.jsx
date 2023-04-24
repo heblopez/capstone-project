@@ -8,7 +8,6 @@ export function PropertyMap({ address }) {
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: googleMapsKey,
-    libraries: ['places'],
     version: 'weekly',
   });
 
