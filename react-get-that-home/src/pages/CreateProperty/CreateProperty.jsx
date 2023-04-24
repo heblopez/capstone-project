@@ -34,7 +34,7 @@ function CreateProperty() {
       <div>
         <ButtonRS />
       </div>
-      <FormProperty initialValues={initialValues} location={locationPage} />
+      <FormProperty valuesProp={initialValues} location={locationPage} />
     </WrapperPage>
   );
 }
