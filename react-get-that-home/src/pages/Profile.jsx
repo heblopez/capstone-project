@@ -14,6 +14,7 @@ const ProfileContainer = styled.div`
 
   div.container {
     max-width: 810px;
+    min-height: 70vh;
     padding: 0 34px;
     margin: 0 auto;
 
