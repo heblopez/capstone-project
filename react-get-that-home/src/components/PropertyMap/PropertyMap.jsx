@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
-const apiKey = import.meta.env.VITE_MAPS_API_KEY;
+import { googleMapsKey } from '../../config';
 
 export function PropertyMap({ address }) {
   const [center, setCenter] = useState(null);
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: apiKey,
+    googleMapsApiKey: googleMapsKey,
     libraries: ['places'],
     version: 'weekly',
   });
@@ -44,5 +44,5 @@ export function PropertyMap({ address }) {
         <Marker position={center} />
       </GoogleMap>
     </div>
-  );
+  )
 }
