@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { colors } from '../../styles';
 
 const TargerCont = styled.div`
   width: 290px;
@@ -17,6 +18,13 @@ const TargerCont = styled.div`
     padding: 40px;
     gap: 16px;
 
+    h3.title-information {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 28px;
+    }
+
     p {
       text-align: center;
     }
@@ -24,6 +32,20 @@ const TargerCont = styled.div`
     div.btn-login {
       button {
         min-width: 112px;
+      }
+    }
+
+    div.information-contact {
+      p.information-title,
+      p.landlord-contact {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+
+        &.information-title {
+          color: ${colors.darkpink2};
+        }
       }
     }
   }

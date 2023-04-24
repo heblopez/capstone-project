@@ -11,7 +11,11 @@ import Button from '../../components/Button/Button';
 import Target from '../../components/Target/Target';
 import { AiOutlineUserAdd, AiOutlineHeart } from 'react-icons/ai';
 import { ID } from '../../config';
-import { addFavorite, contactAdvertiser } from '../../services/favorites-services';
+import {
+  addFavorite,
+  contactAdvertiser,
+  getAllPropsContacted,
+} from '../../services/favorites-services';
 
 function splitAddress(address) {
   const parts = address ? address.split(',') : '';
@@ -25,22 +29,39 @@ function splitAddress(address) {
 
 const PropertyPage = () => {
   const { id } = useParams();
+  const property_id = id;
+  const userId = sessionStorage.getItem(ID);
   const { user } = useUser();
   const { handleShow } = useShow();
   const [indexImg, setIndexImg] = useState(0);
   const [property, setProperty] = useState({});
+  const { landlord_user } = property;
+  const [contactedUser, setContactedUser] = useState([]); // data when clicked button contact
 
-  const userId = sessionStorage.getItem(ID);
+  const [filterProp] = contactedUser
+    ? contactedUser?.filter((prop) => prop.property_id === property.id)
+    : [];
 
   const whoIs = user ? user.role : '';
 
+  // get property
   useEffect(() => {
     const property = setTimeout(() => {
-      Properties.getProp(id)
+      Properties.getProp(property_id)
         .then((prop) => setProperty(prop))
         .catch(console.log);
     }, 0);
     return () => clearTimeout(property);
+  }, []);
+
+  function handleContacted() {
+    contactAdvertiser(userId, property_id);
+  }
+
+  useEffect(() => {
+    getAllPropsContacted(userId)
+      .then((all) => setContactedUser(all))
+      .catch(console.log);
   }, []);
 
   const {
@@ -98,11 +119,7 @@ const PropertyPage = () => {
   }
 
   function handleAddToFavorite() {
-    addFavorite(userId, id);
-  }
-
-  function handleContacted() {
-    contactAdvertiser(userId, id);
+    addFavorite(userId, property_id);
   }
 
   return (
@@ -189,7 +206,7 @@ const PropertyPage = () => {
           </Target>
         )}
 
-        {whoIs === 'home_seeker' && (
+        {whoIs === 'home_seeker' && !filterProp && (
           <Target>
             <div className='btn-contact'>
               <div onClick={handleContacted}>
@@ -205,7 +222,7 @@ const PropertyPage = () => {
 
         {whoIs === 'landlord' && (
           <div className='btn-edit_property'>
-            <Link to={`/edit/property/${id}`} className='edit-btn'>
+            <Link to={`/edit/property/${property_id}`} className='edit-btn'>
               <Button>
                 <BiEdit />
                 edit property
@@ -213,6 +230,24 @@ const PropertyPage = () => {
             </Link>
           </div>
         )}
+
+        {filterProp
+          ? filterProp.contacted && (
+              <>
+                <Target>
+                  <h3 className='title-information'>Contact information</h3>
+                  <div className='information-contact'>
+                    <p className='information-title'>Email</p>
+                    <p className='landlord-contact'>{landlord_user.email}</p>
+                  </div>
+                  <div className='information-contact'>
+                    <p className='information-title'>Phone</p>
+                    <p className='landlord-contact'>{landlord_user.phone}</p>
+                  </div>
+                </Target>
+              </>
+            )
+          : 'Loading'}
       </SideBar>
     </MainSection>
   );

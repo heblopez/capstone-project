@@ -225,8 +225,6 @@ const FindPage = () => {
     });
   }
 
-  console.log(filter);
-
   // search by property
   function handleGetProperty(data) {
     setFilter({

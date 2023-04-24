@@ -1,5 +1,6 @@
 import { BASE_URI, TOKEN_KEY } from '../config';
 
+// add to favorites
 const addFavorite = async (userId, propertyId) => {
   console.log(userId, propertyId);
 
@@ -15,12 +16,12 @@ const addFavorite = async (userId, propertyId) => {
       `${BASE_URI}/users/${userId}/favorites/${propertyId}`,
       options
     );
-    console.log(response);
   } catch (error) {
     console.error(error);
   }
 };
 
+// get yout favorites properties
 const getFavorites = async (userId) => {
   const token = sessionStorage.getItem(TOKEN_KEY);
 
@@ -58,6 +59,7 @@ const getFavorites = async (userId) => {
   return favorites;
 };
 
+// contact with property landlord
 const contactAdvertiser = async (userId, propertyId) => {
   const token = sessionStorage.getItem(TOKEN_KEY);
 
@@ -72,14 +74,14 @@ const contactAdvertiser = async (userId, propertyId) => {
       options
     );
     const contacted = await response.json();
-    console.log(contacted);
     return contacted;
   } catch (error) {
     console.error(error);
   }
 };
 
-const getcontactAdvertiser = async (userId) => {
+// get all properties contacted
+const getAllPropsContacted = async (userId) => {
   const token = sessionStorage.getItem(TOKEN_KEY);
 
   const options = {
@@ -99,4 +101,4 @@ const getcontactAdvertiser = async (userId) => {
   }
 };
 
-export { addFavorite, getFavorites, contactAdvertiser, getcontactAdvertiser };
+export { addFavorite, getFavorites, contactAdvertiser, getAllPropsContacted };
