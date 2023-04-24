@@ -9,7 +9,6 @@ import { useUser } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useShow } from '../../context/ShowContext';
-import { BiMinus } from 'react-icons/bi';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -37,9 +36,10 @@ const LoginForm = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={validates}
-          onSubmit={(values, { isSubmiting }) => {
-            login(values);
+          onSubmit={(values) => {
+            handleShow();
             navigate('/');
+            login(values);
           }}
         >
           {({ isValid }) => (

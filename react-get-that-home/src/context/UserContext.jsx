@@ -28,7 +28,6 @@ function UserProvider({ children }) {
     Auth.login(credentials)
       .then((u) => {
         setUser(u);
-        handleShow();
       })
       .catch(console.log(error));
   }
