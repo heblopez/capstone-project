@@ -2,8 +2,6 @@ import { BASE_URI, TOKEN_KEY } from '../config';
 
 // add to favorites
 const addFavorite = async (userId, propertyId) => {
-  console.log(userId, propertyId);
-
   const token = sessionStorage.getItem(TOKEN_KEY);
 
   const options = {
@@ -59,6 +57,19 @@ const getFavorites = async (userId) => {
   return favorites;
 };
 
+const removeFavorite = async (userId, propertyId) => {
+  const token = sessionStorage.getItem(TOKEN_KEY);
+  const options = {
+    method: 'DELETE',
+    headers: { Authorization: `Token token=${token}` },
+  };
+  try {
+    await fetch(`${BASE_URI}/users/${userId}/favorites/${propertyId}`, options);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // contact with property landlord
 const contactAdvertiser = async (userId, propertyId) => {
   const token = sessionStorage.getItem(TOKEN_KEY);
@@ -101,4 +112,10 @@ const getAllPropsContacted = async (userId) => {
   }
 };
 
-export { addFavorite, getFavorites, contactAdvertiser, getAllPropsContacted };
+export {
+  addFavorite,
+  getFavorites,
+  removeFavorite,
+  contactAdvertiser,
+  getAllPropsContacted,
+};

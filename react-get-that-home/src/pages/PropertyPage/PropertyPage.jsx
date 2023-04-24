@@ -9,13 +9,20 @@ import { useUser } from '../../context/UserContext';
 import { useShow } from '../../context/ShowContext';
 import Button from '../../components/Button/Button';
 import Target from '../../components/Target/Target';
-import { AiOutlineUserAdd, AiOutlineHeart } from 'react-icons/ai';
+import {
+  AiOutlineUserAdd,
+  AiOutlineHeart,
+  AiTwotoneHeart,
+} from 'react-icons/ai';
 import { ID } from '../../config';
 import {
+  removeFavorite,
   addFavorite,
   contactAdvertiser,
   getAllPropsContacted,
+  getFavorites,
 } from '../../services/favorites-services';
+import { colors } from '../../styles';
 
 function splitAddress(address) {
   const parts = address ? address.split(',') : '';
@@ -37,9 +44,14 @@ const PropertyPage = () => {
   const [property, setProperty] = useState({});
   const { landlord_user } = property;
   const [contactedUser, setContactedUser] = useState([]); // data when clicked button contact
+  const [favorites, setFavorites] = useState([]);
 
   const [filterProp] = contactedUser
     ? contactedUser?.filter((prop) => prop.property_id === property.id)
+    : [];
+
+  const [filterPropFav] = favorites
+    ? favorites.filter((fav) => fav.property_id === property.id)
     : [];
 
   const whoIs = user ? user.role : '';
@@ -61,6 +73,12 @@ const PropertyPage = () => {
   useEffect(() => {
     getAllPropsContacted(userId)
       .then((all) => setContactedUser(all))
+      .catch(console.log);
+  }, []);
+
+  useEffect(() => {
+    getFavorites(userId)
+      .then((favs) => setFavorites(favs))
       .catch(console.log);
   }, []);
 
@@ -120,6 +138,10 @@ const PropertyPage = () => {
 
   function handleAddToFavorite() {
     addFavorite(userId, property_id);
+  }
+
+  function removeTofavorites() {
+    removeFavorite(userId, property_id);
   }
 
   return (
@@ -213,8 +235,21 @@ const PropertyPage = () => {
                 <Button>contact advertiser</Button>
               </div>
               <div className='add--favorites'>
-                <AiOutlineHeart onClick={handleAddToFavorite} />
-                <p className='p__favorite'> Add to favorites</p>
+                {filterPropFav ? (
+                  <AiTwotoneHeart
+                    style={{
+                      color: `${colors.pink}`,
+                      width: '25px',
+                      height: '25px',
+                    }}
+                    onClick={removeTofavorites}
+                  />
+                ) : (
+                  <>
+                    <AiOutlineHeart onClick={handleAddToFavorite} />
+                    <p className='p__favorite'> Add to favorites</p>
+                  </>
+                )}
               </div>
             </div>
           </Target>
