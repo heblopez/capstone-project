@@ -27,8 +27,7 @@ const Section = styled.div`
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    /* display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
+    gap: 9px;
   }
 `;
 
