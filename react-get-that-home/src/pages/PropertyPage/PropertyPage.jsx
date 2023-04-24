@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Properties from '../../services/properties-services';
 import { MainSection, Wrapper, SideBar, MapContainer } from './PropertyPage-UI';
 import { RiMoneyDollarCircleLine } from 'react-icons/ri';
@@ -21,6 +21,7 @@ import {
   contactAdvertiser,
   getAllPropsContacted,
   getFavorites,
+  removeContact,
 } from '../../services/favorites-services';
 import { colors } from '../../styles';
 
@@ -35,6 +36,7 @@ function splitAddress(address) {
 }
 
 const PropertyPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const property_id = id;
   const userId = sessionStorage.getItem(ID);
@@ -68,6 +70,7 @@ const PropertyPage = () => {
 
   function handleContacted() {
     contactAdvertiser(userId, property_id);
+    navigate('/saved_properties');
   }
 
   useEffect(() => {
@@ -138,10 +141,17 @@ const PropertyPage = () => {
 
   function handleAddToFavorite() {
     addFavorite(userId, property_id);
+    navigate('/saved_properties');
   }
 
   function removeTofavorites() {
     removeFavorite(userId, property_id);
+    navigate('/saved_properties');
+  }
+
+  function handleRemoveContact() {
+    removeContact(userId, property_id);
+    navigate('/saved_properties');
   }
 
   return (
@@ -278,6 +288,9 @@ const PropertyPage = () => {
                   <div className='information-contact'>
                     <p className='information-title'>Phone</p>
                     <p className='landlord-contact'>{landlord_user.phone}</p>
+                  </div>
+                  <div className='remove-contact' onClick={handleRemoveContact}>
+                    <Button>Remove contact</Button>
                   </div>
                 </Target>
               </>

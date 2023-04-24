@@ -112,10 +112,29 @@ const getAllPropsContacted = async (userId) => {
   }
 };
 
+// delete contact
+const removeContact = async (user_id, property_id) => {
+  const token = sessionStorage.getItem(TOKEN_KEY);
+  const options = {
+    method: 'DELETE',
+    headers: { Authorization: `Token token=${token}` },
+  };
+
+  try {
+    await fetch(
+      `${BASE_URI}/users/${user_id}/contacted/${property_id}`,
+      options
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export {
   addFavorite,
   getFavorites,
   removeFavorite,
   contactAdvertiser,
   getAllPropsContacted,
+  removeContact,
 };

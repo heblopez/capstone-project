@@ -48,6 +48,12 @@ const TargerCont = styled.div`
         }
       }
     }
+
+    div.remove-contact {
+      button {
+        width: 200px;
+      }
+    }
   }
 `;
 
