@@ -10,7 +10,7 @@ const Container = styled.div`
     div.first {
       padding: 64px 0;
       width: 100%;
-      height: 352px;
+      height: 438px;
       background-color: ${colors.shallowpink};
 
       p {
