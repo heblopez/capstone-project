@@ -115,6 +115,9 @@ const MyProperties = () => {
                   <NotFound />
                 ) : (
                   <div className='section'>
+                    <p className='count--props'>
+                      {activesProperties.length} properties found
+                    </p>
                     <div className='grid'>
                       {activesProperties?.map((prop) => (
                         <Card key={prop.id} property={prop} section={section} />
@@ -163,6 +166,9 @@ const MyProperties = () => {
                 <NotFound />
               ) : (
                 <div className='section'>
+                  <p className='count--props'>
+                    {closedProperties.length} properties found
+                  </p>
                   <div className='grid'>
                     {closedProperties?.map((prop) => (
                       <Card key={prop.id} property={prop} section={section} />

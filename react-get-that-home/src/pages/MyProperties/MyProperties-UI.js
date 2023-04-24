@@ -6,6 +6,7 @@ const MyPropContainer = styled.div`
 
   div.container {
     max-width: 1200px;
+    min-height: 70vh;
     padding: 0 32px;
     margin: 0 auto;
 
@@ -42,6 +43,12 @@ const MyPropContainer = styled.div`
     div.body {
       div.section {
         min-height: 60vh;
+
+        p.count--props {
+          margin-top: 30px;
+          padding-left: 40px;
+        }
+
         div.grid,
         div.grid {
           padding: 16px 40px;
