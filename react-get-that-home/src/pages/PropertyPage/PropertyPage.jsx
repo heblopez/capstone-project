@@ -13,6 +13,7 @@ import { AiOutlineUserAdd, AiOutlineHeart } from 'react-icons/ai';
 import { ID } from '../../config';
 import { addFavorite, contactAdvertiser } from '../../services/favorites-services';
 import { PropertyMap } from '../../components/PropertyMap/PropertyMap';
+import PropertyGallery from '../../components/PropertyGallery/PropertyGallery';
 
 function splitAddress(address) {
   const parts = address ? address.split(',') : ' ';
@@ -28,7 +29,6 @@ const PropertyPage = () => {
   const { id } = useParams();
   const { user } = useUser();
   const { handleShow } = useShow();
-  const [indexImg, setIndexImg] = useState(0);
   const [property, setProperty] = useState({});
 
   const userId = sessionStorage.getItem(ID);
@@ -60,22 +60,6 @@ const PropertyPage = () => {
 
   const { street, city, state } = splitAddress(address);
 
-  function nextImg() {
-    if (indexImg === photo_urls.length - 1) {
-      setIndexImg(0);
-    } else {
-      setIndexImg(indexImg + 1);
-    }
-  }
-
-  function prevImg() {
-    if (indexImg === 0) {
-      setIndexImg(photo_urls.length - 1);
-    } else {
-      setIndexImg(indexImg - 1);
-    }
-  }
-
   function handleAddToFavorite() {
     addFavorite(userId, id);
   }
@@ -87,24 +71,7 @@ const PropertyPage = () => {
   return (
     <MainSection>
       <Wrapper>
-        <div className='container-photos'>
-          <div className='slideshow'>
-            {photo_urls && (
-              <img
-                key={indexImg + 1}
-                src={photo_urls[indexImg]}
-                alt='Property-photo'
-                className='slides'
-              />
-            )}
-            <button className='prev' onClick={prevImg}>
-              &#10094;
-            </button>
-            <button className='next' onClick={nextImg}>
-              &#10095;
-            </button>
-          </div>
-        </div>
+        { photo_urls && (<PropertyGallery photos={photo_urls} />)}
         <div className='title-and-price'>
           <div>
             <p className='text-xl'>{street}</p>
