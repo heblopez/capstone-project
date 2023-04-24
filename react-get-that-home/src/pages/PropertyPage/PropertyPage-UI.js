@@ -211,17 +211,4 @@ const Wrapper = styled.div`
   }
 `;
 
-const MapContainer = styled.div`
-  width: 100%;
-  margin-top: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  div.map {
-    width: 100%;
-    height: 760px;
-  }
-`;
-
-export { MainSection, SideBar, Wrapper, MapContainer };
+export { MainSection, SideBar, Wrapper };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Properties from '../../services/properties-services';
-import { MainSection, Wrapper, SideBar, MapContainer } from './PropertyPage-UI';
+import { MainSection, Wrapper, SideBar } from './PropertyPage-UI';
 import { RiMoneyDollarCircleLine } from 'react-icons/ri';
 import { BiBed, BiBath, BiArea, BiEdit } from 'react-icons/bi';
 import PetsIcon from '../../assets/pets.svg';
@@ -12,9 +12,10 @@ import Target from '../../components/Target/Target';
 import { AiOutlineUserAdd, AiOutlineHeart } from 'react-icons/ai';
 import { ID } from '../../config';
 import { addFavorite, contactAdvertiser } from '../../services/favorites-services';
+import { PropertyMap } from '../../components/PropertyMap/PropertyMap';
 
 function splitAddress(address) {
-  const parts = address ? address.split(',') : '';
+  const parts = address ? address.split(',') : ' ';
   return {
     street: parts[0] || '',
     city: parts[1] || '',
@@ -58,28 +59,6 @@ const PropertyPage = () => {
   } = property;
 
   const { street, city, state } = splitAddress(address);
-
-  const geocoder = new window.google.maps.Geocoder();
-
-  if (address) {
-    geocoder.geocode({ address: address }, (results, status) => {
-      if (status === 'OK') {
-        const map = new window.google.maps.Map(document.querySelector('.map'), {
-          center: results[0].geometry.location,
-          zoom: 17,
-        });
-
-        new window.google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location,
-        });
-      } else {
-        console.log(
-          'Geocode was not successful for the following reason: ' + status
-        );
-      }
-    });
-  }
 
   function nextImg() {
     if (indexImg === photo_urls.length - 1) {
@@ -130,7 +109,7 @@ const PropertyPage = () => {
           <div>
             <p className='text-xl'>{street}</p>
             <p className='city-text'>
-              {city} {state ? `, ${state}` : null}
+              {city}{state ? `, ${state}` : null}
             </p>
           </div>
           <div className='container-price'>
@@ -172,9 +151,7 @@ const PropertyPage = () => {
           <h2>Location</h2>
           <p>{address}</p>
         </div>
-        <MapContainer>
-          <div className='map'></div>
-        </MapContainer>
+        <PropertyMap address={address} />
       </Wrapper>
       <SideBar>
         {!user && (
