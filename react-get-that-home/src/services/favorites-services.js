@@ -46,7 +46,7 @@ const getFavorites = async (userId) => {
     } catch (error) {
       throw new Error(response.statusText);
     }
-    throw new Error(data.errors);
+    throw new Error(favorites.errors);
   }
 
   try {
