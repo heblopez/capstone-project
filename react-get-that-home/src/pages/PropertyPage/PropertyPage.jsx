@@ -27,7 +27,6 @@ import { colors } from '../../styles';
 import { PropertyMap } from '../../components/PropertyMap/PropertyMap';
 import PropertyGallery from '../../components/PropertyGallery/PropertyGallery';
 
-
 function splitAddress(address) {
   const parts = address ? address.split(',') : ' ';
   return {
@@ -50,7 +49,7 @@ const PropertyPage = () => {
   const [contactedUser, setContactedUser] = useState([]); // data when clicked button contact
   const [favorites, setFavorites] = useState([]);
 
-  const [filterProp] = contactedUser
+  const [contactedProp] = contactedUser
     ? contactedUser?.filter((prop) => prop.property_id === property.id)
     : [];
 
@@ -70,21 +69,20 @@ const PropertyPage = () => {
     return () => clearTimeout(property);
   }, []);
 
-  function handleContacted() {
-    contactAdvertiser(userId, property_id);
-    navigate('/saved_properties');
-  }
-
   useEffect(() => {
-    getAllPropsContacted(userId)
-      .then((all) => setContactedUser(all))
-      .catch(console.log);
+    if (user) {
+      getAllPropsContacted(userId)
+        .then((all) => setContactedUser(all))
+        .catch(console.log);
+    }
   }, []);
 
   useEffect(() => {
-    getFavorites(userId)
-      .then((favs) => setFavorites(favs))
-      .catch(console.log);
+    if (user) {
+      getFavorites(userId)
+        .then((favs) => setFavorites(favs))
+        .catch(console.log);
+    }
   }, []);
 
   const {
@@ -113,6 +111,13 @@ const PropertyPage = () => {
     navigate('/saved_properties');
   }
 
+  function handleContacted() {
+    if (user) {
+      contactAdvertiser(userId, property_id);
+    }
+    navigate('/saved_properties');
+  }
+
   function handleRemoveContact() {
     removeContact(userId, property_id);
     navigate('/saved_properties');
@@ -121,12 +126,13 @@ const PropertyPage = () => {
   return (
     <MainSection>
       <Wrapper>
-        { photo_urls && (<PropertyGallery photos={photo_urls} />)}
+        {photo_urls && <PropertyGallery photos={photo_urls} />}
         <div className='title-and-price'>
           <div>
             <p className='text-xl'>{street}</p>
             <p className='city-text'>
-              {city}{state ? `, ${state}` : null}
+              {city}
+              {state ? `, ${state}` : null}
             </p>
           </div>
           <div className='container-price'>
@@ -183,7 +189,7 @@ const PropertyPage = () => {
           </Target>
         )}
 
-        {whoIs === 'home_seeker' && !filterProp && (
+        {whoIs === 'home_seeker' && !contactedProp && (
           <Target>
             <div className='btn-contact'>
               <div onClick={handleContacted}>
@@ -221,8 +227,8 @@ const PropertyPage = () => {
           </div>
         )}
 
-        {filterProp
-          ? filterProp.contacted && (
+        {contactedProp
+          ? contactedProp.contacted && (
               <>
                 <Target>
                   <h3 className='title-information'>Contact information</h3>
@@ -240,7 +246,7 @@ const PropertyPage = () => {
                 </Target>
               </>
             )
-          : 'Loading'}
+          : ''}
       </SideBar>
     </MainSection>
   );
