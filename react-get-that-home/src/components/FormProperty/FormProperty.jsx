@@ -16,7 +16,7 @@ import { AiOutlineUpload } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
-const FormProperty = ({ initialValues, location, id }) => {
+const FormProperty = ({ valuesProp, location, id }) => {
   const navigate = useNavigate();
   const { rentOrSale } = useProp();
   const [photos, setPhotos] = useState([]);
@@ -46,7 +46,6 @@ const FormProperty = ({ initialValues, location, id }) => {
 
   const validates = Yup.object({
     address: Yup.string().required('Enter the address'),
-    type_operation: Yup.string(),
     monthly_rent:
       rentOrSale === 'rent' &&
       Yup.number().positive().required('Monthly rent is a required'),
@@ -54,7 +53,7 @@ const FormProperty = ({ initialValues, location, id }) => {
       rentOrSale === 'rent' && Yup.number().positive().required('Required'),
     price:
       rentOrSale === 'sale' && Yup.number().positive().required('Required'),
-    type_property: Yup.string(),
+    type_property: Yup.boolean(),
     bedrooms: Yup.number().positive().required('Is required'),
     bathrooms: Yup.number().positive().required('Is required'),
     area: Yup.number().positive().required('Is required'),
@@ -67,7 +66,7 @@ const FormProperty = ({ initialValues, location, id }) => {
   return (
     <WrapperForm>
       <Formik
-        initialValues={initialValues}
+        initialValues={valuesProp}
         validationSchema={validates}
         onSubmit={(values) => {
           setTimeout(() => {
@@ -91,7 +90,7 @@ const FormProperty = ({ initialValues, location, id }) => {
 
             handleUpload(data);
             navigate('/my_properties');
-          }, 1000);
+          }, 100);
         }}
       >
         {({ isValid }) => (
@@ -101,7 +100,7 @@ const FormProperty = ({ initialValues, location, id }) => {
                 name='address'
                 label='Address'
                 type='text'
-                placeholder='start typing to autocomplete'
+                placeholder={'start typing to autocomplete'}
               >
                 <FiSearch />
               </Field>
