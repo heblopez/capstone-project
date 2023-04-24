@@ -10,7 +10,7 @@ const UserCard = styled.div`
   gap: 16px;
   padding: 4px;
   margin: 2px;
-  width: 200px;
+  max-width: 200px;
 
   img {
     width: 120px;
@@ -21,7 +21,9 @@ const UserCard = styled.div`
   }
 
   p {
-    ${typography.head.headline5}
+    font-weight: 400;
+    font-size: clamp(0.9rem, 3vw, 1.3rem);
+    line-height: 2rem;
     text-align: center;
     color: ${colors.gray};
   }

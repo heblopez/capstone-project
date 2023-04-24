@@ -9,6 +9,7 @@ const SearchContainer = styled.div`
 
   img {
     width: 100%;
+    height: 500px;
     object-fit: cover;
   }
 
@@ -37,7 +38,6 @@ const SearchContainer = styled.div`
       font-size: clamp(0.8rem, 1.9vw, 1.5rem);
       font-weight: 400;
       color: ${colors.gray};
-    }
     }
   }
 `;

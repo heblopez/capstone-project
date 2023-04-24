@@ -3,7 +3,7 @@ import SavedContainer from './SavedProperties-UI';
 import { ID } from '../../config';
 import {
   getFavorites,
-  getcontactAdvertiser,
+  getAllPropsContacted,
 } from '../../services/favorites-services';
 import { useProp } from '../../context/PropertyContext';
 import Card from '../../components/Card/Card';
@@ -15,7 +15,7 @@ const SavedProperties = () => {
   const { properties } = useProp();
   const [section, setSection] = useState('favorite');
   const [favorites, setFavorites] = useState([]);
-  const [contacted, setContacted] = useState([]);
+  const [contactedProps, setContactedProps] = useState([]);
   const [currentPage, setCurrentPage] = useState({
     favorite: 1,
     contacted: 1,
@@ -33,9 +33,9 @@ const SavedProperties = () => {
   }, []);
 
   useEffect(() => {
-    getcontactAdvertiser(userId)
+    getAllPropsContacted(userId)
       .then((propContact) => {
-        setContacted(propContact);
+        setContactedProps(propContact);
       })
       .catch(console.log);
   }, [section]);
@@ -49,7 +49,7 @@ const SavedProperties = () => {
   });
 
   const PropContected = properties.filter((obj) => {
-    return contacted.some((cont) => cont.property_id === obj.id);
+    return contactedProps.some((cont) => cont.property_id === obj.id);
   });
 
   const pageSize = 9;

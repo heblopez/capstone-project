@@ -124,7 +124,7 @@ const Header = ({ user, whoIs, getPage }) => {
           <div className='top-menu'>
             <div className='img-logo'>
               <Link to={'/'}>
-                <img src={logo} alt='logo' />
+                <img className='logo-home' src={logo} alt='logo' />
               </Link>
             </div>
             <div className='menu'>

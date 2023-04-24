@@ -18,6 +18,15 @@ const HeaderCtn = styled.header`
         align-items: center;
         justify-content: space-between;
 
+        div.img-logo {
+          a {
+            img.logo-home {
+              min-width: 136px;
+              min-height: 40px;
+            }
+          }
+        }
+
         div.menu {
           display: flex;
           gap: 16px;

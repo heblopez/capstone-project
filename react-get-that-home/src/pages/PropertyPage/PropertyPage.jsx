@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Properties from '../../services/properties-services';
 import { MainSection, Wrapper, SideBar } from './PropertyPage-UI';
 import { RiMoneyDollarCircleLine } from 'react-icons/ri';
@@ -9,11 +9,24 @@ import { useUser } from '../../context/UserContext';
 import { useShow } from '../../context/ShowContext';
 import Button from '../../components/Button/Button';
 import Target from '../../components/Target/Target';
-import { AiOutlineUserAdd, AiOutlineHeart } from 'react-icons/ai';
+import {
+  AiOutlineUserAdd,
+  AiOutlineHeart,
+  AiTwotoneHeart,
+} from 'react-icons/ai';
 import { ID } from '../../config';
-import { addFavorite, contactAdvertiser } from '../../services/favorites-services';
+import {
+  removeFavorite,
+  addFavorite,
+  contactAdvertiser,
+  getAllPropsContacted,
+  getFavorites,
+  removeContact,
+} from '../../services/favorites-services';
+import { colors } from '../../styles';
 import { PropertyMap } from '../../components/PropertyMap/PropertyMap';
 import PropertyGallery from '../../components/PropertyGallery/PropertyGallery';
+
 
 function splitAddress(address) {
   const parts = address ? address.split(',') : ' ';
@@ -26,22 +39,52 @@ function splitAddress(address) {
 }
 
 const PropertyPage = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
+  const property_id = id;
+  const userId = sessionStorage.getItem(ID);
   const { user } = useUser();
   const { handleShow } = useShow();
   const [property, setProperty] = useState({});
+  const { landlord_user } = property;
+  const [contactedUser, setContactedUser] = useState([]); // data when clicked button contact
+  const [favorites, setFavorites] = useState([]);
 
-  const userId = sessionStorage.getItem(ID);
+  const [filterProp] = contactedUser
+    ? contactedUser?.filter((prop) => prop.property_id === property.id)
+    : [];
+
+  const [filterPropFav] = favorites
+    ? favorites.filter((fav) => fav.property_id === property.id)
+    : [];
 
   const whoIs = user ? user.role : '';
 
+  // get property
   useEffect(() => {
     const property = setTimeout(() => {
-      Properties.getProp(id)
+      Properties.getProp(property_id)
         .then((prop) => setProperty(prop))
         .catch(console.log);
     }, 0);
     return () => clearTimeout(property);
+  }, []);
+
+  function handleContacted() {
+    contactAdvertiser(userId, property_id);
+    navigate('/saved_properties');
+  }
+
+  useEffect(() => {
+    getAllPropsContacted(userId)
+      .then((all) => setContactedUser(all))
+      .catch(console.log);
+  }, []);
+
+  useEffect(() => {
+    getFavorites(userId)
+      .then((favs) => setFavorites(favs))
+      .catch(console.log);
   }, []);
 
   const {
@@ -61,11 +104,18 @@ const PropertyPage = () => {
   const { street, city, state } = splitAddress(address);
 
   function handleAddToFavorite() {
-    addFavorite(userId, id);
+    addFavorite(userId, property_id);
+    navigate('/saved_properties');
   }
 
-  function handleContacted() {
-    contactAdvertiser(userId, id);
+  function removeTofavorites() {
+    removeFavorite(userId, property_id);
+    navigate('/saved_properties');
+  }
+
+  function handleRemoveContact() {
+    removeContact(userId, property_id);
+    navigate('/saved_properties');
   }
 
   return (
@@ -133,15 +183,28 @@ const PropertyPage = () => {
           </Target>
         )}
 
-        {whoIs === 'home_seeker' && (
+        {whoIs === 'home_seeker' && !filterProp && (
           <Target>
             <div className='btn-contact'>
               <div onClick={handleContacted}>
                 <Button>contact advertiser</Button>
               </div>
               <div className='add--favorites'>
-                <AiOutlineHeart onClick={handleAddToFavorite} />
-                <p className='p__favorite'> Add to favorites</p>
+                {filterPropFav ? (
+                  <AiTwotoneHeart
+                    style={{
+                      color: `${colors.pink}`,
+                      width: '25px',
+                      height: '25px',
+                    }}
+                    onClick={removeTofavorites}
+                  />
+                ) : (
+                  <>
+                    <AiOutlineHeart onClick={handleAddToFavorite} />
+                    <p className='p__favorite'> Add to favorites</p>
+                  </>
+                )}
               </div>
             </div>
           </Target>
@@ -149,7 +212,7 @@ const PropertyPage = () => {
 
         {whoIs === 'landlord' && (
           <div className='btn-edit_property'>
-            <Link to={`/edit/property/${id}`} className='edit-btn'>
+            <Link to={`/edit/property/${property_id}`} className='edit-btn'>
               <Button>
                 <BiEdit />
                 edit property
@@ -157,6 +220,27 @@ const PropertyPage = () => {
             </Link>
           </div>
         )}
+
+        {filterProp
+          ? filterProp.contacted && (
+              <>
+                <Target>
+                  <h3 className='title-information'>Contact information</h3>
+                  <div className='information-contact'>
+                    <p className='information-title'>Email</p>
+                    <p className='landlord-contact'>{landlord_user.email}</p>
+                  </div>
+                  <div className='information-contact'>
+                    <p className='information-title'>Phone</p>
+                    <p className='landlord-contact'>{landlord_user.phone}</p>
+                  </div>
+                  <div className='remove-contact' onClick={handleRemoveContact}>
+                    <Button>Remove contact</Button>
+                  </div>
+                </Target>
+              </>
+            )
+          : 'Loading'}
       </SideBar>
     </MainSection>
   );
