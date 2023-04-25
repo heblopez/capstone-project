@@ -11,7 +11,7 @@ import ErrorFallback from '../../errorPage/ErrorPage';
 import { Link } from 'react-router-dom';
 
 function filterByActive(data) {
-  const onlyActives = data.filter(({ status }) => status?.prop);
+  const onlyActives = data?.filter(({ status }) => status);
   return onlyActives;
 }
 
@@ -41,6 +41,8 @@ const MyProperties = () => {
     e.preventDefault();
     setSection(e.target.textContent);
   }
+
+  console.log(properties);
 
   const propertiesStatusActive = filterByActive(properties);
   const propertiesStatusClosed = filterByClosed(properties);
