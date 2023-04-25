@@ -11,7 +11,7 @@ import ErrorFallback from '../../errorPage/ErrorPage';
 import { Link } from 'react-router-dom';
 
 function filterByActive(data) {
-  const onlyActives = data?.filter((prop) => (prop.status ? prop : null));
+  const onlyActives = data.filter(({ status }) => status?.prop);
   return onlyActives;
 }
 
