@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   createProperty,
   updateProperty,
@@ -40,9 +40,9 @@ const FormProperty = ({ valuesProp, location, id }) => {
     setPhotos([...photos, ...files]);
   };
 
-  const handleDelete = (photo) => {
-    setPhotos(photos.filter((p) => p !== photo));
-  };
+  const handleDelete = useCallback((photo) => {
+  setPhotos(photos.filter((p) => p !== photo));
+}, [photos]);
 
   const validates = Yup.object({
     address: Yup.string().required('Enter the address'),
