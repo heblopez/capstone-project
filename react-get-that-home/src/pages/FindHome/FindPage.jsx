@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useReducer, useState } from 'react';
 import Button from '../../components/Button/Button';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { SectionFind, BarOption } from './FilterOptions-UI';
@@ -154,7 +154,29 @@ const FindPage = () => {
   const [showPrice, setShowPrices] = useState(false);
   const [showBuyRent, setShowbuyRent] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filter, setFilter] = useState({
+  
+  function filterReducer(state, action) {
+    switch (action.type) {
+      case 'SET_ADDRESS':
+        return { ...state, address: action.payload };
+      case 'SET_PRICE':
+        return { ...state, price: action.payload };
+      case 'SET_TYPE_PROPERTY':
+        return { ...state, type_property: action.payload };
+      case 'SET_SERVICES':
+        return { ...state, services: action.payload };
+      case 'SET_PETS':
+        return { ...state, pets: action.payload };
+      case 'SET_AREA':
+        return { ...state, area: action.payload };
+      case 'SET_TYPE_OPERATION':
+        return { ...state, type_operation: action.payload };
+      default:
+        throw new Error(`Unhandled action type: ${action.type}`);
+    }
+  }
+
+  const [filter, dispatchFilter] = useReducer(filterReducer, {
     address: searchBy.where || '',
     price: { min: 0, max: Infinity },
     type_property: {
@@ -174,16 +196,16 @@ const FindPage = () => {
   function handleChange(e) {
     const name = e.target.name;
     const isChecked = e.target.checked;
-    setFilter({
+    dispatchFilter({
       ...filter,
       type_operation: { ...filter.type_operation, [name]: isChecked },
     });
   }
 
   // show modal more
-  function handleShowMore() {
-    setShowMore(!showMore);
-  }
+  const handleShowMore = useCallback(() => {
+    setShowMore((showMore) => !showMore);
+  }, []);
 
   // show modal beds & bathrooms
   function handleShowBbth() {
@@ -207,7 +229,7 @@ const FindPage = () => {
 
   // search by address
   function handleChangeSearch(e) {
-    setFilter({
+    dispatchFilter({
       ...filter,
       address: e.target.value,
     });
@@ -215,7 +237,7 @@ const FindPage = () => {
 
   // search by price
   function handleGetPrice(data) {
-    setFilter({
+    dispatchFilter({
       ...filter,
       price: {
         ...filter.price,
@@ -227,7 +249,7 @@ const FindPage = () => {
 
   // search by property
   function handleGetProperty(data) {
-    setFilter({
+    dispatchFilter({
       ...filter,
       type_property: {
         ...filter.type_property,
@@ -239,7 +261,7 @@ const FindPage = () => {
 
   // search by bathrooms and bedrooms
   function handleGetBB(data) {
-    setFilter({
+    dispatchFilter({
       ...filter,
       services: {
         ...filter.services,
@@ -251,7 +273,7 @@ const FindPage = () => {
 
   // search by pets allowed or area m^2
   function handleGetMore(data) {
-    setFilter({
+    dispatchFilter({
       ...filter,
       pets: data.pets,
       area: { ...filter.area, min: data.min, max: data.max },
@@ -259,7 +281,7 @@ const FindPage = () => {
   }
 
   // sort properties by create at
-  const propSorted = sortedBy(properties);
+  const propSorted = useMemo(() => sortedBy(properties), [properties]);
 
   // properties filtered
   const PropertiesFiltered = filterProperties(propSorted, filter);
@@ -431,7 +453,10 @@ const FindPage = () => {
             </div>
           </div>
         </BarOption>
-        <p className='count_properties'> {PropertiesFiltered.length} Properties found</p>
+        <p className='count_properties'>
+          {' '}
+          {PropertiesFiltered.length} Properties found
+        </p>
         <div className='section-list'>
           {currentPageData.map((property) => (
             <Card key={property.id} property={property} />
