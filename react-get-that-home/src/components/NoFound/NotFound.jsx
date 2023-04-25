@@ -5,7 +5,7 @@ import NotFoundCont from './NotFound-UI';
 const NotFound = () => {
   return (
     <NotFoundCont>
-      <p className='not-found'>No found properties</p>
+      <p className='not-found'>Not found properties</p>
     </NotFoundCont>
   );
 };

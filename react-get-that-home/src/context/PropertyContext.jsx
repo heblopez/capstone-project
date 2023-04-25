@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import Properties from '../services/properties-services';
 const PropertyContext = createContext();
 
@@ -16,17 +23,20 @@ function PropertyProvider({ children }) {
     return () => clearTimeout(properties);
   }, []);
 
-  function handleChange(e) {
-    const value = e.target.textContent;
-    setRentOrSale(value);
-  }
+  const handleChange = useCallback(
+    (e) => {
+      const value = e.target.textContent;
+      setRentOrSale(value);
+    },
+    [setRentOrSale]
+  );
 
-  // console.log(search);
+  const contextValue = useMemo(() => {
+    return { properties, rentOrSale, handleChange, setSearchBy, searchBy };
+  }, [properties, rentOrSale, handleChange, setSearchBy, searchBy]);
 
   return (
-    <PropertyContext.Provider
-      value={{ properties, rentOrSale, handleChange, setSearchBy, searchBy }}
-    >
+    <PropertyContext.Provider value={contextValue}>
       {children}
     </PropertyContext.Provider>
   );
