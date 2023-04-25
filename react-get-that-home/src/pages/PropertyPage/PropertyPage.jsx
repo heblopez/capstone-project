@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Properties from '../../services/properties-services';
 import { MainSection, Wrapper, SideBar } from './PropertyPage-UI';
