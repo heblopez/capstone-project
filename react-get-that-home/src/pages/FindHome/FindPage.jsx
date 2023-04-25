@@ -27,12 +27,11 @@ function filterByAddress(properties, address) {
 function filterByPrice(properties, price) {
   const { min, max } = price;
 
-  const byPrice = properties?.filter(
-    (prop) =>
-      (prop.price >= min && prop.price <= max && prop) ||
-      (min === 0 && prop.price <= max && prop) ||
-      (prop.price >= min && max === Infinity && prop)
-  );
+  const byPrice = properties?.filter((prop) => {
+    const isMin = prop.price >= min || min === 0;
+    const isMax = prop.price <= max || max === Infinity;
+    return isMin && isMax && prop;
+  });
 
   return byPrice;
 }
