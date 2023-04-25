@@ -5,7 +5,6 @@ import { MainSection, Wrapper, SideBar } from './PropertyPage-UI';
 import { RiMoneyDollarCircleLine } from 'react-icons/ri';
 import { BiBed, BiBath, BiArea, BiEdit } from 'react-icons/bi';
 import PetsIcon from '../../assets/pets.svg';
-import { useUser } from '../../context/UserContext';
 import { useShow } from '../../context/ShowContext';
 import Button from '../../components/Button/Button';
 import Target from '../../components/Target/Target';
@@ -26,6 +25,7 @@ import {
 import { colors } from '../../styles';
 import { PropertyMap } from '../../components/PropertyMap/PropertyMap';
 import PropertyGallery from '../../components/PropertyGallery/PropertyGallery';
+import User from '../../services/user-services';
 
 function splitAddress(address) {
   if (!address) {
@@ -55,7 +55,7 @@ function isPropOfLandLord(properties, id) {
 const PropertyPage = () => {
   const navigate = useNavigate();
   const userId = sessionStorage.getItem(ID);
-  const { user } = useUser();
+  const [user, setUser] = useState(null);
   const { id: property_id } = useParams();
   const { properties: landLordProperties } = user ? user : [];
   const { handleShow } = useShow();
@@ -75,6 +75,13 @@ const PropertyPage = () => {
     : [];
 
   const whoIs = useMemo(() => (user ? user.role : ''), [user]);
+
+  //get user
+  useEffect(() => {
+    User.getUser(userId)
+      .then((u) => setUser(u))
+      .catch(console.log);
+  }, []);
 
   // get property
   useEffect(() => {
