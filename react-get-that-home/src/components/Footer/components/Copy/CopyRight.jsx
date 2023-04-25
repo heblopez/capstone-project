@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Container } from './CopyRight-UI';
 
 const CopyRight = ({ isLogin, logo, codeable, copy }) => {
-  const img = logo ? <img src={logo} alt={logo && 'Logo'} /> : null;
+  const img = useMemo(
+    () => (logo ? <img src={logo} alt={logo && 'Logo'} /> : null),
+    [logo]
+  );
 
   return (
     <Container>
