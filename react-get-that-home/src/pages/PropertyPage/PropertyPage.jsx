@@ -47,17 +47,24 @@ function splitAddress(address) {
   };
 }
 
+function isPropOfLandLord(properties, id) {
+  const isMyProp = properties?.some(({ id: propId }) => +propId === +id);
+  return isMyProp;
+}
+
 const PropertyPage = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const property_id = id;
   const userId = sessionStorage.getItem(ID);
   const { user } = useUser();
+  const { id: property_id } = useParams();
+  const { properties: landLordProperties } = user ? user : [];
   const { handleShow } = useShow();
   const [property, setProperty] = useState({});
-  const { landlord_user } = property;
+  const { landlord_user: landLord } = property;
   const [contactedUser, setContactedUser] = useState([]); // data when clicked button contact
   const [favorites, setFavorites] = useState([]);
+
+  const isLandLordProp = isPropOfLandLord(landLordProperties, property_id);
 
   const [contactedProp] = contactedUser
     ? contactedUser?.filter((prop) => prop.property_id === property.id)
@@ -79,6 +86,7 @@ const PropertyPage = () => {
     return () => clearTimeout(property);
   }, []);
 
+  // all properties contacted
   useEffect(() => {
     if (user) {
       getAllPropsContacted(userId)
@@ -87,6 +95,7 @@ const PropertyPage = () => {
     }
   }, []);
 
+  // all favorites properties
   useEffect(() => {
     if (user) {
       getFavorites(userId)
@@ -226,7 +235,7 @@ const PropertyPage = () => {
           </Target>
         )}
 
-        {whoIs === 'landlord' && (
+        {whoIs === 'landlord' && isLandLordProp && (
           <div className='btn-edit_property'>
             <Link to={`/edit/property/${property_id}`} className='edit-btn'>
               <Button>
@@ -244,11 +253,11 @@ const PropertyPage = () => {
                   <h3 className='title-information'>Contact information</h3>
                   <div className='information-contact'>
                     <p className='information-title'>Email</p>
-                    <p className='landlord-contact'>{landlord_user.email}</p>
+                    <p className='landlord-contact'>{landLord.email}</p>
                   </div>
                   <div className='information-contact'>
                     <p className='information-title'>Phone</p>
-                    <p className='landlord-contact'>{landlord_user.phone}</p>
+                    <p className='landlord-contact'>{landLord.phone}</p>
                   </div>
                   <div className='remove-contact' onClick={handleRemoveContact}>
                     <Button>Remove contact</Button>
