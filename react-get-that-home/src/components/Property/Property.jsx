@@ -17,7 +17,7 @@ const Property = ({ prop, favorite }) => {
     bathrooms,
     area,
     pets_allowed,
-    photo_urls,
+    photo_urls = [],
     type_operation,
     type_property,
   } = prop;
