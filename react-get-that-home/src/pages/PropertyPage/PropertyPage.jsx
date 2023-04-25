@@ -203,76 +203,85 @@ const PropertyPage = () => {
         <PropertyMap address={address} />
       </Wrapper>
       <SideBar>
-        {!user && (
-          <Target>
-            <p>Log in or Join to contact the advertiser</p>
-            <div className='btn-login' onClick={handleShow}>
-              <Button>
-                <AiOutlineUserAdd />
-                login
-              </Button>
-            </div>
-          </Target>
-        )}
+        {!isLandLordProp ? (
+          ' '
+        ) : (
+          <>
+            {!user && (
+              <Target>
+                <p>Log in or Join to contact the advertiser</p>
+                <div className='btn-login' onClick={handleShow}>
+                  <Button>
+                    <AiOutlineUserAdd />
+                    login
+                  </Button>
+                </div>
+              </Target>
+            )}
 
-        {whoIs === 'home_seeker' && !contactedProp && (
-          <Target>
-            <div className='btn-contact'>
-              <div onClick={handleContacted}>
-                <Button>contact advertiser</Button>
+            {whoIs === 'home_seeker' && !contactedProp && (
+              <Target>
+                <div className='btn-contact'>
+                  <div onClick={handleContacted}>
+                    <Button>contact advertiser</Button>
+                  </div>
+                  <div className='add--favorites'>
+                    {filterPropFav ? (
+                      <AiTwotoneHeart
+                        style={{
+                          color: `${colors.pink}`,
+                          width: '25px',
+                          height: '25px',
+                        }}
+                        onClick={removeTofavorites}
+                      />
+                    ) : (
+                      <>
+                        <AiOutlineHeart onClick={handleAddToFavorite} />
+                        <p className='p__favorite'> Add to favorites</p>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </Target>
+            )}
+
+            {whoIs === 'landlord' && isLandLordProp && (
+              <div className='btn-edit_property'>
+                <Link to={`/edit/property/${property_id}`} className='edit-btn'>
+                  <Button>
+                    <BiEdit />
+                    edit property
+                  </Button>
+                </Link>
               </div>
-              <div className='add--favorites'>
-                {filterPropFav ? (
-                  <AiTwotoneHeart
-                    style={{
-                      color: `${colors.pink}`,
-                      width: '25px',
-                      height: '25px',
-                    }}
-                    onClick={removeTofavorites}
-                  />
-                ) : (
+            )}
+
+            {contactedProp
+              ? contactedProp.contacted && (
                   <>
-                    <AiOutlineHeart onClick={handleAddToFavorite} />
-                    <p className='p__favorite'> Add to favorites</p>
+                    <Target>
+                      <h3 className='title-information'>Contact information</h3>
+                      <div className='information-contact'>
+                        <p className='information-title'>Email</p>
+                        <p className='landlord-contact'>{landLord.email}</p>
+                      </div>
+                      <div className='information-contact'>
+                        <p className='information-title'>Phone</p>
+                        <p className='landlord-contact'>{landLord.phone}</p>
+                      </div>
+                      <div
+                        className='remove-contact'
+                        onClick={handleRemoveContact}
+                      >
+                        <Button>Remove contact</Button>
+                      </div>
+                    </Target>
                   </>
-                )}
-              </div>
-            </div>
-          </Target>
+                )
+              : null}
+          </>
         )}
-
-        {whoIs === 'landlord' && isLandLordProp && (
-          <div className='btn-edit_property'>
-            <Link to={`/edit/property/${property_id}`} className='edit-btn'>
-              <Button>
-                <BiEdit />
-                edit property
-              </Button>
-            </Link>
-          </div>
-        )}
-
-        {contactedProp
-          ? contactedProp.contacted && (
-              <>
-                <Target>
-                  <h3 className='title-information'>Contact information</h3>
-                  <div className='information-contact'>
-                    <p className='information-title'>Email</p>
-                    <p className='landlord-contact'>{landLord.email}</p>
-                  </div>
-                  <div className='information-contact'>
-                    <p className='information-title'>Phone</p>
-                    <p className='landlord-contact'>{landLord.phone}</p>
-                  </div>
-                  <div className='remove-contact' onClick={handleRemoveContact}>
-                    <Button>Remove contact</Button>
-                  </div>
-                </Target>
-              </>
-            )
-          : null}
       </SideBar>
     </MainSection>
   );
