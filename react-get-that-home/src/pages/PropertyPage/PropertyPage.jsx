@@ -265,7 +265,7 @@ const PropertyPage = () => {
                 </Target>
               </>
             )
-          : ''}
+          : null}
       </SideBar>
     </MainSection>
   );
