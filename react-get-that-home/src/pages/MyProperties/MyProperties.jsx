@@ -16,9 +16,7 @@ function filterByActive(data) {
 }
 
 function filterByClosed(data) {
-  const onlyClosed = data?.filter((prop) =>
-    prop.status === false ? prop : null
-  );
+  const onlyClosed = data?.filter(({ status }) => status === false);
   return onlyClosed;
 }
 
