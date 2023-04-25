@@ -1,4 +1,3 @@
-import React from 'react';
 import Button from '../../components/Button/Button';
 import { CreateSection } from './SectionCreateAccount-UI';
 import { Link } from 'react-router-dom';
