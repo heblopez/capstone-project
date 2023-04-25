@@ -12,7 +12,7 @@ import NotFound from '../../components/NoFound/NotFound';
 
 const SavedProperties = () => {
   const userId = sessionStorage.getItem(ID);
-  const { properties } = useProp();
+  const { properties: allProperties } = useProp();
   const [section, setSection] = useState('favorite');
   const [favorites, setFavorites] = useState([]);
   const [contactedProps, setContactedProps] = useState([]);
@@ -44,23 +44,23 @@ const SavedProperties = () => {
 
   const uniqIdProp = [...new Set(propsId)];
 
-  const favs = properties.filter((obj) => {
+  const favs = allProperties.filter((obj) => {
     return favorites.some((fav) => fav.property_id === obj.id);
   });
 
-  const PropContected = properties.filter((obj) => {
+  const PropContected = allProperties.filter((obj) => {
     return contactedProps.some((cont) => cont.property_id === obj.id);
   });
 
-  const pageSize = 9;
-  const TotalFavSection = Math.ceil(favs ? favs.length / pageSize : null);
+  const PAGE_SIZE = 9;
+  const TotalFavSection = Math.ceil(favs?.length / PAGE_SIZE);
   const TotalcontactedSection = Math.ceil(
-    PropContected ? PropContected.length / pageSize : null
+    PropContected ? PropContected.length / PAGE_SIZE : null
   );
 
   function getPage(arr, page) {
-    const startIndex = (page - 1) * pageSize;
-    const endIndex = startIndex + pageSize;
+    const startIndex = (page - 1) * PAGE_SIZE;
+    const endIndex = startIndex + PAGE_SIZE;
     return !arr ? [] : arr.slice(startIndex, endIndex);
   }
 
@@ -122,7 +122,7 @@ const SavedProperties = () => {
                   <IoIosArrowBack
                     onClick={() =>
                       currentPage.favorite <= 1
-                        ? ''
+                        ? null
                         : goToPagefavorite(currentPage.favorite - 1)
                     }
                   />
@@ -147,7 +147,7 @@ const SavedProperties = () => {
                   <IoIosArrowForward
                     onClick={() => {
                       currentPage.favorite >= TotalFavSection
-                        ? ''
+                        ? null
                         : goToPagefavorite(currentPage.favorite + 1);
                     }}
                   />
@@ -175,7 +175,7 @@ const SavedProperties = () => {
                 <IoIosArrowBack
                   onClick={() =>
                     currentPage.contacted <= 1
-                      ? ''
+                      ? null
                       : goToPageContacted(currentPage.contacted - 1)
                   }
                 />
@@ -200,7 +200,7 @@ const SavedProperties = () => {
                 <IoIosArrowForward
                   onClick={() => {
                     currentPage.contacted >= TotalcontactedSection
-                      ? ''
+                      ? null
                       : goToPageContacted(currentPage.contacted + 1);
                   }}
                 />
