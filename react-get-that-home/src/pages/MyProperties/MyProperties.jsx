@@ -42,8 +42,6 @@ const MyProperties = () => {
     setSection(e.target.textContent);
   }
 
-  console.log(properties);
-
   const propertiesStatusActive = filterByActive(properties);
   const propertiesStatusClosed = filterByClosed(properties);
 

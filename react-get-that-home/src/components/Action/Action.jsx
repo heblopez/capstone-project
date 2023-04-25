@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FiEdit } from 'react-icons/fi';
 import { BsArrowBarUp } from 'react-icons/bs';
@@ -10,26 +10,27 @@ import Properties, { updateProperty } from '../../services/properties-services';
 const Action = ({ id, section }) => {
   const location = useLocation();
   const { role } = useUser();
-  const isActive =
-    role === 'landlord' && location.pathname === '/my_properties'
+  const isActive = useMemo(() => {
+    return role === 'landlord' && location.pathname === '/my_properties'
       ? 'active'
       : 'none';
+  }, [role, location.pathname]);
 
-  function handlesRemove() {
+  const handlesRemove = useCallback(() => {
     const formData = new FormData();
     formData.append('status', false);
     updateProperty(formData, id);
-  }
+  }, [id]);
 
-  function handlesRecover() {
+  const handlesRecover = useCallback(() => {
     const formData = new FormData();
     formData.append('status', true);
     updateProperty(formData, id);
-  }
+  }, [id]);
 
-  function handleDelete() {
+  const handleDelete = useCallback(() => {
     Properties.deleteProp(id);
-  }
+  }, [id]);
 
   return (
     <ActionComponent className={isActive}>
