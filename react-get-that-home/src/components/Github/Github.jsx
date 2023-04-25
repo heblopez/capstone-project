@@ -10,10 +10,10 @@ const Github = ({ person }) => {
       <img src={avatar} alt={name} />
       <p>{name}</p>
       <div>
-        <a href={url_git}>
+        <a href={url_git} target='_blank'>
           <BsGithub />
         </a>
-        <a href={url_linkedin}>
+        <a href={url_linkedin} target='_blank'>
           <BsLinkedin />
         </a>
       </div>
