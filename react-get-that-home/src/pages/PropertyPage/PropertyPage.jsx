@@ -28,12 +28,22 @@ import { PropertyMap } from '../../components/PropertyMap/PropertyMap';
 import PropertyGallery from '../../components/PropertyGallery/PropertyGallery';
 
 function splitAddress(address) {
-  const parts = address ? address.split(',') : ' ';
+  if (!address) {
+    return {
+      street: '',
+      city: '',
+      state: '',
+    };
+  }
+
+  const [street = '', city = '', state = '', ...rest] = address
+    ? address.split(',')
+    : [];
   return {
-    street: parts[0] || '',
-    city: parts[1] || '',
-    state: parts[2] || '',
-    ...parts,
+    street,
+    city,
+    state,
+    ...rest,
   };
 }
 
@@ -57,7 +67,7 @@ const PropertyPage = () => {
     ? favorites.filter((fav) => fav.property_id === property.id)
     : [];
 
-  const whoIs = user ? user.role : '';
+  const whoIs = useMemo(() => (user ? user.role : ''), [user]);
 
   // get property
   useEffect(() => {
@@ -101,10 +111,10 @@ const PropertyPage = () => {
 
   const { street, city, state } = splitAddress(address);
 
-  function handleAddToFavorite() {
+  const handleAddToFavorite = useCallback(() => {
     addFavorite(userId, property_id);
     navigate('/saved_properties');
-  }
+  }, [userId, property_id, navigate]);
 
   function removeTofavorites() {
     removeFavorite(userId, property_id);
