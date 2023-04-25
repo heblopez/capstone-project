@@ -5,7 +5,7 @@ import landLord from '../../assets/landlord.svg';
 import seeker from '../../assets/seeker.svg';
 import { Link } from 'react-router-dom';
 
-const list = [
+const joinCardOptions  = [
   {
     id: 'landlord',
     role: 'Landlord',
@@ -38,7 +38,7 @@ const JoinPage = () => {
       <div className='join-cards'>
         <div className='cards'>
           <>
-            {list.map((join) => (
+            {joinCardOptions .map((join) => (
               <Link key={join.id} to={`/create-account/${join.id}`}>
                 <JoinCard userJoin={join} />
               </Link>
