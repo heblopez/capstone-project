@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useReducer, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import Button from '../../components/Button/Button';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { SectionFind, BarOption } from './FilterOptions-UI';
@@ -94,9 +94,7 @@ function filterByBuyingRenting(properties, type_operation) {
   const buy = buying ? 'sale' : '';
   const rent = renting ? 'rent' : '';
 
-  if (both) {
-    return properties;
-  } else if (!both && !renting && !buying) {
+  if (both || (!both && !renting && !buying)) {
     return properties;
   }
 
@@ -154,29 +152,7 @@ const FindPage = () => {
   const [showPrice, setShowPrices] = useState(false);
   const [showBuyRent, setShowbuyRent] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  
-  function filterReducer(state, action) {
-    switch (action.type) {
-      case 'SET_ADDRESS':
-        return { ...state, address: action.payload };
-      case 'SET_PRICE':
-        return { ...state, price: action.payload };
-      case 'SET_TYPE_PROPERTY':
-        return { ...state, type_property: action.payload };
-      case 'SET_SERVICES':
-        return { ...state, services: action.payload };
-      case 'SET_PETS':
-        return { ...state, pets: action.payload };
-      case 'SET_AREA':
-        return { ...state, area: action.payload };
-      case 'SET_TYPE_OPERATION':
-        return { ...state, type_operation: action.payload };
-      default:
-        throw new Error(`Unhandled action type: ${action.type}`);
-    }
-  }
-
-  const [filter, dispatchFilter] = useReducer(filterReducer, {
+  const [filter, setFilter] = useState({
     address: searchBy.where || '',
     price: { min: 0, max: Infinity },
     type_property: {
@@ -196,7 +172,7 @@ const FindPage = () => {
   function handleChange(e) {
     const name = e.target.name;
     const isChecked = e.target.checked;
-    dispatchFilter({
+    setFilter({
       ...filter,
       type_operation: { ...filter.type_operation, [name]: isChecked },
     });
@@ -229,7 +205,7 @@ const FindPage = () => {
 
   // search by address
   function handleChangeSearch(e) {
-    dispatchFilter({
+    setFilter({
       ...filter,
       address: e.target.value,
     });
@@ -237,7 +213,7 @@ const FindPage = () => {
 
   // search by price
   function handleGetPrice(data) {
-    dispatchFilter({
+    setFilter({
       ...filter,
       price: {
         ...filter.price,
@@ -249,7 +225,7 @@ const FindPage = () => {
 
   // search by property
   function handleGetProperty(data) {
-    dispatchFilter({
+    setFilter({
       ...filter,
       type_property: {
         ...filter.type_property,
@@ -261,7 +237,7 @@ const FindPage = () => {
 
   // search by bathrooms and bedrooms
   function handleGetBB(data) {
-    dispatchFilter({
+    setFilter({
       ...filter,
       services: {
         ...filter.services,
@@ -273,7 +249,7 @@ const FindPage = () => {
 
   // search by pets allowed or area m^2
   function handleGetMore(data) {
-    dispatchFilter({
+    setFilter({
       ...filter,
       pets: data.pets,
       area: { ...filter.area, min: data.min, max: data.max },
