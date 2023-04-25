@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import dollar from '../../assets/dollar.svg';
 import aparment from '../../assets/aparment.svg';
 import bed from '../../assets/bed.svg';
@@ -21,9 +21,15 @@ const Description = ({
   type_property,
   favorite,
 }) => {
-  const typeProp =
-    type_property.charAt(0).toUpperCase() + type_property.slice(1);
-  const isFavorite = favorite ? favorite.includes(id) : false;
+  const typeProp = useMemo(
+    () => type_property.charAt(0).toUpperCase() + type_property.slice(1),
+    [type_property]
+  );
+
+  const isFavorite = useMemo(
+    () => (favorite ? favorite.includes(id) : false),
+    [favorite, id]
+  );
 
   return (
     <Data>
