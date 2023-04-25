@@ -37,15 +37,15 @@ const MyProperties = () => {
       .catch(console.log);
   }, []);
 
-  const propeties = user ? user.properties : [];
+  const properties = user?.properties || [];
 
   function handleClick(e) {
     e.preventDefault();
     setSection(e.target.textContent);
   }
 
-  const propertiesStatusActive = filterByActive(propeties);
-  const propertiesStatusClosed = filterByClosed(propeties);
+  const propertiesStatusActive = filterByActive(properties);
+  const propertiesStatusClosed = filterByClosed(properties);
 
   const pageSize = 9;
   const TotalInActiveSection = Math.ceil(
