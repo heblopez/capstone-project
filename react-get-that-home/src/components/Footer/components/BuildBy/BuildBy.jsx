@@ -10,7 +10,7 @@ const BuildBy = () => {
       <h4>Build with ❤️ by:</h4>
       <Grid>
         {team.map((member) => (
-          <a href={member.url_git} target='_blank'>
+          <a key={member.id} href={member.url_git} target='_blank'>
             <Content description={member.name}>
               <BsGithub />
             </Content>
