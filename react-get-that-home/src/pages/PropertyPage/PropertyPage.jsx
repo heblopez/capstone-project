@@ -13,7 +13,7 @@ import {
   AiOutlineHeart,
   AiTwotoneHeart,
 } from 'react-icons/ai';
-import { ID } from '../../config';
+import { ID, PROPERTY_STORAGE } from '../../config';
 import {
   removeFavorite,
   addFavorite,
@@ -86,7 +86,26 @@ const PropertyPage = () => {
   // get property
   useEffect(() => {
     Properties.getProp(property_id)
-      .then((prop) => setProperty(prop))
+      .then((prop) => {
+        setProperty(prop);
+        localStorage.setItem(
+          PROPERTY_STORAGE,
+          JSON.stringify({
+            id: prop.id,
+            address: prop.address,
+            apartment: prop.type_property === 'apartment',
+            house: prop.type_property === 'house',
+            area: prop.area,
+            bathrooms: prop.bathrooms,
+            bedrooms: prop.bedrooms,
+            description: prop.description,
+            maintanance: prop.maintanance,
+            monthly_rent: prop.monthly_rent,
+            price: prop?.price || '',
+            pets_allowed: prop.pets_allowed,
+          })
+        );
+      })
       .catch(console.log);
     return () => clearTimeout(property);
   }, [property_id]);
