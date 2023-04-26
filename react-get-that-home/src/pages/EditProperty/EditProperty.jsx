@@ -4,6 +4,7 @@ import FormProperty from '../../components/FormProperty/FormProperty';
 import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
 import Properties from '../../services/properties-services';
+import { PROPERTY_STORAGE } from '../../config';
 
 const WrapperPage = styled.div`
   padding: 32px 10%;
@@ -13,46 +14,47 @@ const WrapperPage = styled.div`
 `;
 
 const EditProperty = () => {
-  const { id } = useParams();
+  const { id: property_id } = useParams();
+
   const initial = {
+    id: 0,
     address: '',
     apartment: false,
+    house: false,
     area: '',
     bathrooms: '',
     bedrooms: '',
     description: '',
-    house: false,
     maintanance: '',
     monthly_rent: '',
     price: '',
     pets_allowed: false,
   };
 
-  const p = JSON.parse(localStorage.getItem('property'));
-  const prop = {
-    address: p.address,
-    apartment: p.type_property === 'apartment',
-    house: p.type_property === 'house',
-    area: p.area,
-    bathrooms: p.bathrooms,
-    bedrooms: p.bedrooms,
-    description: p.description,
-    maintanance: p.maintanance,
-    monthly_rent: p.monthly_rent,
-    price: p.price,
-    pets_allowed: p.pets_allowed,
-  };
-
-  const [property, setProperty] = useState(prop || initial);
+  const dataParse = JSON.parse(localStorage.getItem(PROPERTY_STORAGE));
+  const [data, setData] = useState(dataParse || initial);
 
   useEffect(() => {
-    Properties.getProp(id)
+    Properties.getProp(property_id)
       .then((prop) => {
-        localStorage.setItem('property', JSON.stringify(prop));
-        setProperty(prop);
+        setData({
+          ...data,
+          id: prop.id,
+          address: prop.address,
+          apartment: prop.type_property === 'apartment',
+          house: prop.type_property === 'house',
+          area: prop.area,
+          bathrooms: prop.bathrooms,
+          bedrooms: prop.bedrooms,
+          description: prop.description,
+          maintanance: prop.maintanance,
+          monthly_rent: prop.monthly_rent,
+          price: prop.price,
+          pets_allowed: prop.pets_allowed,
+        });
       })
       .catch(console.log);
-  }, [id]);
+  }, [property_id]);
 
   return (
     <WrapperPage>
@@ -60,7 +62,7 @@ const EditProperty = () => {
       <div>
         <ButtonRS />
       </div>
-      <FormProperty valuesProp={property} id={id} />
+      <FormProperty valuesProp={data} id={property_id} />
     </WrapperPage>
   );
 };
