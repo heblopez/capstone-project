@@ -30,7 +30,7 @@ const SavedProperties = () => {
     getFavorites(userId)
       .then((favs) => setFavorites(favs))
       .catch(console.log);
-  }, []);
+  }, [userId]);
 
   useEffect(() => {
     getAllPropsContacted(userId)
