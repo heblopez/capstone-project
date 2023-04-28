@@ -237,10 +237,24 @@ const FormProperty = ({ valuesProp, location, id }) => {
                 <div style={{ display: 'flex' }}>
                   {photos?.map((photo) => (
                     <div key={photo.name}>
-                      <img src={URL.createObjectURL(photo)} alt={photo.name} />
-                      <button type='button' onClick={() => handleDelete(photo)}>
-                        Delete
-                      </button>
+                      <img
+                        style={{
+                          width: '300px',
+                          height: '200px',
+                          objectFit: 'cover',
+                          padding: '8px',
+                        }}
+                        src={URL.createObjectURL(photo)}
+                        alt={photo.name}
+                      />
+                      <div
+                        style={{ marginTop: '30px' }}
+                        onClick={() => handleDelete(photo)}
+                      >
+                        <Button type='' typeBtn='button' size='sm'>
+                          Delete
+                        </Button>
+                      </div>
                     </div>
                   ))}
                 </div>
