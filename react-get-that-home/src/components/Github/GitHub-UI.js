@@ -7,17 +7,18 @@ const UserCard = styled.div`
   align-content: center;
   justify-content: center;
   flex-direction: column;
-  gap: 16px;
-  padding: 4px;
+  gap: 20px 4px;
+  padding: 20px;
   margin: 2px;
-  max-width: 200px;
+  min-width: 200px;
 
   img {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     margin: 0 auto;
     background-color: ${colors.backgroundlight};
     border-radius: 50%;
+    box-shadow: 0px 6px 17px rgba(0, 0, 0, 0.5);
   }
 
   p {

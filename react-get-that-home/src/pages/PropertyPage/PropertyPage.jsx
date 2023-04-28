@@ -5,7 +5,6 @@ import { MainSection, Wrapper, SideBar } from './PropertyPage-UI';
 import { RiMoneyDollarCircleLine } from 'react-icons/ri';
 import { BiBed, BiBath, BiArea, BiEdit } from 'react-icons/bi';
 import PetsIcon from '../../assets/pets.svg';
-import { useUser } from '../../context/UserContext';
 import { useShow } from '../../context/ShowContext';
 import Button from '../../components/Button/Button';
 import Target from '../../components/Target/Target';
@@ -14,7 +13,7 @@ import {
   AiOutlineHeart,
   AiTwotoneHeart,
 } from 'react-icons/ai';
-import { ID } from '../../config';
+import { ID, PROPERTY_STORAGE } from '../../config';
 import {
   removeFavorite,
   addFavorite,
@@ -26,6 +25,7 @@ import {
 import { colors } from '../../styles';
 import { PropertyMap } from '../../components/PropertyMap/PropertyMap';
 import PropertyGallery from '../../components/PropertyGallery/PropertyGallery';
+import User from '../../services/user-services';
 
 function splitAddress(address) {
   if (!address) {
@@ -55,7 +55,7 @@ function isPropOfLandLord(properties, id) {
 const PropertyPage = () => {
   const navigate = useNavigate();
   const userId = sessionStorage.getItem(ID);
-  const { user } = useUser();
+  const [user, setUser] = useState(null);
   const { id: property_id } = useParams();
   const { properties: landLordProperties } = user ? user : [];
   const { handleShow } = useShow();
@@ -66,25 +66,49 @@ const PropertyPage = () => {
 
   const isLandLordProp = isPropOfLandLord(landLordProperties, property_id);
 
-  const [contactedProp] = contactedUser
-    ? contactedUser?.filter((prop) => prop.property_id === property.id)
-    : [];
+  const [contactedProp] = contactedUser?.filter(
+    (prop) => prop.property_id === property.id
+  );
 
-  const [filterPropFav] = favorites
-    ? favorites.filter((fav) => fav.property_id === property.id)
-    : [];
+  const [filterPropFav] = favorites?.filter(
+    (fav) => fav.property_id === property.id
+  );
 
   const whoIs = useMemo(() => (user ? user.role : ''), [user]);
 
+  //get user
+  useEffect(() => {
+    User.getUser(userId)
+      .then((u) => setUser(u))
+      .catch(console.log);
+  }, [userId]);
+
   // get property
   useEffect(() => {
-    const property = setTimeout(() => {
-      Properties.getProp(property_id)
-        .then((prop) => setProperty(prop))
-        .catch(console.log);
-    }, 0);
+    Properties.getProp(property_id)
+      .then((prop) => {
+        setProperty(prop);
+        localStorage.setItem(
+          PROPERTY_STORAGE,
+          JSON.stringify({
+            id: prop.id,
+            address: prop.address,
+            apartment: prop.type_property === 'apartment',
+            house: prop.type_property === 'house',
+            area: prop.area,
+            bathrooms: prop.bathrooms,
+            bedrooms: prop.bedrooms,
+            description: prop.description,
+            maintanance: prop.maintanance,
+            monthly_rent: prop.monthly_rent,
+            price: prop?.price || '',
+            pets_allowed: prop.pets_allowed,
+          })
+        );
+      })
+      .catch(console.log);
     return () => clearTimeout(property);
-  }, []);
+  }, [property_id]);
 
   // all properties contacted
   useEffect(() => {
@@ -93,7 +117,7 @@ const PropertyPage = () => {
         .then((all) => setContactedUser(all))
         .catch(console.log);
     }
-  }, []);
+  }, [user]);
 
   // all favorites properties
   useEffect(() => {
@@ -102,7 +126,7 @@ const PropertyPage = () => {
         .then((favs) => setFavorites(favs))
         .catch(console.log);
     }
-  }, []);
+  }, [user]);
 
   const {
     address,

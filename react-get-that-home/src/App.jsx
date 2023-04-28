@@ -19,7 +19,7 @@ function App() {
           {user ? <Authenticate /> : <UnAuthenticate />}
           {show && <LoginForm />}
         </div>
-        <Footer user={role} />
+        <Footer />
       </BrowserRouter>
     </>
   );

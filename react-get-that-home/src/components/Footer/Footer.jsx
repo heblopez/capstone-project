@@ -4,33 +4,35 @@ import BuildBy from './components/BuildBy/BuildBy';
 import CopyRight from './components/Copy/CopyRight';
 import SourceCode from './components/SourceCode/SourceCode';
 import { FooterContainer } from './Footer-UI';
+import { useLocation } from 'react-router-dom';
 
-const Footer = ({user}) => {
-  const isLogin = user;
-
+const Footer = () => {
+  const { pathname } = useLocation();
+  const isLandingPage = pathname !== '/';
   return (
     <FooterContainer>
       <div className='container'>
         {/* Inicio */}
 
         <CopyRight
-          isLogin={isLogin}
+          LandingPage={isLandingPage}
           logo={logo}
           copy={'© 202X - Find That Home'}
           codeable={'Codeable - Cohort X Final Project'}
         />
 
         {/* Medio */}
-        {isLogin ? <BuildBy /> : <SourceCode flexrow={isLogin ? '' : 'row'} />}
+        {isLandingPage ? (
+          <BuildBy />
+        ) : (
+          <SourceCode flexrow={isLandingPage ? '' : 'row'} />
+        )}
 
         {/* Final */}
-        {isLogin ? (
+        {isLandingPage ? (
           <SourceCode />
         ) : (
-          <CopyRight
-            isLogin={isLogin}
-            codeable={'Codeable - Cohort X Final Project'}
-          />
+          <CopyRight codeable={'Codeable - Cohort X Final Project'} />
         )}
       </div>
     </FooterContainer>
