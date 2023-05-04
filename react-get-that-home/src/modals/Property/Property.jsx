@@ -4,14 +4,14 @@ import InputCR from '../../components/Inputs/Formik/InputCR';
 import Button from '../../components/Button/Button';
 import ModalProperty from './Property-UI';
 
-const Property = ({ getProperty, onClose }) => {
+const Property = ({ getProperty, onClose, initialValues }) => {
   return (
     <ModalProperty>
       <div className='container'>
         <Formik
           initialValues={{
-            house: false,
-            apartment: false,
+            house: initialValues.house === 'house' || false,
+            apartment: initialValues.apartment === 'apartment' || false,
           }}
           onSubmit={(values) => {
             setTimeout(() => {
