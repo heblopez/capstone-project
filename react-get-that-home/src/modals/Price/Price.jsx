@@ -6,20 +6,18 @@ import Button from '../../components/Button/Button';
 import * as Yup from 'yup';
 import PrimeModal from './Price-UI';
 
-const Price = ({ getData, onClose }) => {
-  function kFormatter(num) {
-    if (num === 0) return '';
+const Price = ({ getData, onClose, initialValues }) => {
+  const { min, max } = initialValues;
 
-    return Math.abs(num) > 999
-      ? '$' + Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + 'k'
-      : Math.sign(num) * Math.abs(num);
-  }
-
+  const values = {
+    min: min === 0 ? '' : min,
+    max,
+  };
   return (
     <PrimeModal>
       <div className='container'>
         <Formik
-          initialValues={{ min: '', max: '' }}
+          initialValues={values}
           validationSchema={Yup.object({
             min: Yup.number().positive('Must be positive'),
             max: Yup.number().positive('Must be positive'),

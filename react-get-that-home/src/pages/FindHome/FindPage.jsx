@@ -218,8 +218,8 @@ const FindPage = () => {
       ...filter,
       price: {
         ...filter.price,
-        min: data.min * 1000,
-        max: data.max === 0 ? Infinity : data.max * 1000,
+        min: data.min,
+        max: data.max === 0 ? Infinity : data.max,
       },
     });
   }
@@ -315,7 +315,11 @@ const FindPage = () => {
             <div className='price-modal'>
               {showPrice &&
                 createPortal(
-                  <Price getData={handleGetPrice} onClose={handleShowPrices} />,
+                  <Price
+                    getData={handleGetPrice}
+                    onClose={handleShowPrices}
+                    initialValues={filter.price}
+                  />,
                   document.querySelector('.price-modal')
                 )}
             </div>
