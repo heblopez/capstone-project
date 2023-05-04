@@ -6,18 +6,19 @@ import Field from '../../components/Inputs/Formik/Input';
 import InputCR from '../../components/Inputs/Formik/InputCR';
 import * as Yup from 'yup';
 
-const More = ({ getMore, onClose }) => {
-  const initialValues = {
-    pets: false,
-    min: '',
-    max: '',
+const More = ({ getMore, onClose, initialValues }) => {
+  const { area, pets } = initialValues;
+  const values = {
+    pets: pets || false,
+    min: area.min || '',
+    max: area.max || '',
   };
 
   return (
     <ModalMore>
       <div className='container'>
         <Formik
-          initialValues={initialValues}
+          initialValues={values}
           validationSchema={Yup.object({
             pets: Yup.boolean(),
             min: Yup.number().positive('Must be posivite'),

@@ -168,7 +168,7 @@ const FindPage = () => {
     },
     services: { bathrooms: null, bedrooms: null },
     pets: false,
-    area: { min: 0, max: 999999999 },
+    area: { min: 0, max: Infinity },
     type_operation: {
       both: true,
       buying: searchBy.want === 'buy' ? true : false,
@@ -404,7 +404,11 @@ const FindPage = () => {
             <div className='more-modal'>
               {showMore &&
                 createPortal(
-                  <More getMore={handleGetMore} onClose={handleShowMore} />,
+                  <More
+                    getMore={handleGetMore}
+                    onClose={handleShowMore}
+                    initialValues={filter}
+                  />,
                   document.querySelector('.more-modal')
                 )}
             </div>
