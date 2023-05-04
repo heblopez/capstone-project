@@ -2,11 +2,19 @@ import React, { useState } from 'react';
 import Button from '../../components/Button/Button';
 import BedBathModal from './BedBath-UI';
 
-const BedBath = ({ getBB, onClose }) => {
+const BedBath = ({ getBB, onClose, initialValues }) => {
+  const { bedrooms, bathrooms } = initialValues;
   const items = { Any: 0, '1+': 1, '2+': 2, '3+': 3, '4+': 4 };
-  const [data, setData] = useState({ beds: 0, baths: 0 });
-  const [activeBed, setActiveBed] = useState('Any');
-  const [activeBath, setActiveBath] = useState('Any');
+  const [data, setData] = useState({
+    beds: parseInt(bedrooms) > 0 ? parseInt(bedrooms) : 0,
+    baths: parseInt(bathrooms) > 0 ? parseInt(bathrooms) : 0,
+  });
+  const [activeBed, setActiveBed] = useState(
+    (bedrooms > 0 && bedrooms.toString() + '+') || 'Any'
+  );
+  const [activeBath, setActiveBath] = useState(
+    (bathrooms > 0 && bathrooms.toString() + '+') || 'Any'
+  );
 
   function handleBeds(e) {
     e.preventDefault();
