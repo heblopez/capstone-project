@@ -345,6 +345,7 @@ const FindPage = () => {
                   <Property
                     getProperty={handleGetProperty}
                     onClose={handleShowProperties}
+                    initialValues={filter.type_property}
                   />,
                   document.querySelector('.property-modal')
                 )}
