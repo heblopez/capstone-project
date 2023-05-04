@@ -52,17 +52,22 @@ function filterByTypeProperty(properties, type_property) {
   return byTypeProp;
 }
 
-// filter by services
-function filterByServices(properties, services) {
-  const { bathrooms, bedrooms } = services;
-  if (!bathrooms && !bedrooms) return properties;
-  const byServices = properties.filter(
-    (prop) =>
-      (prop.bathrooms === bathrooms && prop) ||
-      (prop.bedrooms === bedrooms && prop)
-  );
+// filter by bathrooms
+function filterByBathrooms(properties, services) {
+  const { bathrooms } = services;
 
-  return byServices;
+  if (!bathrooms) return properties;
+  const byBathRooms = properties.filter((prop) => prop.bathrooms >= bathrooms);
+  return byBathRooms;
+}
+
+// filter by bedrooms
+function filterByDebrooms(properties, services) {
+  const { bedrooms } = services;
+
+  if (!bedrooms) return properties;
+  const byBedRooms = properties.filter((prop) => prop.bedrooms >= bedrooms);
+  return byBedRooms;
 }
 
 // filter by area
@@ -136,8 +141,10 @@ function filterProperties(properties, filter) {
     type_property
   );
 
-  const filteredByServices = filterByServices(filteredByTypeProp, services);
-  const filteredByPets = filterByPetsAllowed(filteredByServices, pets);
+  // filters
+  const filteredByBedRooms = filterByDebrooms(filteredByTypeProp, services);
+  const filteredByBathrooms = filterByBathrooms(filteredByBedRooms, services);
+  const filteredByPets = filterByPetsAllowed(filteredByBathrooms, pets);
   const filteredByArea = filterByArea(filteredByPets, area);
   const filteredByBoR = filterByBuyingRenting(filteredByArea, type_operation);
   return filteredByBoR;
@@ -378,7 +385,11 @@ const FindPage = () => {
             <div className='bb-modal'>
               {showBbth &&
                 createPortal(
-                  <BedBath getBB={handleGetBB} onClose={handleShowBbth} />,
+                  <BedBath
+                    getBB={handleGetBB}
+                    onClose={handleShowBbth}
+                    initialValues={filter.services}
+                  />,
                   document.querySelector('.bb-modal')
                 )}
             </div>
