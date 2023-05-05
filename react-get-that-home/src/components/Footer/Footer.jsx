@@ -18,7 +18,7 @@ const Footer = () => {
           LandingPage={isLandingPage}
           logo={logo}
           copy={'© 202X - Find That Home'}
-          codeable={'Codeable - Cohort X Final Project'}
+          codeable={'Codeable - Cohort 9 Final Project'}
         />
 
         {/* Medio */}
@@ -32,7 +32,7 @@ const Footer = () => {
         {isLandingPage ? (
           <SourceCode />
         ) : (
-          <CopyRight codeable={'Codeable - Cohort X Final Project'} />
+          <CopyRight codeable={'Codeable - Cohort 9 Final Project'} />
         )}
       </div>
     </FooterContainer>
