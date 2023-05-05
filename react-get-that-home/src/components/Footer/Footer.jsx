@@ -9,15 +9,15 @@ import { useLocation } from 'react-router-dom';
 const Footer = () => {
   const { pathname } = useLocation();
   const isLandingPage = pathname !== '/';
+  const date = new Date();
+  const year = date.getFullYear();
   return (
     <FooterContainer>
       <div className='container'>
-        {/* Inicio */}
-
         <CopyRight
           LandingPage={isLandingPage}
           logo={logo}
-          copy={'© 2023 - Find That Home'}
+          copy={`© ${year} - Find That Home`}
           codeable={'Codeable - Cohort 9 Final Project'}
         />
 
