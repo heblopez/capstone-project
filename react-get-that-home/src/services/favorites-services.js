@@ -14,6 +14,7 @@ const addFavorite = async (userId, propertyId) => {
       `${BASE_URI}/users/${userId}/favorites/${propertyId}`,
       options
     );
+    return response;
   } catch (error) {
     console.error(error);
   }
