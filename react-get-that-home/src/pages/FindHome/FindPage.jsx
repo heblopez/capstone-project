@@ -166,7 +166,7 @@ const FindPage = () => {
       house: searchBy.looking === 'house' ? 'house' : null,
       apartment: searchBy.looking === 'apartment' ? 'apartment' : null,
     },
-    services: { bathrooms: null, bedrooms: null },
+    services: { bathrooms: 0, bedrooms: 0 },
     pets: false,
     area: { min: 0, max: Infinity },
     type_operation: {
@@ -361,25 +361,21 @@ const FindPage = () => {
             {/* beds and baths */}
             <div className='beds-baths' onClick={handleShowBbth}>
               <Button>
-                {filter.services.bathrooms === null &&
-                  filter.services.bedrooms === null &&
-                  'beds & baths'}
-
-                <span>
-                  {filter.services.bedrooms === 0 && 0 + '+ BD,'}
-
-                  {filter.services.bedrooms !== 0 &&
-                    filter.services.bedrooms !== null &&
-                    filter.services.bedrooms + '+ BD,'}
-                </span>
-
-                <span>
-                  {filter.services.bathrooms === 0 && 0 + '+ BA'}
-
-                  {filter.services.bathrooms !== 0 &&
-                    filter.services.bathrooms !== null &&
-                    filter.services.bathrooms + '+ BA'}
-                </span>
+                {!filter.services.bathrooms && !filter.services.bedrooms ? (
+                  'beds & baths'
+                ) : (
+                  <>
+                    <span>
+                      {`${
+                        !filter.services.bedrooms ? 0 : filter.services.bedrooms
+                      }+ BD, `}
+                    </span>
+                    {`${
+                      !filter.services.bathrooms ? 0 : filter.services.bathrooms
+                    } + BD`}
+                    <span></span>
+                  </>
+                )}
               </Button>
             </div>
             <div className='bb-modal'>
