@@ -17,7 +17,7 @@ const Footer = () => {
         <CopyRight
           LandingPage={isLandingPage}
           logo={logo}
-          copy={'© 202X - Find That Home'}
+          copy={'© 2023 - Find That Home'}
           codeable={'Codeable - Cohort 9 Final Project'}
         />
 
