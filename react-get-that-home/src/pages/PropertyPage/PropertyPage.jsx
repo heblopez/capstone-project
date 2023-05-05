@@ -26,6 +26,7 @@ import { colors } from '../../styles';
 import { PropertyMap } from '../../components/PropertyMap/PropertyMap';
 import PropertyGallery from '../../components/PropertyGallery/PropertyGallery';
 import User from '../../services/user-services';
+import Loading from '../../components/Loading/Loading';
 
 function splitAddress(address) {
   if (!address) {
@@ -53,7 +54,6 @@ function isPropOfLandLord(properties, id) {
 }
 
 const PropertyPage = () => {
-  const navigate = useNavigate();
   const userId = sessionStorage.getItem(ID);
   const [user, setUser] = useState(null);
   const { id: property_id } = useParams();
@@ -66,13 +66,15 @@ const PropertyPage = () => {
 
   const isLandLordProp = isPropOfLandLord(landLordProperties, property_id);
 
-  const [contactedProp] = contactedUser?.filter(
-    (prop) => prop.property_id === property.id
-  );
+  const isContacted = contactedUser?.find(
+    (prop) => prop?.property_id === property.id
+  )
+    ? true
+    : false;
 
-  const [filterPropFav] = favorites?.filter(
-    (fav) => fav.property_id === property.id
-  );
+  const isFavorite = favorites?.find((fav) => fav?.property_id === property.id)
+    ? true
+    : false;
 
   const whoIs = useMemo(() => (user ? user.role : ''), [user]);
 
@@ -144,26 +146,48 @@ const PropertyPage = () => {
 
   const { street, city, state } = splitAddress(address);
 
+  // add to favorites
   const handleAddToFavorite = useCallback(() => {
-    addFavorite(userId, property_id);
-    navigate('/saved_properties');
-  }, [userId, property_id, navigate]);
+    addFavorite(userId, property_id)
+      .then((favorite) => setFavorites([...favorites, favorite]))
+      .catch(console.error);
+  }, []);
 
-  function removeTofavorites() {
-    removeFavorite(userId, property_id);
-    navigate('/saved_properties');
+  // remove from favorites
+  function removefavorite() {
+    const favorite = favorites.find(
+      (favorite) => +favorite.property_id === +property_id
+    );
+
+    removeFavorite(userId, +favorite.property_id).then(() => {
+      const newFavorites = favorites.filter(
+        (favorite) => +favorite.property_id !== +property_id
+      );
+      setFavorites(newFavorites);
+    });
   }
 
+  // add to contacted
   function handleContacted() {
     if (user) {
-      contactAdvertiser(userId, property_id);
+      contactAdvertiser(userId, property_id)
+        .then((contact) => setContactedUser([...contactedUser, contact]))
+        .catch(console.error);
     }
-    navigate('/saved_properties');
   }
 
+  // remove from contacted
   function handleRemoveContact() {
-    removeContact(userId, property_id);
-    navigate('/saved_properties');
+    const contact = contactedUser.find(
+      (contacted) => +contacted.property_id === +property_id
+    );
+
+    removeContact(userId, +contact.property_id).then(() => {
+      const newContacties = contactedUser.filter(
+        (contacted) => +contacted.property_id !== +property_id
+      );
+      setContactedUser(newContacties);
+    });
   }
 
   return (
@@ -220,76 +244,90 @@ const PropertyPage = () => {
         <PropertyMap address={address} />
       </Wrapper>
       <SideBar>
-        {!user && (
-          <Target>
-            <p>Log in or Join to contact the advertiser</p>
-            <div className='btn-login' onClick={handleShow}>
-              <Button>
-                <AiOutlineUserAdd />
-                login
-              </Button>
+        {!user ? (
+          user === null ? (
+            <Loading />
+          ) : (
+            <Target>
+              <p>Log in or Join to contact the advertiser</p>
+              <div className='btn-login' onClick={handleShow}>
+                <Button>
+                  <AiOutlineUserAdd />
+                  login
+                </Button>
+              </div>
+            </Target>
+          )
+        ) : (
+          whoIs === 'landlord' &&
+          isLandLordProp && (
+            <div className='btn-edit_property'>
+              <Link to={`/edit/property/${property_id}`} className='edit-btn'>
+                <Button>
+                  <BiEdit />
+                  edit property
+                </Button>
+              </Link>
             </div>
-          </Target>
+          )
         )}
 
-        {whoIs === 'home_seeker' && !contactedProp && (
-          <Target>
-            <div className='btn-contact'>
-              <div onClick={handleContacted}>
-                <Button>contact advertiser</Button>
-              </div>
-              <div className='add--favorites'>
-                {filterPropFav ? (
-                  <AiTwotoneHeart
-                    style={{
-                      color: `${colors.pink}`,
-                      width: '25px',
-                      height: '25px',
-                    }}
-                    onClick={removeTofavorites}
-                  />
+        {whoIs === 'home_seeker' && (
+          <>
+            <Target>
+              <div className='btn-contact'>
+                {isContacted ? (
+                  <>
+                    <h3 className='title-information'>Contact information</h3>
+                    <div className='information-contact'>
+                      <p className='information-title'>Email</p>
+                      <p className='landlord-contact'>{landLord?.email}</p>
+                    </div>
+                    <div className='information-contact'>
+                      <p className='information-title'>Phone</p>
+                      <p className='landlord-contact'>{landLord?.phone}</p>
+                    </div>
+
+                    <div
+                      className='remove-contact'
+                      onClick={handleRemoveContact}
+                    >
+                      <Button>Remove contact</Button>
+                    </div>
+                  </>
                 ) : (
                   <>
-                    <AiOutlineHeart onClick={handleAddToFavorite} />
-                    <p className='p__favorite'> Add to favorites</p>
+                    <div onClick={handleContacted}>
+                      <Button>contact advertiser</Button>
+                    </div>
                   </>
                 )}
+
+                {
+                  <div className='add--favorites'>
+                    {isFavorite ? (
+                      <>
+                        <AiTwotoneHeart
+                          style={{
+                            color: `${colors.pink}`,
+                            width: '25px',
+                            height: '25px',
+                          }}
+                          onClick={removefavorite}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <AiOutlineHeart onClick={handleAddToFavorite} />
+                        <p className='p__favorite'> Add to favorites</p>
+                      </>
+                    )}
+                  </div>
+                }
               </div>
-            </div>
-          </Target>
+            </Target>
+          </>
         )}
-
-        {whoIs === 'landlord' && isLandLordProp && (
-          <div className='btn-edit_property'>
-            <Link to={`/edit/property/${property_id}`} className='edit-btn'>
-              <Button>
-                <BiEdit />
-                edit property
-              </Button>
-            </Link>
-          </div>
-        )}
-
-        {contactedProp
-          ? contactedProp.contacted && (
-              <>
-                <Target>
-                  <h3 className='title-information'>Contact information</h3>
-                  <div className='information-contact'>
-                    <p className='information-title'>Email</p>
-                    <p className='landlord-contact'>{landLord.email}</p>
-                  </div>
-                  <div className='information-contact'>
-                    <p className='information-title'>Phone</p>
-                    <p className='landlord-contact'>{landLord.phone}</p>
-                  </div>
-                  <div className='remove-contact' onClick={handleRemoveContact}>
-                    <Button>Remove contact</Button>
-                  </div>
-                </Target>
-              </>
-            )
-          : null}
       </SideBar>
     </MainSection>
   );
