@@ -29,7 +29,7 @@ function UserProvider({ children }) {
       .then((u) => {
         setUser(u);
       })
-      .catch(console.log(error));
+      .catch(console.error(error));
   }
 
   function logout() {
@@ -45,7 +45,7 @@ function UserProvider({ children }) {
   function signUp(userData) {
     User.createUser(userData)
       .then((u) => setUser(u))
-      .catch(console.log);
+      .catch(console.error);
   }
 
   function upDate(id, userData) {
