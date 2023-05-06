@@ -40,9 +40,12 @@ const FormProperty = ({ valuesProp, location, id }) => {
     setPhotos([...photos, ...files]);
   };
 
-  const handleDelete = useCallback((photo) => {
-  setPhotos(photos.filter((p) => p !== photo));
-}, [photos]);
+  const handleDelete = useCallback(
+    (photo) => {
+      setPhotos(photos.filter((p) => p !== photo));
+    },
+    [photos]
+  );
 
   const validates = Yup.object({
     address: Yup.string().required('Enter the address'),
@@ -80,17 +83,16 @@ const FormProperty = ({ valuesProp, location, id }) => {
                 ? 'house'
                 : values.apartment
                 ? 'apartment'
-                : null,
+                : '',
               bedrooms: values.bedrooms,
               bathrooms: values.bathrooms,
               area: values.area,
               pets_allowed: values.pets_allowed,
               description: values.description,
             };
-
             handleUpload(data);
             navigate('/my_properties');
-          }, 100);
+          }, 500);
         }}
       >
         {({ isValid }) => (
@@ -160,6 +162,7 @@ const FormProperty = ({ valuesProp, location, id }) => {
                       <option value={2}>2</option>
                       <option value={3}>3</option>
                       <option value={4}>4</option>
+                      <option value={5}>5</option>
                     </Select>
                   </div>
                   <div className='select'>
@@ -169,6 +172,7 @@ const FormProperty = ({ valuesProp, location, id }) => {
                       <option value={2}>2</option>
                       <option value={3}>3</option>
                       <option value={4}>4</option>
+                      <option value={5}>5</option>
                     </Select>
                   </div>
                   <div className='select'>
