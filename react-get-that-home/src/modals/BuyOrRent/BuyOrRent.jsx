@@ -11,7 +11,7 @@ const BuyOrRent = ({ onHandle, data }) => {
               type='checkbox'
               name='both'
               id='both'
-              checked={data.both}
+              checked={!data.buying && !data.renting}
               onChange={(e) => onHandle(e)}
             />
             <label htmlFor='both'>Both</label>
@@ -22,6 +22,7 @@ const BuyOrRent = ({ onHandle, data }) => {
               type='checkbox'
               name='buying'
               id='buying'
+              checked={data.buying}
               onChange={(e) => onHandle(e)}
             />
             <label htmlFor='buying'>Buying</label>
@@ -32,6 +33,7 @@ const BuyOrRent = ({ onHandle, data }) => {
               type='checkbox'
               name='renting'
               id='renting'
+              checked={data.renting}
               onChange={(e) => onHandle(e)}
             />
             <label htmlFor='renting'>Renting</label>
