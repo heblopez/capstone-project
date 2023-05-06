@@ -297,10 +297,12 @@ const FindPage = () => {
   // get data for current page
   const currentPageData = getPage();
 
-  // set currentPage to 1 
-  if (!currentPageData.length) {
-    setCurrentPage(1);
-  }
+  // set currentPage to 1
+  useEffect(() => {
+    if (!currentPageData.length) {
+      setCurrentPage(1);
+    }
+  }, []);
 
   // format number --> $ 1K
   function kFormatter(num) {
