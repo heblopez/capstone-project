@@ -29,7 +29,10 @@ const Action = ({ id, section }) => {
   }, [id]);
 
   const handleDelete = useCallback(() => {
-    Properties.deleteProp(id);
+    const deleteProp = confirm('Are you sure?');
+    if (deleteProp) {
+      Properties.deleteProp(id);
+    }
   }, [id]);
 
   return (
