@@ -12,7 +12,11 @@ const PropertyContext = createContext();
 function PropertyProvider({ children }) {
   const [properties, setProperties] = useState([]);
   const [rentOrSale, setRentOrSale] = useState('rent');
-  const [searchBy, setSearchBy] = useState({});
+  const [searching, setSearching] = useState({
+    looking: '',
+    want: '',
+    where: '',
+  });
 
   useEffect(() => {
     const properties = setTimeout(() => {
@@ -32,8 +36,8 @@ function PropertyProvider({ children }) {
   );
 
   const contextValue = useMemo(() => {
-    return { properties, rentOrSale, handleChange, setSearchBy, searchBy };
-  }, [properties, rentOrSale, handleChange, setSearchBy, searchBy]);
+    return { properties, rentOrSale, handleChange, setSearching, searching };
+  }, [properties, rentOrSale, handleChange, setSearching, searching]);
 
   return (
     <PropertyContext.Provider value={contextValue}>
