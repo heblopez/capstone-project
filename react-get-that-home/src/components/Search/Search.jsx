@@ -10,12 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Search = () => {
   const navigate = useNavigate();
-  const { setSearchBy } = useProp();
-  const initialData = {
-    looking: 'apartment',
-    want: 'rent',
-    where: '',
-  };
+  const { searching, setSearching } = useProp();
 
   const validates = Yup.object({
     looking: Yup.string(),
@@ -27,23 +22,25 @@ const Search = () => {
     <Searching>
       <div className='search'>
         <Formik
-          initialValues={initialData}
+          initialValues={searching}
           validationSchema={validates}
           onSubmit={(values) => {
             console.log(values);
-            setSearchBy(values);
+            setSearching(values);
             navigate('/find_a_home');
           }}
         >
           <Form>
             <div className='search'>
-              <Select label={`i'm looking for`} name='looking'>
-                <option value='aparment'>An Aparment</option>
+              <Select label="i'm looking for" name='looking'>
+                <option>-- options --</option>
+                <option value='apartment'>An Aparment</option>
                 <option value='house'>A House</option>
               </Select>
             </div>
             <div className='search'>
-              <Select label={'i want to'} name='want'>
+              <Select label='i want to' name='want'>
+                <option >-- options --</option>
                 <option value='rent'>Rent</option>
                 <option value='buy'>Buy</option>
               </Select>
@@ -56,7 +53,7 @@ const Search = () => {
               />
             </div>
             <div className='btn'>
-              <Button type={'primary'} typebtn={'submit'}>
+              <Button type={'primary'} typeBtn={'submit'}>
                 search
               </Button>
             </div>
