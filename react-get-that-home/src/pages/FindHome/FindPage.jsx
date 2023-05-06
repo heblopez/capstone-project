@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Button from '../../components/Button/Button';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { SectionFind, BarOption } from './FilterOptions-UI';
@@ -94,12 +94,12 @@ function filterByPetsAllowed(properties, pets) {
 
 // filter by buying or renting
 function filterByBuyingRenting(properties, type_operation) {
-  const { both, buying, renting } = type_operation;
+  const { buying, renting } = type_operation;
 
-  const buy = buying ? 'sale' : '';
-  const rent = renting ? 'rent' : '';
+  const buy = buying ? 'sale' : null;
+  const rent = renting ? 'rent' : null;
 
-  if (both || (!both && !renting && !buying)) {
+  if (!renting && !buying) {
     return properties;
   }
 
@@ -152,7 +152,7 @@ function filterProperties(properties, filter) {
 
 // component Find Properties
 const FindPage = () => {
-  const { properties, searchBy } = useProp();
+  const { properties, searching, setSearching } = useProp();
   const [showMore, setShowMore] = useState(false);
   const [showBbth, setShowBbth] = useState(false);
   const [showProperties, setShowProperties] = useState(false);
@@ -160,21 +160,32 @@ const FindPage = () => {
   const [showBuyRent, setShowbuyRent] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState({
-    address: searchBy.where || '',
+    address: searching.where || '',
     price: { min: 0, max: Infinity },
     type_property: {
-      house: searchBy.looking === 'house' ? 'house' : null,
-      apartment: searchBy.looking === 'apartment' ? 'apartment' : null,
+      house: searching.looking === 'house' ? 'house' : null,
+      apartment: searching.looking === 'apartment' ? 'apartment' : null,
     },
     services: { bathrooms: 0, bedrooms: 0 },
     pets: false,
     area: { min: 0, max: Infinity },
     type_operation: {
-      both: true,
-      buying: searchBy.want === 'buy' ? true : false,
-      renting: searchBy.want === 'rent' ? true : false,
+      buying: searching.want === 'buy',
+      renting: searching.want === 'rent',
     },
   });
+
+  useEffect(() => {
+    const search = setTimeout(() => {
+      setSearching({
+        ...searching,
+        looking: '',
+        want: '',
+        where: '',
+      });
+    }, 500);
+    return () => clearTimeout(search);
+  }, []);
 
   // show modal more
   const handleShowMore = useCallback(() => {
@@ -414,22 +425,21 @@ const FindPage = () => {
           <div className='select-BR'>
             <div className='buying-renting' onClick={handleShowbuyRent}>
               <Button type={'secundary'}>
-                {((filter.type_operation.both &&
-                  !filter.type_operation.buying &&
-                  !filter.type_operation.renting) ||
-                  (filter.type_operation.buying &&
-                    filter.type_operation.renting)) &&
-                  'Both'}
+                {!filter.type_operation.buying && !filter.type_operation.renting
+                  ? 'both'
+                  : ''}
+
+                {filter.type_operation.buying && filter.type_operation.renting
+                  ? 'both'
+                  : ''}
+
                 {filter.type_operation.buying &&
                   !filter.type_operation.renting &&
                   'Buying'}
                 {filter.type_operation.renting &&
                   !filter.type_operation.buying &&
                   'Renting'}
-                {!filter.type_operation.both &&
-                  !filter.type_operation.buying &&
-                  !filter.type_operation.renting &&
-                  'Choose one'}
+
                 <MdKeyboardArrowDown />
               </Button>
             </div>
