@@ -294,8 +294,15 @@ const FindPage = () => {
     return PropertiesFiltered.slice(startIndex, endIndex);
   }
 
+  // get data for current page
   const currentPageData = getPage();
 
+  // set currentPage to 1 
+  if (!currentPageData.length) {
+    setCurrentPage(1);
+  }
+
+  // format number --> $ 1K
   function kFormatter(num) {
     if (!num) return;
 
@@ -460,14 +467,18 @@ const FindPage = () => {
           <p className='count_properties'>
             {PropertiesFiltered.length} Properties found
           </p>
-          {!currentPageData.length ? (
-            <NotFound />
+          {!PropertiesFiltered.length ? (
+            <>
+              <NotFound />
+            </>
           ) : (
             <>
-              <div className='section-list'>
-                {currentPageData.map((property) => (
-                  <Card key={property.id} property={property} />
-                ))}
+              <div style={{ minHeight: '70vh' }}>
+                <div className='section-list'>
+                  {currentPageData.map((property) => (
+                    <Card key={property.id} property={property} />
+                  ))}
+                </div>
               </div>
               <div className='pages'>
                 <IoIosArrowBack

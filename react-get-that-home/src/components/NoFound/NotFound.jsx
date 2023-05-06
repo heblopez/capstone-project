@@ -1,5 +1,4 @@
 import React from 'react';
-import { typography } from '../../styles';
 import NotFoundCont from './NotFound-UI';
 
 const NotFound = () => {
